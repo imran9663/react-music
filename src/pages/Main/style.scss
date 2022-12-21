@@ -1,0 +1,13 @@
+@import "../../utils/Styles/color.scss";
+.cover {
+  background-color: $dark-bg;
+  position: absolute;
+  width: 100vw;
+  min-height: 100vh;
+  height: auto;
+  .bottom_components {
+    position: fixed;
+    left: 0;
+    bottom: 0%;
+  }
+}

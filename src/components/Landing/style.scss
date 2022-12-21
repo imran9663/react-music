@@ -1,0 +1,26 @@
+.dark-bg {
+  // background-color: #1f1f1f;
+  background-color: #000;
+}
+.landing-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .LandingLoader {
+  }
+}
+
+.initial {
+  color: #fff;
+  z-index: 10;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 600;
+  letter-spacing: 1rem;
+  font-size: 2rem;
+}

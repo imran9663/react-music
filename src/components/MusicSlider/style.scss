@@ -1,0 +1,66 @@
+@import "../../utils/Styles/color.scss";
+
+.newCard {
+  width: 8rem;
+  height: 12rem;
+  border-radius: 8px;
+  background: unset;
+  overflow: hidden;
+  padding: unset;
+  border: unset;
+  //   position: absolute;
+  &-image {
+    width: auto;
+    height: 100%;
+    object-fit: cover;
+    margin: unset;
+  }
+  .newCard-overlay {
+    width: auto;
+    height: 100%;
+    position: relative;
+    bottom: 100%;
+    left: 0;
+    z-index: 10;
+    padding: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    background: linear-gradient(#1f1f1f2f, #1f1f1f60, #1f1f1fdd, #1f1f1fe4);
+    &-name {
+      color: $olive;
+      font-weight: 600;
+      font-size: 1.2rem;
+      text-align: start;
+      overflow: hidden;
+      width: 100%;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      margin: unset;
+    }
+    &-info {
+      display: flex;
+      flex-direction: row;
+      overflow: scroll;
+      justify-content: flex-start;
+      &-artist {
+        color: $grey-50;
+        font-weight: 400;
+        font-size: 0.8rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        width: fit-content;
+        margin: 0.25rem 0.25rem 0 0;
+        text-decoration: none;
+      }
+    }
+  }
+}
+.isSquare {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 8px;
+}

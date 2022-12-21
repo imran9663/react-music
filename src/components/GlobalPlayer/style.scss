@@ -1,0 +1,53 @@
+@import "../../utils/Styles/color.scss";
+.mini_player {
+  width: 100vw;
+  border: unset;
+  border-top: solid $accent-color 2px;
+  // border-top-left-radius: 20px;
+  // border-top-right-radius: 20px;
+  height: 5rem;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: $dark-bg;
+  .image {
+    .albumart {
+      width: 4rem;
+      height: auto;
+      object-fit: cover;
+    }
+  }
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0.25rem 0.5rem;
+    .trackName {
+      color: #ffffff;
+      font-size: 1rem;
+      margin: unset;
+      font-weight: 500;
+      text-transform: capitalize;
+    }
+    .artists {
+      color: #aaaaaa;
+      font-size: 0.75rem;
+      font-weight: 400;
+      text-transform: capitalize;
+      margin: unset;
+    }
+  }
+  .controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    .round-btn {
+      background: transparent;
+      border: unset;
+      outline: unset;
+    }
+  }
+}

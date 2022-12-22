@@ -8,6 +8,8 @@ const Loader = () => {
                 <span className='loader'></span>
                 <span className='loader'></span>
                 <span className='loader'></span>
+                <span className='loader'></span>
+                <span className='loader'></span>
             </div>
         </>
     )

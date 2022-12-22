@@ -44,6 +44,7 @@ const MusicSlider = (props) => {
     console.log("handleClick", obj.type);
     // obj.type === 'playlist' && navigate({ to: RouteStrings.playlist, state: obj.id });
     obj.type === 'playlist' && navigate(RouteStrings.playlist + obj.id);
+    obj.type === 'album' && navigate(RouteStrings.albums + obj.id);
   }
   return (
     <>

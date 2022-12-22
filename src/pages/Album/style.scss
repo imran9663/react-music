@@ -1,0 +1,165 @@
+@import "../../utils/Styles/color.scss";
+
+.playlist-container {
+  width: 100vw;
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  .hero {
+    width: 100vw;
+    height: 10rem;
+    // position: absolute;
+    // top: 0;
+    // left: 0;
+    &-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    &-overlay {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      bottom: 100%;
+      left: 0;
+      background: linear-gradient(#1f1f1f34, $dark-bg);
+    }
+  }
+  .playlist-info {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    padding: 1rem 0.5rem;
+    transform: translateY(-50%);
+    border-bottom: 1px solid $accent-color-border;
+    .image-cover {
+      width: 4rem;
+      height: 4rem;
+      overflow: hidden;
+      border-radius: 50%;
+      border: 1px solid #000;
+      outline: solid 6px #fefefe;
+      filter: drop-shadow(0px 2px 2px #ffffff45);
+
+      //   position: relative;
+      //   top: 0;
+      //   left: 0;
+      //   transform: translateY(-50%);
+      .prfilethumb {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+    }
+    &-headings {
+      margin-left: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      h4 {
+        padding: unset;
+        margin: unset;
+      }
+      .userName {
+        padding: unset;
+        margin: unset;
+        font-size: 1rem;
+        color: $white;
+      }
+    }
+    .playlist-rating {
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      .rate-cont {
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        margin-right: 0.5rem;
+        gap: 4px;
+        img {
+          width: 0.75rem;
+          height: auto;
+        }
+        p {
+          margin: unset;
+          font-size: 0.75rem;
+        }
+      }
+    }
+  }
+  .songlist {
+    display: flex;
+    flex-direction: column;
+    padding: 0.25rem;
+    padding-bottom: 1rem;
+    // justify-content: flex-start;
+    // align-items: center;
+    &-card {
+      width: 100%;
+      height: 5rem;
+      padding: 0.25rem;
+      margin-bottom: 1rem;
+      border: solid 2px $accent-color-border;
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+      &-img {
+        border-radius: 4px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+      }
+      &-info {
+        flex: 2;
+        display: flex;
+        padding: 0 0.5rem;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        &-songName {
+          font-size: 1.2rem;
+          font-weight: 500;
+          font-style: normal;
+          color: $white;
+          margin: unset;
+          text-transform: capitalize;
+          width: 50vw;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        &-artistName {
+          font-size: 0.8em;
+          font-weight: 400;
+          font-style: normal;
+          color: $white;
+          margin: unset;
+          width: 50%;
+          text-transform: capitalize;
+          width: 50vw;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          /* Hide scrollbar for IE, Edge and Firefox */
+        }
+      }
+      &-controls {
+        flex: 1;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        &-btn {
+          margin: unset;
+          padding: 0.5rem;
+        }
+      }
+    }
+  }
+}

@@ -9,19 +9,21 @@ import Song from './pages/Song'
 import RouteStrings from './utils/RouteStrings'
 import Search from './pages/Search'
 import Account from './pages/Account'
+import Album from './pages/Album'
 
 const App = () => {
   return (
     <>
 
       <Routes>
-        <Route exact path='/song' element={<Song />} />
         <Route path='/' element={<Main />}>
           {/* <Route path={'/'} element={<Home />} /> */}
           <Route path={RouteStrings.home} element={<Home />} />
           <Route path={RouteStrings.playlist + ':id'} element={<PlayList />} />
+          <Route path={RouteStrings.albums + ':id'} element={<Album />} />
           <Route path={RouteStrings.search} element={<Search />} />
           <Route path={RouteStrings.account} element={<Account />} />
+          <Route path={RouteStrings.song} element={<Song />} />
         </Route>
       </Routes>
 

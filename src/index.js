@@ -8,12 +8,14 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Provider } from 'react-redux';
 import store from './Redux/store';
+import Slidingtext from './components/SlidingText';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
         <App />
+        {/* <Slidingtext /> */}
       </Provider>
     </BrowserRouter>
   </React.StrictMode>

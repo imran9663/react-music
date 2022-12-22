@@ -4,7 +4,7 @@ import { getRequest } from '../../apis/Base/serviceMethods';
 import { configURL } from '../../apis/Base/config';
 import Loader from '../../components/Loader/Index';
 import GlobalPlayer from '../../components/GlobalPlayer';
-import Data from './data.json'
+// import Data from './data.json'
 
 const Song = () => {
     const location = useLocation();
@@ -14,7 +14,7 @@ const Song = () => {
     const [isLoading, setisLoading] = useState(false)
     useEffect(() => {
         // getSongDetails()
-        console.log("data", Data);
+        // console.log("data", Data);
     }, [])
     const getSongDetails = async () => {
         setisLoading(true);

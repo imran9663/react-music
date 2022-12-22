@@ -8,7 +8,7 @@ import RouteStrings from '../../utils/RouteStrings'
 import Loader from '../../components/Loader/Index'
 import { useDispatch, useSelector } from 'react-redux'
 import { setLocalPlayListData, currentPlaylist } from '../../Redux/Reducers/PlayList-slice'
-const PlayList = () => {
+const Album = () => {
     const { id } = useParams()
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -17,11 +17,11 @@ const PlayList = () => {
     const tracks = useSelector(currentPlaylist)
 
     useEffect(() => {
-        getPlaylistdata()
+        getAlbumdata()
     }, []);
-    const getPlaylistdata = async () => {
+    const getAlbumdata = async () => {
         setisLoading(true)
-        await getRequest(configURL.playlist + id).then((res) => {
+        await getRequest(configURL.albums + id).then((res) => {
             setplaylistData(res?.data?.data)
         }).catch(err => {
             console.log(err);
@@ -70,7 +70,7 @@ const PlayList = () => {
                                     <h4 className='text-capitalize text-white mt-2'>
                                         {playlistData.name}
                                     </h4>
-                                    <p className='userName'> @{playlistData.userId}</p>
+                                    <p className='userName'> {playlistData.userId ? '@' + playlistData.userId : '--'}</p>
                                     <div className="playlist-rating">
                                         <div className="rate-cont">
                                             <img src={Icons.music} alt="songCount" className="img-fluid" />
@@ -78,11 +78,11 @@ const PlayList = () => {
                                         </div>
                                         <div className="rate-cont">
                                             <img src={Icons.user} alt="fanCount" className="img-fluid" />
-                                            <p className="text-white">{playlistData.fanCount}</p>
+                                            <p className="text-white">{playlistData.fanCount ? playlistData.fanCount : "--"}</p>
                                         </div>
                                         <div className="rate-cont">
                                             <img src={Icons.heart} alt="followerCount" className="img-fluid" />
-                                            <p className="text-white">{playlistData.followerCount}</p>
+                                            <p className="text-white">{playlistData.followerCount ? playlistData.followerCount : "--"}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -116,4 +116,4 @@ const PlayList = () => {
     )
 }
 
-export default PlayList
+export default Album

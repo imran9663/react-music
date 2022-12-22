@@ -5,5 +5,6 @@ const RouteStrings = {
     favorite: '/favorite',
     account: '/account',
     playlist: '/playlist/',
+    albums: '/albums/',
 }
 export default RouteStrings

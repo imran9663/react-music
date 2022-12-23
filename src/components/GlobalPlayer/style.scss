@@ -1,8 +1,8 @@
 @import "../../utils/Styles/color.scss";
+.track-audio {
+  display: none !important;
+}
 .player {
-  .track-audio {
-    display: none !important;
-  }
   // width: 100vw;
   border: unset;
   border-top: solid $accent-color 2px;
@@ -15,6 +15,7 @@
   padding: 0.5rem;
   background-color: $dark-bg;
   .image {
+    padding: unset;
     .albumart {
       width: 4rem;
       height: auto;
@@ -65,11 +66,12 @@
 
 .mini {
   height: 5rem;
+  width: 100vw;
+  margin: unset;
   transition: all 0.25s linear;
 }
 .mega {
   padding: unset;
-
   color: rgba(30, 30, 30, 0.871);
   height: calc(100vh - 3.5rem);
   background-color: $dark-bg;
@@ -80,7 +82,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   .tack_card {
-    width: 100%;
+    width: 100vw;
     height: 100%;
     // border: solid 1px seagreen;
     display: flex;

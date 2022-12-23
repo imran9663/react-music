@@ -10,7 +10,7 @@ const Main = () => {
     const [showGlobalPlayer, setshowGlobalPlayer] = useState(false)
     const tracks = useSelector(currentPlaylist)
     useEffect(() => {
-        console.log("tracks ", tracks?.length);
+        console.log("tracks ", tracks);
         tracks?.length > 0 ? setshowGlobalPlayer(true) : setshowGlobalPlayer(false)
     }, [tracks?.length])
     return (

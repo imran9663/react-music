@@ -40,7 +40,6 @@ const PlayList = () => {
         )
     }
     const handlePlaySong = (songData) => {
-        console.log("Song Data=>", songData);
         dispatch(setLocalPlayListData(songData))
     }
     return (
@@ -56,7 +55,7 @@ const PlayList = () => {
                             <div className="hero">
                                 <img
                                     className=' hero-image'
-                                    src={playlistData.image[2].link}
+                                    src={playlistData?.image[playlistData?.image.length - 1]?.link}
                                     alt="hero "
                                 />
                                 <div className="hero-overlay">
@@ -64,7 +63,7 @@ const PlayList = () => {
                             </div>
                             <div className="playlist-info">
                                 <div className="col-4 image-cover">
-                                    <img src={playlistData.image[0].link} alt="" className="prfilethumb" />
+                                    <img src={playlistData.image[0]?.link} alt="" className="prfilethumb" />
                                 </div>
                                 <div className=" col-8 playlist-info-headings">
                                     <h4 className='text-capitalize text-white mt-2'>

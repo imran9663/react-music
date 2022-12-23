@@ -6,6 +6,9 @@ import trackData from "../../utils/data/data.json";
 import SeekBar from "../SeekBar";
 import "./style.scss";
 import "../SeekBar/style.scss";
+import { ParseString } from "../../utils";
+import { currentPlaylist } from "../../Redux/Reducers/PlayList-slice";
+import { useSelector } from "react-redux";
 
 const GlobalPlayer = () => {
     const Constants = {
@@ -19,19 +22,33 @@ const GlobalPlayer = () => {
 
     const audioRef = useRef();
     const progressBarRef = useRef();
+    const animationRef = useRef();
+
+    const track = useSelector(currentPlaylist)
     const navigate = useNavigate();
-    const [toatlDuration, settotalDuration] = useState('0:00')
-    const [currentDuration, setcurrentDuration] = useState('0:00')
+    const [trackData, settrackData] = useState([])
+    const [totalDuration, settotalDuration] = useState('0:00')
+    const [currentDuration, setcurrentDuration] = useState('0')
+    const [isMegaPlayerON, setisMegaPlayerON] = useState(false);
     const [playerState, setplayerState] = useState({
         isPlaying: false,
         isMute: false,
         isFavourite: false,
     })
     useEffect(() => {
-        settotalDuration(getCorrectTimeForamt(audioRef?.current?.duration))
-        progressBarRef.current.max = Math.floor(audioRef?.current?.duration)
-    }, [audioRef?.current?.loadedmetadata, audioRef?.current?.readyState])
+        settrackData(track)
+    }, [])
 
+    useEffect(() => {
+        settotalDuration(audioRef?.current?.duration)
+        const Sec = Math.floor(audioRef?.current?.duration)
+        if (progressBarRef?.current?.max) {
+            progressBarRef.current.max = Sec
+        }
+    }, [audioRef?.current?.loadedmetadata, audioRef?.current?.readyState, isMegaPlayerON])
+    useEffect(() => {
+        updatePalyeTime()
+    }, [isMegaPlayerON])
     const getCorrectTimeForamt = (sec) => {
         const Trackduration = sec
         const minitue = Math.floor(Trackduration / 60);
@@ -39,17 +56,44 @@ const GlobalPlayer = () => {
         const newDuration = (minitue < 10 ? `0${minitue}` : minitue) + ":" + (secound < 10 ? `0${secound}` : secound)
         return newDuration
     }
-    const getCurrentDuration = () => {
-        const currenttime = audioRef.current.currentTime
-        // set
-    }
-    const handleRangeChange = () => {
 
+    const handleRangeChange = () => {
+        if (audioRef?.current?.currentTime) {
+            audioRef.current.currentTime = progressBarRef?.current?.value;
+            updatePalyeTime()
+        }
+    }
+    const updatePalyeTime = () => {
+        setcurrentDuration(progressBarRef?.current?.value)
+        progressBarRef.current?.style.setProperty('--seek-before-width', `${progressBarRef.current.value / totalDuration * 100}%`)
+    }
+    const whilePlaying = () => {
+        if (progressBarRef?.current?.value) {
+            progressBarRef.current.value = audioRef.current.currentTime;
+            updatePalyeTime()
+            animationRef.current = requestAnimationFrame(whilePlaying)
+        }
+        if (audioRef?.current?.ended) {
+            cancelAnimationFrame(animationRef?.current)
+            setplayerState({ ...playerState, isPlaying: false })
+            // resetToZero()
+        }
+    }
+    const resetToZero = () => {
+        setcurrentDuration('0')
+        cancelAnimationFrame(animationRef);
+        setplayerState({ ...playerState, isPlaying: false })
     }
     const handlePlayerState = (id, state, data = {}) => {
         setplayerState({ ...playerState, [id]: !state })
+        switch (id) {
+            case Constants.isMute:
+                audioRef.current.muted = !state
+                break;
+            default:
+                break;
+        }
     }
-    const [isMegaPlayerON, setisMegaPlayerON] = useState(false);
     // const tracks = useSelector(currentPlaylist);
     const handleClick = () => {
         setisMegaPlayerON(!isMegaPlayerON);
@@ -64,9 +108,11 @@ const GlobalPlayer = () => {
                 if (!prevState) {
                     setplayerState({ ...playerState, isPlaying: !prevState })
                     audioRef.current.play()
+                    animationRef.current = requestAnimationFrame(whilePlaying)
                 } else {
                     setplayerState({ ...playerState, isPlaying: !prevState })
                     audioRef.current.pause()
+                    cancelAnimationFrame(animationRef?.current)
                 }
                 break;
             case Constants.isPrevious:
@@ -79,28 +125,28 @@ const GlobalPlayer = () => {
                 break;
         }
     }
-    const Imgurl = trackData[0].image[2].link;
     return (
         <>
+            <audio
+                ref={audioRef}
+                src={trackData[0]?.downloadUrl[4]?.link}
+                type="audio/mp4"
+                preload="metadata"
+                controls
+                className="track-audio"
+            />
             <div
                 style={
                     isMegaPlayerON
                         ? {
-                            background: `linear-gradient(rgb(30,30,30,0.6), rgb(30,30,30,1)), url(${Imgurl})`,
+                            background: `linear-gradient(rgb(30,30,30,0.6), rgb(30,30,30,1)), url(${trackData[0]?.image[2]?.link})`,
                         }
                         : { background: "#1e1e1e" }
                 }
-                className={`player ${isMegaPlayerON ? "mega" : "mini"}`}
+                className={`player ${isMegaPlayerON ? "mega" : "mini "}`}
             >
-                <audio
-                    ref={audioRef}
-                    src={trackData[0].downloadUrl[4].link}
-                    type="audio/mp4"
-                    preload="metadata"
-                    controls
-                    className="track-audio"
-                />
-                {/* <audio src={trackData[0].downloadUrl[4].link} controls></audio> */}
+
+                {/* <audio src={trackData[0]?.downloadUrl[4]?.link} controls></audio> */}
                 {isMegaPlayerON ? (
                     <>
                         <div className="tack_card pt-1">
@@ -123,13 +169,13 @@ const GlobalPlayer = () => {
 
                             <div className="tack_card-albumart">
                                 <img
-                                    src={trackData[0].image[2].link}
-                                    alt={trackData[0].image[2].quality}
+                                    src={trackData[0]?.image[trackData[0]?.image.length - 1]?.link}
+                                    alt={trackData[0]?.image[trackData[0]?.image.length - 1]?.quality}
                                     className="img-fluid"
                                 />
                             </div>
                             <div className="tack_card-info">
-                                <h4 className="tack-name text-truncate ">{trackData[0].name}</h4>
+                                <h4 className="tack-name text-center text-truncate ">{ParseString(trackData[0]?.name)}</h4>
                                 <h5
                                     className="tack-album-name text-center text-underline  text-truncate "
                                     onClick={() => {
@@ -138,17 +184,17 @@ const GlobalPlayer = () => {
                                     }}
                                 >
                                     Album <span>
-                                        <Icons.BsHeadphones />&nbsp;{trackData[0].playCount}
+                                        <Icons.BsHeadphones />&nbsp;{trackData[0]?.playCount}
                                     </span>
                                 </h5>
                                 <h5
-                                    className="tack-album-name text-underline  text-truncate "
+                                    className="tack-album-name text-center text-underline  text-truncate "
                                 // onClick={() => {
                                 //     setisMegaPlayerON(!isMegaPlayerON);
                                 //     handleNaviagteToAblum(trackData[0]?.album?.id);
                                 // }}
                                 >
-                                    {trackData[0].primaryArtists}
+                                    {trackData[0]?.primaryArtists}
                                 </h5>
 
                             </div>
@@ -175,14 +221,15 @@ const GlobalPlayer = () => {
                             </div>
                             <div className="tack_card-timeLine">
                                 <div className="timings">
-                                    <p className="time">{currentDuration}</p>
-                                    <p className="time">{toatlDuration}</p>
+                                    <p className="time">{getCorrectTimeForamt(currentDuration)}</p>
+                                    <p className="time">{getCorrectTimeForamt(totalDuration)}</p>
                                 </div>
                                 <div className="seekbar-wrapper">
                                     <input ref={progressBarRef}
                                         onChange={handleRangeChange}
                                         type='range'
-                                        defaultValue={0}
+                                        max={0}
+                                        value={currentDuration}
                                         className="seekBar" />
                                 </div>
                             </div>
@@ -205,14 +252,14 @@ const GlobalPlayer = () => {
                     <>
                         <div onClick={handleClick} className="col-2 image">
                             <img
-                                src={trackData[0].image[0].link}
-                                alt={trackData[0].image[0].quality}
+                                src={trackData[0]?.image[0]?.link}
+                                alt={trackData[0]?.image[0]?.quality}
                                 className="img-fluid albumart"
                             />
                         </div>
                         <div onClick={handleClick} className="col-6 text-truncate  info">
-                            <h5 className=" trackName text-trucate ">{trackData[0].name}</h5>
-                            <p className=" artists text-trucate"> {trackData[0].primaryArtists}</p>
+                            <h5 className=" trackName text-trucate ">{ParseString(trackData[0]?.name)}</h5>
+                            <p className=" artists text-trucate"> {ParseString(trackData[0]?.primaryArtists)}</p>
                         </div>
                         <div className="col-4  controls">
                             <button onClick={() => { handlePlayControls(Constants.isPrevious) }} className="btn">

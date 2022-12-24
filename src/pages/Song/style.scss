@@ -1,0 +1,132 @@
+@import "../../utils/Styles/color.scss";
+.song_warpper {
+  width: 100vw;
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  &-top-bar {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    .btn {
+      margin: unset;
+      border: unset;
+      outline: unset;
+      &:active {
+        border: unset;
+        outline: unset;
+      }
+      svg {
+        color: #ffffff84;
+        font-size: 1.5rem;
+      }
+    }
+  }
+  &-albumart {
+    width: 12rem;
+    height: 12rem;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: rgb(255 255 255 / 40%) 0px 0px 25px;
+    img {
+    }
+  }
+  &-info {
+    margin: 2rem;
+    display: flex;
+    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .track-name {
+      text-align: center;
+      word-wrap: break-word;
+      color: #ffffff;
+      text-transform: capitalize;
+    }
+    .track-album {
+      text-align: center;
+      word-wrap: break-word;
+      color: #ffffff;
+      text-transform: capitalize;
+      text-decoration: underline;
+      font-size: 1rem;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .artists {
+      text-align: center;
+      word-wrap: break-word;
+      color: #ffffff95;
+      text-transform: capitalize;
+      font-size: 0.9rem;
+      font-weight: 400;
+      margin: unset;
+    }
+    .cont {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      .language {
+        font-size: 0.5rem;
+        text-align: center;
+        word-wrap: break-word;
+        color: #ffffff;
+        text-transform: uppercase;
+        margin: unset;
+        width: fit-content;
+        span {
+          svg {
+            font-size: 0.75rem;
+          }
+        }
+      }
+      .playCount {
+        color: #ffffff95;
+        font-weight: 300;
+        font-size: 1rem;
+        margin: unset;
+        width: fit-content;
+      }
+    }
+  }
+  &-action-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    .btn-rounded {
+      border: unset;
+      outline: unset;
+      &:active {
+        border: unset;
+        outline: unset;
+      }
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+    }
+    .play {
+      background-color: $accent-color;
+      svg {
+        transform: translate(0, 0);
+      }
+    }
+    .heart {
+      background-color: transparent;
+      svg {
+        transform: translate(-4px, 2px);
+      }
+    }
+  }
+}

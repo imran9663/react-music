@@ -23,7 +23,7 @@ const App = () => {
           <Route path={RouteStrings.albums + ':id'} element={<Album />} />
           <Route path={RouteStrings.search} element={<Search />} />
           <Route path={RouteStrings.account} element={<Account />} />
-          <Route path={RouteStrings.song} element={<Song />} />
+          <Route path={RouteStrings.song + ':id'} element={<Song />} />
         </Route>
       </Routes>
 

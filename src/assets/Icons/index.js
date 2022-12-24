@@ -25,8 +25,15 @@ import { BsPauseFill } from 'react-icons/bs'
 import { BsChevronBarLeft } from 'react-icons/bs'
 import { BsChevronBarRight } from 'react-icons/bs'
 import { BsHeadphones } from 'react-icons/bs'
+import { BsArrowLeft } from 'react-icons/bs'
+import { BsThreeDotsVertical } from 'react-icons/bs'
+import { BsCloudDownloadFill } from 'react-icons/bs'
+
 import { SlPlaylist } from 'react-icons/sl'
 import { TfiLoop } from 'react-icons/tfi'
+import { BiAlbum } from 'react-icons/bi'
+import { HiLanguage } from 'react-icons/hi2'
+import { RxDot } from 'react-icons/rx'
 
 export const Icons = {
     PlayCircle: PlayCircle,
@@ -58,4 +65,10 @@ export const Icons = {
     BsChevronBarLeft: BsChevronBarLeft,
     BsChevronBarRight: BsChevronBarRight,
     BsHeadphones: BsHeadphones,
+    BsArrowLeft: BsArrowLeft,
+    BsThreeDotsVertical: BsThreeDotsVertical,
+    BiAlbum: BiAlbum,
+    HiLanguage: HiLanguage,
+    RxDot: RxDot,
+    BsCloudDownloadFill: BsCloudDownloadFill,
 }

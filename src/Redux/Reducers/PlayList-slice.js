@@ -6,7 +6,7 @@ const initialState = {
     gbl_player: {
         state: false,
         songid: '',
-        songIndex: 0
+        songIndex: null
     }
 };
 

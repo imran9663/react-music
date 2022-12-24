@@ -1,6 +1,6 @@
 export const configURL = {}
 
-configURL.homePage = '/modules?language=hindi'
+configURL.homePage = '/modules?language='
 configURL.playlist = '/playlists?id='
 configURL.albums = '/albums?id='
-configURL.song = '/songs?link='
+configURL.song = '/songs?id='

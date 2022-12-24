@@ -1,5 +1,7 @@
 @import "../../utils/Styles/color.scss";
-
+:root {
+  --dark-bg: #2f2f2f;
+}
 .loding_container {
   width: 100vw;
   height: 100vh;
@@ -18,7 +20,7 @@
   display: block;
   margin: auto;
   position: relative;
-  background: #2f2f2f;
+  background: var(--dark-bg);
   box-sizing: border-box;
 }
 .loader::after {
@@ -50,5 +52,44 @@
   }
   100% {
     background-position: 150% 0, 0 0, 70px 5px, 70px 38px, 0px 66px;
+  }
+}
+
+.slideloader {
+  width: 8rem !important;
+  height: 12rem !important;
+  border-radius: 8px;
+  display: block;
+  margin: auto;
+  position: relative;
+  background: var(--dark-bg);
+  box-sizing: border-box;
+}
+.slideloader::after {
+  content: "";
+  width: calc(100% - 10px);
+  height: calc(100%);
+  top: 10px;
+  left: 5px;
+  position: absolute;
+  background-image: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.5) 50%,
+      transparent 100%
+    ),
+    linear-gradient(#ddd 100px, transparent 0),
+    linear-gradient(#ddd 16px, transparent 0),
+    linear-gradient(#ddd 50px, transparent 0);
+  background-repeat: no-repeat;
+  background-size: 75px 175px, 100% 100px, 100% 16px, 100% 30px;
+  background-position: -185px 0, center 0, center 115px, center 142px;
+  box-sizing: border-box;
+  animation: slideanimloader 1s linear infinite;
+}
+
+@keyframes slideanimloader {
+  to {
+    background-position: 185px 0, center 0, center 115px, center 142px;
   }
 }

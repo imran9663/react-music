@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { Outlet } from 'react-router'
+import { Outlet, useNavigate } from 'react-router'
 import GlobalPlayer from '../../components/GlobalPlayer'
 import './style.scss'
 import BottomBar from '../../components/BottomBar'
 import { useSelector } from 'react-redux'
 import { currentPlaylist } from '../../Redux/Reducers/PlayList-slice'
+import RouteStrings from '../../utils/RouteStrings'
 
 const Main = () => {
     const [showGlobalPlayer, setshowGlobalPlayer] = useState(false)
-    const tracks = useSelector(currentPlaylist)
+    const navigate = useNavigate()
+
+    const tracks = useSelector(currentPlaylist);
     useEffect(() => {
-        console.log("tracks ", tracks);
+        navigate(RouteStrings.home)
+    }, [])
+
+    useEffect(() => {
         tracks?.length > 0 ? setshowGlobalPlayer(true) : setshowGlobalPlayer(false)
     }, [tracks?.length])
     return (
@@ -21,10 +27,7 @@ const Main = () => {
                     {showGlobalPlayer && <GlobalPlayer />}
                     <BottomBar />
                 </div>
-
             </div>
-
-
         </>
     )
 }

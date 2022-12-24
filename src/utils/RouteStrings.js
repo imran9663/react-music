@@ -1,6 +1,6 @@
 const RouteStrings = {
     home: '/home',
-    song: '/song',
+    song: '/song/',
     search: '/search',
     favorite: '/favorite',
     account: '/account',

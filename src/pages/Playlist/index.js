@@ -63,35 +63,35 @@ const PlayList = () => {
                             </div>
                             <div className="playlist-info">
                                 <div className="col-4 image-cover">
-                                    <img src={playlistData.image[0]?.link} alt="" className="prfilethumb" />
+                                    <img src={playlistData?.image[0]?.link} alt="" className="prfilethumb" />
                                 </div>
                                 <div className=" col-8 playlist-info-headings">
                                     <h4 className='text-capitalize text-white mt-2'>
-                                        {playlistData.name}
+                                        {playlistData?.name}
                                     </h4>
-                                    <p className='userName'> @{playlistData.userId}</p>
+                                    <p className='userName'>{playlistData?.userId ? `@${playlistData?.userId}` : `--`}</p>
                                     <div className="playlist-rating">
                                         <div className="rate-cont">
                                             <img src={Icons.music} alt="songCount" className="img-fluid" />
-                                            <p className="text-white">{playlistData.songCount}</p>
+                                            <p className="text-white">{playlistData?.songCount}</p>
                                         </div>
                                         <div className="rate-cont">
                                             <img src={Icons.user} alt="fanCount" className="img-fluid" />
-                                            <p className="text-white">{playlistData.fanCount}</p>
+                                            <p className="text-white">{playlistData?.fanCount}</p>
                                         </div>
                                         <div className="rate-cont">
                                             <img src={Icons.heart} alt="followerCount" className="img-fluid" />
-                                            <p className="text-white">{playlistData.followerCount}</p>
+                                            <p className="text-white">{playlistData?.followerCount}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="songlist">
-                                {playlistData.songs.map(item => {
+                                {playlistData?.songs.map(item => {
                                     return (
                                         <>
-                                            <div id={item.id} className="songlist-card">
-                                                <img onClick={() => handleClick(item.url)} className="img-fluid songlist-card-img " src={item?.image[1].link} alt="album-art" />
+                                            <div id={item?.id} key={item?.id} className="songlist-card">
+                                                <img onClick={() => handleClick(item.url)} className="img-fluid songlist-card-img " src={item?.image[0].link} alt="album-art" />
                                                 <div onClick={() => handleClick(item.url)} className="songlist-card-info">
                                                     <p className="songlist-card-info-songName"> {item.name}</p>
                                                     <p className="songlist-card-info-artistName">{item?.primaryArtists}</p>

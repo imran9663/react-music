@@ -24,9 +24,11 @@ const GlobalPlayer = () => {
     const progressBarRef = useRef();
     const animationRef = useRef();
 
-    const track = useSelector(currentPlaylist)
+    const trackList = useSelector(currentPlaylist)
     const navigate = useNavigate();
+
     const [trackData, settrackData] = useState([])
+    const [currentTrackIndex, setcurrentTrackIndex] = useState(0);
     const [totalDuration, settotalDuration] = useState('0:00')
     const [currentDuration, setcurrentDuration] = useState('0')
     const [isMegaPlayerON, setisMegaPlayerON] = useState(false);
@@ -36,7 +38,7 @@ const GlobalPlayer = () => {
         isFavourite: false,
     })
     useEffect(() => {
-        settrackData(track)
+        settrackData(trackList)
     }, [])
 
     useEffect(() => {
@@ -45,10 +47,16 @@ const GlobalPlayer = () => {
         if (progressBarRef?.current?.max) {
             progressBarRef.current.max = Sec
         }
-    }, [audioRef?.current?.loadedmetadata, audioRef?.current?.readyState, isMegaPlayerON])
-    useEffect(() => {
+        // console.log("audioRef?.current?.onplay0", audioRef?.current?.onplay);
+        // if (audioRef?.current?.onplay) {
+        //     // alert("started playeing")
+        //     const prevState = playerState.isPlaying
+        //     setplayerState({ ...playerState, isPlaying: !prevState })
+        // }
         updatePalyeTime()
-    }, [isMegaPlayerON])
+    }, [audioRef?.current?.loadedmetadata, audioRef?.current?.readyState, isMegaPlayerON]);
+
+
     const getCorrectTimeForamt = (sec) => {
         const Trackduration = sec
         const minitue = Math.floor(Trackduration / 60);
@@ -77,12 +85,15 @@ const GlobalPlayer = () => {
             cancelAnimationFrame(animationRef?.current)
             setplayerState({ ...playerState, isPlaying: false })
             // resetToZero()
+            playNextTrack()
         }
     }
-    const resetToZero = () => {
-        setcurrentDuration('0')
-        cancelAnimationFrame(animationRef);
-        setplayerState({ ...playerState, isPlaying: false })
+    const playNextTrack = () => {
+        setcurrentTrackIndex(1)
+        audioRef.current.src = trackData[currentTrackIndex + 1].downloadUrl[trackData[currentTrackIndex + 1].length - 1];
+        pauseTrack();
+        audioRef.current.load();
+        playTrack()
     }
     const handlePlayerState = (id, state, data = {}) => {
         setplayerState({ ...playerState, [id]: !state })
@@ -96,23 +107,33 @@ const GlobalPlayer = () => {
     }
     // const tracks = useSelector(currentPlaylist);
     const handleClick = () => {
-        setisMegaPlayerON(!isMegaPlayerON);
+        const prevState = isMegaPlayerON
+        setisMegaPlayerON(!prevState);
+
     };
     const handleNaviagteToAblum = (id) => {
         navigate(RouteStrings.albums + id);
     };
+    const pauseTrack = () => {
+        const prevState = playerState.isPlaying;
+        setplayerState({ ...playerState, isPlaying: !prevState })
+        audioRef.current.pause()
+        cancelAnimationFrame(animationRef?.current)
+    }
+    const playTrack = () => {
+        const prevState = playerState.isPlaying
+        setplayerState({ ...playerState, isPlaying: !prevState })
+        audioRef.current.play()
+        animationRef.current = requestAnimationFrame(whilePlaying)
+    }
     const handlePlayControls = (id) => {
         const prevState = playerState.isPlaying
         switch (id) {
             case Constants.isPlaying:
                 if (!prevState) {
-                    setplayerState({ ...playerState, isPlaying: !prevState })
-                    audioRef.current.play()
-                    animationRef.current = requestAnimationFrame(whilePlaying)
+                    playTrack()
                 } else {
-                    setplayerState({ ...playerState, isPlaying: !prevState })
-                    audioRef.current.pause()
-                    cancelAnimationFrame(animationRef?.current)
+                    pauseTrack()
                 }
                 break;
             case Constants.isPrevious:
@@ -120,6 +141,13 @@ const GlobalPlayer = () => {
                 break;
             case Constants.isNext:
                 console.log("Next btn clicked ⏭");
+                // audio.addEventListener('ended', function () {
+                //     audio.src = "new url";
+                //     audio.pause();
+                //     audio.load();
+                //     audio.play();
+                // });
+
                 break;
             default:
                 break;
@@ -128,25 +156,28 @@ const GlobalPlayer = () => {
     return (
         <>
             <audio
+                autoPlay
                 ref={audioRef}
-                src={trackData[0]?.downloadUrl[4]?.link}
+                src={trackData[currentTrackIndex]?.downloadUrl[4]?.link}
                 type="audio/mp4"
                 preload="metadata"
                 controls
                 className="track-audio"
-            />
+            >
+
+            </audio>
             <div
                 style={
                     isMegaPlayerON
                         ? {
-                            background: `linear-gradient(rgb(30,30,30,0.6), rgb(30,30,30,1)), url(${trackData[0]?.image[2]?.link})`,
+                            background: `linear-gradient(rgb(30,30,30,0.6), rgb(30,30,30,1)), url(${trackData[currentTrackIndex]?.image[2]?.link})`,
                         }
                         : { background: "#1e1e1e" }
                 }
                 className={`player ${isMegaPlayerON ? "mega" : "mini "}`}
             >
 
-                {/* <audio src={trackData[0]?.downloadUrl[4]?.link} controls></audio> */}
+                {/* <audio src={trackData[currentTrackIndex]?.downloadUrl[4]?.link} controls></audio> */}
                 {isMegaPlayerON ? (
                     <>
                         <div className="tack_card pt-1">
@@ -169,32 +200,32 @@ const GlobalPlayer = () => {
 
                             <div className="tack_card-albumart">
                                 <img
-                                    src={trackData[0]?.image[trackData[0]?.image.length - 1]?.link}
-                                    alt={trackData[0]?.image[trackData[0]?.image.length - 1]?.quality}
+                                    src={trackData[currentTrackIndex]?.image[trackData[currentTrackIndex]?.image.length - 1]?.link}
+                                    alt={trackData[currentTrackIndex]?.image[trackData[currentTrackIndex]?.image.length - 1]?.quality}
                                     className="img-fluid"
                                 />
                             </div>
                             <div className="tack_card-info">
-                                <h4 className="tack-name text-center text-truncate ">{ParseString(trackData[0]?.name)}</h4>
+                                <h4 className="tack-name text-center text-truncate ">{ParseString(trackData[currentTrackIndex]?.name)}</h4>
                                 <h5
                                     className="tack-album-name text-center text-underline  text-truncate "
                                     onClick={() => {
                                         setisMegaPlayerON(!isMegaPlayerON);
-                                        handleNaviagteToAblum(trackData[0]?.album?.id);
+                                        handleNaviagteToAblum(trackData[currentTrackIndex]?.album?.id);
                                     }}
                                 >
                                     Album <span>
-                                        <Icons.BsHeadphones />&nbsp;{trackData[0]?.playCount}
+                                        <Icons.BsHeadphones />&nbsp;{trackData[currentTrackIndex]?.playCount}
                                     </span>
                                 </h5>
                                 <h5
                                     className="tack-album-name text-center text-underline  text-truncate "
                                 // onClick={() => {
                                 //     setisMegaPlayerON(!isMegaPlayerON);
-                                //     handleNaviagteToAblum(trackData[0]?.album?.id);
+                                //     handleNaviagteToAblum(trackData[currentTrackIndex]?.album?.id);
                                 // }}
                                 >
-                                    {trackData[0]?.primaryArtists}
+                                    {trackData[currentTrackIndex]?.primaryArtists}
                                 </h5>
 
                             </div>
@@ -252,14 +283,14 @@ const GlobalPlayer = () => {
                     <>
                         <div onClick={handleClick} className="col-2 image">
                             <img
-                                src={trackData[0]?.image[0]?.link}
-                                alt={trackData[0]?.image[0]?.quality}
+                                src={trackData[currentTrackIndex]?.image[0]?.link}
+                                alt={trackData[currentTrackIndex]?.image[0]?.quality}
                                 className="img-fluid albumart"
                             />
                         </div>
                         <div onClick={handleClick} className="col-6 text-truncate  info">
-                            <h5 className=" trackName text-trucate ">{ParseString(trackData[0]?.name)}</h5>
-                            <p className=" artists text-trucate"> {ParseString(trackData[0]?.primaryArtists)}</p>
+                            <h5 className=" trackName text-trucate ">{ParseString(trackData[currentTrackIndex]?.name)}</h5>
+                            <p className=" artists text-trucate"> {ParseString(trackData[currentTrackIndex]?.primaryArtists)}</p>
                         </div>
                         <div className="col-4  controls">
                             <button onClick={() => { handlePlayControls(Constants.isPrevious) }} className="btn">

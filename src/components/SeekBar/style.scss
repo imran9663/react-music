@@ -1,8 +1,9 @@
+@import "../../utils/Styles/color.scss";
+
 .seekBar {
   --bar-bg: #ffffff4f;
   --seek-before-width: 0%;
-  --seek-before-color: #17e0eecc;
-  --knobby: #17deee;
+
   --selectedKnobby: #007975;
 
   appearance: none;
@@ -43,7 +44,7 @@
   content: "";
   height: 2px !important;
   width: var(--seek-before-width);
-  background-color: var(--seek-before-color);
+  background-color: $accent-color;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   position: absolute;
@@ -55,7 +56,7 @@
 
 /* progress bar - firefox */
 .seekBar::-moz-range-progress {
-  background-color: var(--seek-before-color);
+  background-color: $accent-color;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   height: 2px !important;
@@ -68,7 +69,7 @@
   width: 10px;
   border-radius: 50%;
   border: none;
-  background-color: var(--knobby);
+  background-color: $accent-color;
   cursor: pointer;
   position: relative;
   margin: -4px 0 0 0;
@@ -88,7 +89,7 @@
   width: 10px;
   border-radius: 50%;
   border: transparent;
-  background-color: var(--knobby);
+  background-color: $accent-color;
   cursor: pointer;
   position: relative;
   z-index: 3;

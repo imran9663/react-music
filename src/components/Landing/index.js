@@ -15,7 +15,7 @@ const Landing = () => {
     }
     return (
         <div className='dark-bg landing-cover'>
-            <img src={LandingLoader} alt="LandingLoader" className="img-fluid LandingLoader" />
+
             <div className="d-flex flex-row ">
                 <p className="initial">r</p>
                 <p className="initial">e</p>

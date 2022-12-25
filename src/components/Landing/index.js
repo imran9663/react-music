@@ -7,15 +7,9 @@ const Landing = () => {
             <div className="icon-cover">
                 <Icons.SiReact />
             </div>
-            <div className="d-flex flex-row ">
+            <div className="d-flex flex-row mx-2 ">
                 <p className="initial">r</p>
                 <p className="initial">e</p>
-                <p className="initial">a</p>
-                <p className="initial">c</p>
-                <p className="initial">t</p>
-                &nbsp;
-                &nbsp;
-                <p className="initial">m</p>
                 <p className="initial">u</p>
                 <p className="initial">s</p>
                 <p className="initial">i</p>

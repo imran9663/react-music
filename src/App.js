@@ -19,7 +19,7 @@ const App = () => {
   }, [])
   const routeTomain = () => {
     setTimeout(() => {
-      setshowLanding(false)
+      // setshowLanding(false)
     }, 1000);
   }
   return (

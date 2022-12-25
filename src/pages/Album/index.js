@@ -8,6 +8,7 @@ import RouteStrings from '../../utils/RouteStrings'
 import Loader from '../../components/Loader/Index'
 import { useDispatch, useSelector } from 'react-redux'
 import { setLocalPlayListData, currentPlaylist } from '../../Redux/Reducers/PlayList-slice'
+import { ParseString } from '../../utils'
 const Album = () => {
     const { id } = useParams()
     const navigate = useNavigate()
@@ -29,19 +30,14 @@ const Album = () => {
             setisLoading(false)
         })
     }
-    const handleClick = (url) => {
-        navigate(
-            RouteStrings.song,
-            {
-                state: {
-                    url: url
-                }
-            }
-        )
+    const handleClick = (id) => {
+        navigate(RouteStrings.song + id)
     }
     const handlePlaySong = (songData) => {
-        console.log("Song Data=>", songData);
         dispatch(setLocalPlayListData(songData))
+    }
+    const handlePlayAlbum = () => {
+        dispatch(setLocalPlayListData(playlistData.songs))
     }
     return (
         <>
@@ -68,7 +64,7 @@ const Album = () => {
                                 </div>
                                 <div className=" col-8 playlist-info-headings">
                                     <h4 className='text-capitalize text-white mt-2'>
-                                        {playlistData.name}
+                                        {ParseString(playlistData.name)}
                                     </h4>
                                     <p className='userName'> {playlistData.userId ? '@' + playlistData.userId : '--'}</p>
                                     <div className="playlist-rating">
@@ -87,13 +83,19 @@ const Album = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className="w-100 play-button-wrapper">
+                                <button onClick={handlePlayAlbum} className='btn round_btn'>
+                                    <Icons.BsPlayFill />
+                                </button>
+                            </div>
                             <div className="songlist">
                                 {playlistData.songs.map(item => {
                                     return (
                                         <>
-                                            <div id={item.id} className="songlist-card">
-                                                <img onClick={() => handleClick(item.url)} className="img-fluid songlist-card-img " src={item?.image[1].link} alt="album-art" />
-                                                <div onClick={() => handleClick(item.url)} className="songlist-card-info">
+                                            <div key={item.id} className="songlist-card">
+
+                                                <img onClick={() => handleClick(item.id)} className="img-fluid songlist-card-img " src={item?.image[1].link} alt="album-art" />
+                                                <div onClick={() => handleClick(item.id)} className="songlist-card-info">
                                                     <p className="songlist-card-info-songName"> {item.name}</p>
                                                     <p className="songlist-card-info-artistName">{item?.primaryArtists}</p>
                                                 </div>

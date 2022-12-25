@@ -17,6 +17,7 @@ const Main = () => {
     }, [])
 
     useEffect(() => {
+        console.log("tracks ", tracks?.length);
         tracks?.length > 0 ? setshowGlobalPlayer(true) : setshowGlobalPlayer(false)
     }, [tracks?.length])
     return (

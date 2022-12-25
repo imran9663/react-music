@@ -25,6 +25,14 @@
         font-size: 1.5rem;
       }
     }
+    .back-btn {
+      svg {
+        color: $accent-color;
+        -webkit-animation: ca3_fade_silde 2s ease-in-out infinite;
+        -moz-animation: ca3_fade_silde 2s ease-in-out infinite;
+        animation: ca3_fade_silde 2s ease-in-out infinite;
+      }
+    }
   }
   &-albumart {
     width: 12rem;
@@ -126,7 +134,52 @@
       background-color: transparent;
       svg {
         transform: translate(-4px, 2px);
+        color: $accent-color;
       }
     }
+  }
+}
+
+/*animated scroll arrow animation*/
+@-webkit-keyframes ca3_fade_silde {
+  0% {
+    transform: translate(-2px, 0);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(2px, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-2px, 0);
+    opacity: 1;
+  }
+}
+@-moz-keyframes ca3_fade_silde {
+  0% {
+    transform: translate(-2px, 0);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(2px, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-2px, 0);
+    opacity: 1;
+  }
+}
+@keyframes ca3_fade_silde {
+  0% {
+    transform: translate(-2px, 0);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(2px, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-2px, 0);
+    opacity: 1;
   }
 }

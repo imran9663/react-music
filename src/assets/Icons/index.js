@@ -28,6 +28,7 @@ import { BsHeadphones } from 'react-icons/bs'
 import { BsArrowLeft } from 'react-icons/bs'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { BsCloudDownloadFill } from 'react-icons/bs'
+import { BsMusicNote } from 'react-icons/bs'
 
 import { SlPlaylist } from 'react-icons/sl'
 import { TfiLoop } from 'react-icons/tfi'
@@ -71,4 +72,5 @@ export const Icons = {
     HiLanguage: HiLanguage,
     RxDot: RxDot,
     BsCloudDownloadFill: BsCloudDownloadFill,
+    BsMusicNote: BsMusicNote,
 }

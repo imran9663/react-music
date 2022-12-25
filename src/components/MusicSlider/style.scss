@@ -28,6 +28,12 @@
     justify-content: flex-end;
     align-items: flex-start;
     background: linear-gradient(#1f1f1f2f, #1f1f1f60, #1f1f1fdd, #1f1f1fe4);
+    &-badge {
+      z-index: 10;
+      transform: translate(-100%, 1%) !important;
+      color: #1e1e1e;
+      background-color: $olive !important;
+    }
     &-name {
       color: $olive;
       font-weight: 600;

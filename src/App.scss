@@ -17,3 +17,32 @@ body::-webkit-scrollbar-thumb {
   background-color: darkgrey;
   border-radius: 2px;
 }
+
+.play-button-wrapper {
+  transform: translateY(-170%);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 1rem 0 0;
+  .round_btn {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    outline: unset;
+    border: unset;
+    box-shadow: 0 0 10px 5px $accent-color-border;
+    background-color: $accent-color !important;
+    &:active,
+    &:focus,
+    &:focus-visible {
+      outline: unset;
+      border: unset;
+      background-color: $accent-color !important;
+    }
+    svg {
+      font-size: 2rem;
+      color: #ffffffd0;
+      transform: translate(-5%, 0);
+    }
+  }
+}

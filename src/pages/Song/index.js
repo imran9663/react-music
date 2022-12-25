@@ -8,10 +8,12 @@ import { Icons } from "../../assets/Icons";
 import "./style.scss";
 import { ParseString } from "../../utils";
 import RouteStrings from "../../utils/RouteStrings";
+import { useDispatch } from "react-redux";
+import { setLocalPlayListData } from "../../Redux/Reducers/PlayList-slice";
 const Song = () => {
     const naviagte = useNavigate();
     const { id } = useParams()
-
+    const dispatch = useDispatch()
     const [songData, setsongData] = useState([]);
     const [albumSongs, setalbumSongs] = useState([]);
     const [isLoading, setisLoading] = useState(false);
@@ -52,13 +54,16 @@ const Song = () => {
     const handleGoBack = () => {
         naviagte(-1)
     }
+    const handlePlaySong = () => {
+        dispatch(setLocalPlayListData(songData[0]))
+    }
     return (
         <>
             {
                 songData.length > 0 ? <>
                     <div className="song_warpper">
                         <div className="song_warpper-top-bar">
-                            <button onClick={handleGoBack} className="btn">
+                            <button onClick={handleGoBack} className="btn back-btn">
                                 <Icons.BsArrowLeft />
                             </button>
 
@@ -93,9 +98,9 @@ const Song = () => {
                             </div>
                         </div>
                         <div className="song_warpper-action-btns">
-                            <button className="btn btn-rounded  play "> <Icons.BsPlayFill fill="#ffffff" size={28} /></button>
+                            <button onClick={handlePlaySong} className="btn btn-rounded  play "> <Icons.BsPlayFill fill="#ffffff" size={28} /></button>
                             <button className="btn btn-rounded heart  ">
-                                <Icons.BsHeart fill="#17deee" size={28} />
+                                <Icons.BsHeart size={28} />
                                 {/* <Icons.BsHeartFill fill="#ff0000" size={28} /> */}
                             </button>
                         </div>

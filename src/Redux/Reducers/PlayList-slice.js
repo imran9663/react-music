@@ -4,9 +4,9 @@ import { Slice } from "../constants";
 const initialState = {
     data: [],
     gbl_player: {
-        state: false,
         songid: '',
-        songIndex: null
+        songIndex: null,
+        data: {}
     }
 };
 
@@ -14,26 +14,51 @@ const PlayListSlice = createSlice({
     name: Slice.playList,
     initialState,
     reducers: {
-        //getLocalPlayListData,
-        getLocalPlayListData (state) {
-            return state.data
-        },
+
         //setLocalPlayListData, 
         setLocalPlayListData (state, action) {
-            console.log(" setLocalPlayListData data", action.payload);
-            state.data = [action.payload, ...state.data,]
-            // return state.data
-        },
-        get_gbl_player (state) {
-            return state.gbl_player
-        },
-        set_gbl_player (state, action) {
-            state.gbl_player = action.payload
-        }
 
+
+            if (action.payload?.length > 0) {
+                console.log("action length is =>", action.payload.length);
+                state.data = action.payload
+                state.gbl_player = {
+                    songIndex: 0,
+                    data: action.payload[0],
+                }
+            }
+            else {
+                console.log("state.data.length", state.data.length);
+                if (state.data.length === 0) {
+                    state.data = [action.payload]
+                    state.gbl_player = {
+                        songIndex: 0,
+                        data: action.payload,
+                    }
+                }
+                else if (state.data.length > 0) {
+                    state.data = [...state.data, action.payload]
+                    // state.data = state.data.splice(state.gbl_player.songIndex + 1, 0, action.payload)
+                    state.gbl_player = {
+                        songIndex: state.gbl_player.songIndex + 1,
+                        data: action.payload
+                    }
+                }
+            }
+        },
+        setNextTrack (state, action) {
+            console.log("set next track action", action.payload);
+            state.gbl_player = {
+                songIndex: action.payload.songIndex,
+                data: action.payload.data,
+            }
+        },
+        setPreviousTrack (state, action) {
+            console.log("set next track action", action.payload);
+        }
     },
 });
-export const { get_gbl_player, set_gbl_player, getLocalPlayListData, setLocalPlayListData } = PlayListSlice.actions
+export const { setLocalPlayListData, setNextTrack, setPreviousTrack } = PlayListSlice.actions
 export const currentPlaylist = (state) => state.playList.data
 export const currentTrack = (state) => state.playList.gbl_player
 export default PlayListSlice.reducer

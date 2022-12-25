@@ -10,12 +10,14 @@ import { Provider } from 'react-redux';
 import store from './Redux/store';
 import Slidingtext from './components/SlidingText';
 import Song from './pages/Song';
+import Landing from './components/Landing';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
   <BrowserRouter>
     <Provider store={store}>
       <App />
+
       {/* <Slidingtext /> */}
     </Provider>
   </BrowserRouter>

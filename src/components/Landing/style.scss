@@ -1,6 +1,8 @@
+@import "../../utils/Styles/color.scss";
+
 .dark-bg {
   // background-color: #1f1f1f;
-  background-color: #000;
+  background-color: $dark-bg;
 }
 .landing-cover {
   position: absolute;
@@ -12,6 +14,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  .icon-cover {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    background-color: $accent-color;
+    svg {
+      font-size: 4rem;
+      transform: translate(7px, 7px);
+    }
+  }
+
   .LandingLoader {
   }
 }

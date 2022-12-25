@@ -35,6 +35,7 @@ import { TfiLoop } from 'react-icons/tfi'
 import { BiAlbum } from 'react-icons/bi'
 import { HiLanguage } from 'react-icons/hi2'
 import { RxDot } from 'react-icons/rx'
+import { SiReact } from 'react-icons/si'
 
 export const Icons = {
     PlayCircle: PlayCircle,
@@ -73,4 +74,5 @@ export const Icons = {
     RxDot: RxDot,
     BsCloudDownloadFill: BsCloudDownloadFill,
     BsMusicNote: BsMusicNote,
+    SiReact: SiReact,
 }

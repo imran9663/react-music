@@ -1,21 +1,12 @@
-import React, { useEffect } from 'react'
-import LandingLoader from '../../assets/gif/landing_loader.gif'
+import React from 'react'
+import { Icons } from '../../assets/Icons'
 import './style.scss'
-import { useNavigate } from 'react-router'
 const Landing = () => {
-
-    const navigate = useNavigate()
-    useEffect(() => {
-        navigateToHome()
-    }, [])
-    const navigateToHome = () => {
-        setTimeout(() => {
-            navigate("/home");
-        }, 2000);
-    }
     return (
         <div className='dark-bg landing-cover'>
-
+            <div className="icon-cover">
+                <Icons.SiReact />
+            </div>
             <div className="d-flex flex-row ">
                 <p className="initial">r</p>
                 <p className="initial">e</p>

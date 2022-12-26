@@ -17,8 +17,6 @@ root.render(
   <BrowserRouter>
     <Provider store={store}>
       <App />
-
-      {/* <Slidingtext /> */}
     </Provider>
   </BrowserRouter>
 

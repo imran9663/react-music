@@ -13,28 +13,20 @@ import Album from './pages/Album'
 import Landing from './components/Landing'
 
 const App = () => {
-  const [showLanding, setshowLanding] = useState(true)
-  useEffect(() => {
-    routeTomain()
-  }, [])
-  const routeTomain = () => {
-    setTimeout(() => {
-      setshowLanding(false)
-    }, 1000);
-  }
+
   return (
     <>
-      {showLanding ? <Landing /> :
-        <Routes>
-          <Route path='/' element={<Main />}>
-            <Route path={RouteStrings.home} element={<Home />} />
-            <Route path={RouteStrings.playlist + ':id'} element={<PlayList />} />
-            <Route path={RouteStrings.albums + ':id'} element={<Album />} />
-            <Route path={RouteStrings.search} element={<Search />} />
-            <Route path={RouteStrings.account} element={<Account />} />
-            <Route path={RouteStrings.song + ':id'} element={<Song />} />
-          </Route>
-        </Routes>}
+
+      <Routes>
+        <Route path='/' element={<Main />}>
+          <Route path={RouteStrings.home} element={<Home />} />
+          <Route path={RouteStrings.playlist + ':id'} element={<PlayList />} />
+          <Route path={RouteStrings.albums + ':id'} element={<Album />} />
+          <Route path={RouteStrings.search} element={<Search />} />
+          <Route path={RouteStrings.account} element={<Account />} />
+          <Route path={RouteStrings.song + ':id'} element={<Song />} />
+        </Route>
+      </Routes>
 
 
     </>

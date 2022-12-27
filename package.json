@@ -1,8 +1,11 @@
 {
-  "name": "react-music",
-  "version": "0.1.0",
+  "name": "reusic",
+  "version": "0.1.1",
   "private": true,
-  "author": {"name": "imran Pasha I","url": "https://imranpasha.i/netlify.app"},
+  "author": {
+    "name": "imran Pasha I",
+    "url": "https://imranpasha.i/netlify.app"
+  },
   "homepage": ".",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
@@ -14,6 +17,7 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.0",
     "react-icons": "^4.7.1",
     "react-redux": "^8.0.5",
     "react-router": "^6.4.5",

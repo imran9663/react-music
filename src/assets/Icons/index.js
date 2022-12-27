@@ -35,6 +35,7 @@ import { TfiLoop } from 'react-icons/tfi'
 import { BiAlbum } from 'react-icons/bi'
 import { HiLanguage } from 'react-icons/hi2'
 import { RxDot } from 'react-icons/rx'
+import { RxDragHandleDots2 } from 'react-icons/rx'
 import { SiReact } from 'react-icons/si'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 
@@ -77,4 +78,5 @@ export const Icons = {
     BsMusicNote: BsMusicNote,
     SiReact: SiReact,
     AiOutlineCloseCircle: AiOutlineCloseCircle,
+    RxDragHandleDots2: RxDragHandleDots2,
 }

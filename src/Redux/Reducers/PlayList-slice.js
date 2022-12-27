@@ -28,7 +28,6 @@ const PlayListSlice = createSlice({
                 }
             }
             else {
-                console.log("state.data.length", state.data.length);
                 if (state.data.length === 0) {
                     state.data = [action.payload]
                     state.gbl_player = {
@@ -55,10 +54,17 @@ const PlayListSlice = createSlice({
         },
         setPreviousTrack (state, action) {
             console.log("set next track action", action.payload);
+        },
+        removeTrackFromPlayList (state, action) {
+            state.data = state.data.filter(track => {
+                if (track.id !== action.payload) {
+                    return track
+                }
+            })
         }
     },
 });
-export const { setLocalPlayListData, setNextTrack, setPreviousTrack } = PlayListSlice.actions
+export const { setLocalPlayListData, setNextTrack, removeTrackFromPlayList, setPreviousTrack } = PlayListSlice.actions
 export const currentPlaylist = (state) => state.playList.data
 export const currentTrack = (state) => state.playList.gbl_player
 export default PlayListSlice.reducer

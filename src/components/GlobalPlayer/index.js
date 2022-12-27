@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { currentPlaylist, currentTrack, setLocalPlayListData, setNextTrack } from "../../Redux/Reducers/PlayList-slice";
+import { currentPlaylist, currentTrack, removeTrackFromPlayList, setLocalPlayListData, setNextTrack } from "../../Redux/Reducers/PlayList-slice";
 import { Icons } from "../../assets/Icons";
 import { ParseString } from "../../utils";
 import RouteStrings from "../../utils/RouteStrings";
@@ -9,6 +9,7 @@ import "../SeekBar/style.scss";
 import "./style.scss";
 import SpotLoader from "../Loader/SpotLoader";
 import Slider from "react-slick";
+import { Toaster, toast } from "react-hot-toast";
 
 
 const GlobalPlayer = () => {
@@ -30,7 +31,6 @@ const GlobalPlayer = () => {
     const audioRef = useRef();
     const progressBarRef = useRef();
     const animationRef = useRef();
-
     const dispatch = useDispatch()
     const trackList = useSelector(currentPlaylist)
     const currenttrackDetails = useSelector(currentTrack);
@@ -50,7 +50,8 @@ const GlobalPlayer = () => {
     })
     useEffect(() => {
         settrackDataList(trackList)
-    }, [])
+    }, [trackList])
+
     useEffect(() => {
         LoadTrackandPlay()
     }, [currenttrackDetails.songIndex])
@@ -61,7 +62,7 @@ const GlobalPlayer = () => {
         playTrack()
     }
     useEffect(() => {
-        console.log("is AudioPlayer ready :", audioRef?.current?.readyState);
+        // console.log("is AudioPlayer ready :", audioRef?.current?.readyState);
         settotalDuration(audioRef?.current?.duration)
         const Sec = Math.floor(audioRef?.current?.duration)
         if (progressBarRef?.current?.max) {
@@ -73,7 +74,7 @@ const GlobalPlayer = () => {
                 setisTrackLoading(false)
             }
         } else {
-            console.log("setting SpotLOader");
+            // console.log("setting SpotLOader");
         }
 
         updatePalyeTime()
@@ -175,12 +176,12 @@ const GlobalPlayer = () => {
                 }
                 break;
             case Constants.isPrevious:
-                console.log("Previous btn clicked ⏮");
+                // console.log("Previous btn clicked ⏮");
                 playPreviousTrack()
                 break;
             case Constants.isNext:
                 playNextTrack()
-                console.log("Next btn clicked ⏭");
+                // console.log("Next btn clicked ⏭");
                 // audio.addEventListener('ended', function () {
                 //     audio.src = "new url";
                 //     audio.pause();
@@ -199,6 +200,14 @@ const GlobalPlayer = () => {
     const handlePlayPlalistSong = (songData) => {
         dispatch(setLocalPlayListData(songData))
         togglePlayList()
+    }
+    const handleremoveTrack = (id) => {
+        if (trackData.id === id) {
+            toast("cannot remove playing track")
+        }
+        else {
+            dispatch(removeTrackFromPlayList(id))
+        }
     }
     return (
         <>
@@ -222,7 +231,6 @@ const GlobalPlayer = () => {
                         }
                         className={`player ${isMegaPlayerON ? "mega" : "mini "}`}
                     >
-                        {/* <audio src={trackData?.downloadUrl[4]?.link} controls></audio> */}
                         {isMegaPlayerON ? (
                             <>
                                 <div className="tack_card ">
@@ -235,7 +243,7 @@ const GlobalPlayer = () => {
                                         </button>
                                         <div className="tack_card-topBar--space">
                                             <div className="text-center text-white text-capital">
-                                                react-music
+                                                reusic
                                             </div>
                                         </div>
                                         <button onClick={() => { togglePlayList() }} className="tack_card-topBar--icon">
@@ -253,7 +261,10 @@ const GlobalPlayer = () => {
                                             {trackDataList?.map(item => {
                                                 return (
                                                     <>
-                                                        <div id={item?.id} key={item?.id} className="songlist-card">
+                                                        <div id={item?.id} key={item?.id} className={`songlist-card ${(trackData.id === item.id) && 'current-palying'}`}>
+                                                            <button className="btn">
+                                                                <Icons.RxDragHandleDots2 />
+                                                            </button>
                                                             <img onClick={() => handleClick(item.id)} className="img-fluid songlist-card-img " src={item?.image[0].link} alt="album-art" />
                                                             <div onClick={() => handleClick(item.id)} className="songlist-card-info">
                                                                 <p className="songlist-card-info-songName"> {ParseString(item.name)}</p>
@@ -266,7 +277,7 @@ const GlobalPlayer = () => {
                                                                     <Icons.BsPlayFill />
                                                                     {/* <img src={Icons.play} alt="PlayCircle" className="img-fluid" /> */}
                                                                 </button>
-                                                                <button className='btn songlist-card-controls-btn'>
+                                                                <button onClick={() => handleremoveTrack(item.id)} className='btn songlist-card-controls-btn'>
                                                                     <Icons.AiOutlineCloseCircle />
                                                                 </button>
                                                             </div>
@@ -395,6 +406,10 @@ const GlobalPlayer = () => {
                     </div>
                 </>
                 : <><SpotLoader /></>}
+            <Toaster
+                position="bottom-center"
+                reverseOrder={true}
+            />
         </>
     );
 };

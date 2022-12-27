@@ -260,10 +260,13 @@
   display: flex;
   flex-direction: column;
   padding: 1rem 0.75rem;
+  height: calc(100vh - 3rem);
 
+  overflow: scroll;
   &-card {
     width: 100%;
-    height: 3rem;
+    min-height: 3rem;
+    height: auto;
     padding: 0.25rem;
     margin-bottom: 1rem;
     border: solid 2px $grey-50;
@@ -275,8 +278,8 @@
       border-radius: 4px;
       box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     }
+
     &-info {
-      flex: 2;
       display: flex;
       padding: 0 0.5rem;
       flex-direction: column;
@@ -289,7 +292,7 @@
         color: $white;
         margin: unset;
         text-transform: capitalize;
-        width: 50vw;
+        width: 10rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -300,9 +303,8 @@
         font-style: normal;
         color: $white;
         margin: unset;
-        width: 50%;
         text-transform: capitalize;
-        width: 50vw;
+        width: 10rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -311,7 +313,6 @@
       }
     }
     &-controls {
-      flex: 1;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -328,6 +329,10 @@
       }
     }
   }
+}
+.current-palying {
+  background-color: $accent-color-border !important;
+  border: solid 2px $accent-color !important;
 }
 /*animated scroll arrow animation*/
 @-webkit-keyframes ca3_fade_move_down {

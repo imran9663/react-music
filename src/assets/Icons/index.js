@@ -36,6 +36,7 @@ import { BiAlbum } from 'react-icons/bi'
 import { HiLanguage } from 'react-icons/hi2'
 import { RxDot } from 'react-icons/rx'
 import { SiReact } from 'react-icons/si'
+import { AiOutlineCloseCircle } from 'react-icons/ai'
 
 export const Icons = {
     PlayCircle: PlayCircle,
@@ -75,4 +76,5 @@ export const Icons = {
     BsCloudDownloadFill: BsCloudDownloadFill,
     BsMusicNote: BsMusicNote,
     SiReact: SiReact,
+    AiOutlineCloseCircle: AiOutlineCloseCircle,
 }

@@ -18,6 +18,20 @@ body::-webkit-scrollbar-thumb {
   border-radius: 2px;
 }
 
+.btn {
+  margin: unset;
+  border: unset;
+  outline: unset;
+  &:active {
+    border: unset;
+    outline: unset;
+  }
+  svg {
+    color: #ffffff84;
+    font-size: 1.5rem;
+  }
+}
+
 .play-button-wrapper {
   transform: translateY(-170%);
   display: flex;

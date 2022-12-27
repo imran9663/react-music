@@ -13,7 +13,6 @@ import Album from './pages/Album'
 import Landing from './components/Landing'
 
 const App = () => {
-
   return (
     <>
 

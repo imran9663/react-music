@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { currentPlaylist, currentTrack, setNextTrack } from "../../Redux/Reducers/PlayList-slice";
+import { currentPlaylist, currentTrack, setLocalPlayListData, setNextTrack } from "../../Redux/Reducers/PlayList-slice";
 import { Icons } from "../../assets/Icons";
 import { ParseString } from "../../utils";
 import RouteStrings from "../../utils/RouteStrings";
 import "../SeekBar/style.scss";
 import "./style.scss";
+import SpotLoader from "../Loader/SpotLoader";
+import Slider from "react-slick";
 
 
 const GlobalPlayer = () => {
@@ -17,7 +19,13 @@ const GlobalPlayer = () => {
         isPrevious: 'isPrevious',
         isNext: 'isNext',
     }
-
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
 
     const audioRef = useRef();
     const progressBarRef = useRef();
@@ -27,13 +35,14 @@ const GlobalPlayer = () => {
     const trackList = useSelector(currentPlaylist)
     const currenttrackDetails = useSelector(currentTrack);
     const navigate = useNavigate();
-
+    const [isTrackLoading, setisTrackLoading] = useState(true)
     const [trackData, settrackData] = useState({})
     const [trackDataList, settrackDataList] = useState([])
     const [currentTrackIndex, setcurrentTrackIndex] = useState(0);
     const [totalDuration, settotalDuration] = useState('0:00')
     const [currentDuration, setcurrentDuration] = useState('0')
     const [isMegaPlayerON, setisMegaPlayerON] = useState(false);
+    const [OpenPlaylist, setOpenPlaylist] = useState(false);
     const [playerState, setplayerState] = useState({
         isPlaying: false,
         isMute: false,
@@ -43,29 +52,32 @@ const GlobalPlayer = () => {
         settrackDataList(trackList)
     }, [])
     useEffect(() => {
-        // if (currenttrackDetails.data && audioRef?.current?.src) {
-        //     console.log("<==songIndex CHANGE ==> ");
-        settrackData(currenttrackDetails.data)
-        //     audioRef.current.src = currenttrackDetails.data.downloadUrl[currenttrackDetails.data.length - 1];
-        //     audioRef.current.load();
-        //     playTrack()
-        // }
+        LoadTrackandPlay()
     }, [currenttrackDetails.songIndex])
-
+    const LoadTrackandPlay = () => {
+        settrackData(currenttrackDetails.data)
+        audioRef?.current?.load()
+        setisTrackLoading(false)
+        playTrack()
+    }
     useEffect(() => {
+        console.log("is AudioPlayer ready :", audioRef?.current?.readyState);
         settotalDuration(audioRef?.current?.duration)
         const Sec = Math.floor(audioRef?.current?.duration)
         if (progressBarRef?.current?.max) {
             progressBarRef.current.max = Sec
         }
-        // console.log("audioRef?.current?.onplay0", audioRef?.current?.onplay);
-        // if (audioRef?.current?.onplay) {
-        //     // alert("started playeing")
-        //     const prevState = playerState.isPlaying
-        //     setplayerState({ ...playerState, isPlaying: !prevState })
-        // }
+        if (audioRef?.current?.readyState > 1) {
+            if (audioRef?.current?.paused) {
+                playTrack()
+                setisTrackLoading(false)
+            }
+        } else {
+            console.log("setting SpotLOader");
+        }
+
         updatePalyeTime()
-    }, [audioRef?.current?.loadedmetadata, audioRef?.current?.readyState, isMegaPlayerON]);
+    }, [audioRef?.current?.loadedmetadata, audioRef?.current?.readyState]);
 
 
     const getCorrectTimeForamt = (sec) => {
@@ -142,15 +154,15 @@ const GlobalPlayer = () => {
     };
     const pauseTrack = () => {
         const prevState = playerState.isPlaying;
-        setplayerState({ ...playerState, isPlaying: !prevState })
+        setplayerState({ ...playerState, isPlaying: false })
         audioRef.current.pause()
-        cancelAnimationFrame(animationRef?.current)
     }
     const playTrack = () => {
         const prevState = playerState.isPlaying
-        setplayerState({ ...playerState, isPlaying: !prevState })
-        audioRef.current.play()
+        setplayerState({ ...playerState, isPlaying: true })
+        audioRef?.current?.play()
         animationRef.current = requestAnimationFrame(whilePlaying)
+        setisTrackLoading(false)
     }
     const handlePlayControls = (id) => {
         const prevState = playerState.isPlaying
@@ -181,37 +193,40 @@ const GlobalPlayer = () => {
                 break;
         }
     }
+    const togglePlayList = () => {
+        setOpenPlaylist(!OpenPlaylist)
+    }
+    const handlePlayPlalistSong = (songData) => {
+        dispatch(setLocalPlayListData(songData))
+        togglePlayList()
+    }
     return (
         <>
             {trackData.id ?
-                <><audio
-                    ref={audioRef}
-                    src={trackData?.downloadUrl[trackData?.downloadUrl.length - 1]?.link}
-                    type="audio/mp4"
-                    preload="metadata"
-                    controls
-                    className="track-audio"
-                />
-
+                <>
+                    <audio
+                        ref={audioRef}
+                        src={trackData?.downloadUrl[trackData?.downloadUrl.length - 1]?.link}
+                        type="audio/mp4"
+                        preload="metadata"
+                        controls
+                        className="track-audio"
+                    />
                     <div
                         style={
                             isMegaPlayerON
                                 ? {
-                                    background: `linear-gradient(rgb(30,30,30,0.6), rgb(30,30,30,1)), url(${trackData?.image[2]?.link})`,
-                                    backgroundPosition: 'center',
-                                    backgroundRepeat: 'no-repeat',
-                                    backgroundSize: 'cover'
+                                    background: `linear-gradient(rgb(30,30,30,0.6), rgb(30,30,30,1)), url(${trackData?.image[2]?.link}),center,no-repeat,cover `,
                                 }
                                 : { background: "#1e1e1e" }
                         }
                         className={`player ${isMegaPlayerON ? "mega" : "mini "}`}
                     >
-
                         {/* <audio src={trackData?.downloadUrl[4]?.link} controls></audio> */}
                         {isMegaPlayerON ? (
                             <>
-                                <div className="tack_card pt-1">
-                                    <div className="tack_card-topBar">
+                                <div className="tack_card ">
+                                    <div className="tack_card-topBar pt-1">
                                         <button
                                             onClick={handleClick}
                                             className="tack_card-topBar--icon-down"
@@ -223,10 +238,47 @@ const GlobalPlayer = () => {
                                                 react-music
                                             </div>
                                         </div>
-                                        <button className="tack_card-topBar--icon">
+                                        <button onClick={() => { togglePlayList() }} className="tack_card-topBar--icon">
                                             <Icons.SlPlaylist color="#ffffff" />
                                         </button>
                                     </div>
+                                    <div className={`tack_card-playlist ${OpenPlaylist ? "active" : ''}`}>
+                                        <div className="tack_card-playlist--top-bar text-left">
+                                            <button onClick={() => { togglePlayList() }} className="btn">
+                                                <Icons.AiOutlineCloseCircle />
+                                            </button>
+
+                                        </div>
+                                        <div className="songlist">
+                                            {trackDataList?.map(item => {
+                                                return (
+                                                    <>
+                                                        <div id={item?.id} key={item?.id} className="songlist-card">
+                                                            <img onClick={() => handleClick(item.id)} className="img-fluid songlist-card-img " src={item?.image[0].link} alt="album-art" />
+                                                            <div onClick={() => handleClick(item.id)} className="songlist-card-info">
+                                                                <p className="songlist-card-info-songName"> {ParseString(item.name)}</p>
+                                                                <p className="songlist-card-info-artistName">{ParseString(item?.primaryArtists)}</p>
+                                                            </div>
+                                                            <div className="songlist-card-controls">
+                                                                <button
+                                                                    onClick={() => handlePlayPlalistSong(item)}
+                                                                    className='btn songlist-card-controls-btn '>
+                                                                    <Icons.BsPlayFill />
+                                                                    {/* <img src={Icons.play} alt="PlayCircle" className="img-fluid" /> */}
+                                                                </button>
+                                                                <button className='btn songlist-card-controls-btn'>
+                                                                    <Icons.AiOutlineCloseCircle />
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </>
+                                                )
+                                            })}
+
+
+                                        </div>
+                                    </div>
+
 
                                     <div className="tack_card-albumart">
                                         <img
@@ -259,6 +311,8 @@ const GlobalPlayer = () => {
                                         </h5>
 
                                     </div>
+
+
                                     <div className="tack_card-media-icons">
                                         <button onClick={() => { handlePlayerState(Constants.isMute, playerState.isMute) }} className="btn">
                                             {
@@ -298,11 +352,14 @@ const GlobalPlayer = () => {
                                         <button onClick={() => { handlePlayControls(Constants.isPrevious) }} className="btn">
                                             <Icons.BsChevronBarLeft />
                                         </button>
-                                        <button onClick={() => { handlePlayControls(Constants.isPlaying) }} className="btn">
-                                            {playerState.isPlaying ?
-                                                <Icons.BsPauseFill />
-                                                : <Icons.BsPlayFill />}
-                                        </button>
+                                        {isTrackLoading ?
+                                            <SpotLoader />
+
+                                            : <button onClick={() => { handlePlayControls(Constants.isPlaying) }} className="btn">
+                                                {playerState.isPlaying ?
+                                                    <Icons.BsPauseFill />
+                                                    : <Icons.BsPlayFill />}
+                                            </button>}
                                         <button onClick={() => { handlePlayControls(Constants.isNext) }} className="btn">
                                             <Icons.BsChevronBarRight />
                                         </button>
@@ -335,8 +392,9 @@ const GlobalPlayer = () => {
                                 </div>
                             </>
                         )}
-                    </div></>
-                : <><h1 className="text-center text-light">LOADING</h1></>}
+                    </div>
+                </>
+                : <><SpotLoader /></>}
         </>
     );
 };

@@ -108,6 +108,7 @@
       border-radius: 4px;
       overflow: hidden;
       display: flex;
+      justify-content: space-around;
       flex-direction: row;
       &-img {
         border-radius: 4px;
@@ -161,5 +162,13 @@
         }
       }
     }
+  }
+}
+.icon-svg {
+  svg {
+    color: #fff;
+    font-size: 0.75rem;
+    margin-top: 2px;
+    line-height: 1;
   }
 }

@@ -1,15 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { currentPlaylist, currentTrack, removeTrackFromPlayList, setLocalPlayListData, setNextTrack } from "../../Redux/Reducers/PlayList-slice";
 import { Icons } from "../../assets/Icons";
 import { ParseString } from "../../utils";
 import RouteStrings from "../../utils/RouteStrings";
+import SpotLoader from "../Loader/SpotLoader";
 import "../SeekBar/style.scss";
 import "./style.scss";
-import SpotLoader from "../Loader/SpotLoader";
-import Slider from "react-slick";
-import { Toaster, toast } from "react-hot-toast";
 
 
 const GlobalPlayer = () => {
@@ -20,13 +19,7 @@ const GlobalPlayer = () => {
         isPrevious: 'isPrevious',
         isNext: 'isNext',
     }
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1
-    };
+
 
     const audioRef = useRef();
     const progressBarRef = useRef();
@@ -38,11 +31,10 @@ const GlobalPlayer = () => {
     const [isTrackLoading, setisTrackLoading] = useState(true)
     const [trackData, settrackData] = useState({})
     const [trackDataList, settrackDataList] = useState([])
-    const [currentTrackIndex, setcurrentTrackIndex] = useState(0);
     const [totalDuration, settotalDuration] = useState('0:00')
     const [currentDuration, setcurrentDuration] = useState('0')
     const [isMegaPlayerON, setisMegaPlayerON] = useState(false);
-    const [OpenPlaylist, setOpenPlaylist] = useState(false);
+    const [OpenPlaylist, setOpenPlaylist] = useState(true);
     const [playerState, setplayerState] = useState({
         isPlaying: false,
         isMute: false,
@@ -62,7 +54,6 @@ const GlobalPlayer = () => {
         playTrack()
     }
     useEffect(() => {
-        // console.log("is AudioPlayer ready :", audioRef?.current?.readyState);
         settotalDuration(audioRef?.current?.duration)
         const Sec = Math.floor(audioRef?.current?.duration)
         if (progressBarRef?.current?.max) {
@@ -261,10 +252,12 @@ const GlobalPlayer = () => {
                                             {trackDataList?.map(item => {
                                                 return (
                                                     <>
-                                                        <div id={item?.id} key={item?.id} className={`songlist-card ${(trackData.id === item.id) && 'current-palying'}`}>
-                                                            <button className="btn">
-                                                                <Icons.RxDragHandleDots2 />
-                                                            </button>
+                                                        <div id={item?.id}
+                                                            key={item?.id}
+
+                                                            className={`songlist-card ${(trackData.id === item.id) && 'current-palying'}`}
+                                                        >
+
                                                             <img onClick={() => handleClick(item.id)} className="img-fluid songlist-card-img " src={item?.image[0].link} alt="album-art" />
                                                             <div onClick={() => handleClick(item.id)} className="songlist-card-info">
                                                                 <p className="songlist-card-info-songName"> {ParseString(item.name)}</p>

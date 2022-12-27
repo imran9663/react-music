@@ -68,16 +68,16 @@ const Album = () => {
                                     </h4>
                                     <p className='userName'> {playlistData.userId ? '@' + playlistData.userId : '--'}</p>
                                     <div className="playlist-rating">
-                                        <div className="rate-cont">
-                                            <img src={Icons.music} alt="songCount" className="img-fluid" />
+                                        <div className="rate-cont icon-svg">
+                                            <Icons.BsMusicNote />
                                             <p className="text-white">{playlistData.songCount}</p>
                                         </div>
-                                        <div className="rate-cont">
-                                            <img src={Icons.user} alt="fanCount" className="img-fluid" />
+                                        <div className="rate-cont icon-svg">
+                                            <Icons.AiOutlineUser />
                                             <p className="text-white">{playlistData.fanCount ? playlistData.fanCount : "--"}</p>
                                         </div>
-                                        <div className="rate-cont">
-                                            <img src={Icons.heart} alt="followerCount" className="img-fluid" />
+                                        <div className="rate-cont icon-svg">
+                                            <Icons.BsHeart />
                                             <p className="text-white">{playlistData.followerCount ? playlistData.followerCount : "--"}</p>
                                         </div>
                                     </div>
@@ -93,15 +93,18 @@ const Album = () => {
                                     return (
                                         <>
                                             <div key={item.id} className="songlist-card">
-
                                                 <img onClick={() => handleClick(item.id)} className="img-fluid songlist-card-img " src={item?.image[1].link} alt="album-art" />
                                                 <div onClick={() => handleClick(item.id)} className="songlist-card-info">
                                                     <p className="songlist-card-info-songName"> {item.name}</p>
                                                     <p className="songlist-card-info-artistName">{item?.primaryArtists}</p>
                                                 </div>
                                                 <div className="songlist-card-controls">
-                                                    <button onClick={() => handlePlaySong(item)} className='btn songlist-card-controls-btn '><img src={Icons.play} alt="PlayCircle" className="img-fluid" /></button>
-                                                    <button className='btn songlist-card-controls-btn'><img src={Icons.morevertical} alt="more menu" className="img-fluid" /></button>
+                                                    <button onClick={() => handlePlaySong(item)} className='btn songlist-card-controls-btn '>
+                                                        <Icons.BsPlayFill />
+                                                    </button>
+                                                    <button className='btn songlist-card-controls-btn'>
+                                                        <Icons.BsThreeDotsVertical />
+                                                    </button>
                                                 </div>
                                             </div>
                                         </>

@@ -9,6 +9,7 @@ import store from './Redux/store';
 import RoundPlayBtn from './components/RoundPlayBtn';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
+import Drag from './components/RoundPlayBtn';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,7 +17,7 @@ root.render(
   <BrowserRouter>
     <Provider store={store}>
       <App />
-      {/* <RoundPlayBtn /> */}
+      {/* <Drag /> */}
     </Provider>
   </BrowserRouter>
 

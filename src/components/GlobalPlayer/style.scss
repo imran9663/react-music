@@ -145,6 +145,85 @@
           }
         }
       }
+      .current-songlist {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem 0.75rem;
+        height: calc(100vh - 3rem);
+
+        overflow: scroll;
+        &-card {
+          width: 100%;
+          min-height: 3rem;
+          height: auto;
+          padding: 0.25rem;
+          margin-bottom: 1rem;
+          border: solid 2px $grey-50;
+          border-radius: 4px;
+          overflow: hidden;
+          display: flex;
+          justify-content: space-between;
+          flex-direction: row;
+          &-img {
+            border-radius: 4px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+          }
+
+          &-info {
+            display: flex;
+            padding: 0 0.5rem;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            &-songName {
+              font-size: 0.8rem;
+              font-weight: 500;
+              font-style: normal;
+              color: $white;
+              margin: unset;
+              text-transform: capitalize;
+              width: 12rem;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+            &-artistName {
+              font-size: 0.4em;
+              font-weight: 400;
+              font-style: normal;
+              color: $white;
+              margin: unset;
+              text-transform: capitalize;
+              width: 12rem;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+
+              /* Hide scrollbar for IE, Edge and Firefox */
+            }
+          }
+          &-controls {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            &-btn {
+              margin: unset;
+              padding: 0.5rem;
+              line-height: 1 !important;
+              outline: unset;
+              svg {
+                font-size: 1rem;
+                color: $grey-50;
+              }
+            }
+          }
+        }
+      }
+      .current-palying {
+        background-color: $accent-color-border !important;
+        border: solid 2px $accent-color !important;
+      }
     }
     .active {
       transform: translateX(0vw);
@@ -256,84 +335,6 @@
   }
 }
 
-.songlist {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem 0.75rem;
-  height: calc(100vh - 3rem);
-
-  overflow: scroll;
-  &-card {
-    width: 100%;
-    min-height: 3rem;
-    height: auto;
-    padding: 0.25rem;
-    margin-bottom: 1rem;
-    border: solid 2px $grey-50;
-    border-radius: 4px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: row;
-    &-img {
-      border-radius: 4px;
-      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    }
-
-    &-info {
-      display: flex;
-      padding: 0 0.5rem;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      &-songName {
-        font-size: 0.8rem;
-        font-weight: 500;
-        font-style: normal;
-        color: $white;
-        margin: unset;
-        text-transform: capitalize;
-        width: 10rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      &-artistName {
-        font-size: 0.4em;
-        font-weight: 400;
-        font-style: normal;
-        color: $white;
-        margin: unset;
-        text-transform: capitalize;
-        width: 10rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-
-        /* Hide scrollbar for IE, Edge and Firefox */
-      }
-    }
-    &-controls {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      &-btn {
-        margin: unset;
-        padding: 0.5rem;
-        line-height: 1 !important;
-        outline: unset;
-        svg {
-          font-size: 1rem;
-          color: $grey-50;
-        }
-      }
-    }
-  }
-}
-.current-palying {
-  background-color: $accent-color-border !important;
-  border: solid 2px $accent-color !important;
-}
 /*animated scroll arrow animation*/
 @-webkit-keyframes ca3_fade_move_down {
   0% {

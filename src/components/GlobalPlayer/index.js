@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { currentPlaylist, currentTrack, removeTrackFromPlayList, setLocalPlayListData, setNextTrack } from "../../Redux/Reducers/PlayList-slice";
 import { Icons } from "../../assets/Icons";
-import { ParseString } from "../../utils";
+import { ConsoleStyle, ParseString } from "../../utils";
 import RouteStrings from "../../utils/RouteStrings";
 import SpotLoader from "../Loader/SpotLoader";
 import "../SeekBar/style.scss";
@@ -28,13 +28,13 @@ const GlobalPlayer = () => {
     const trackList = useSelector(currentPlaylist)
     const currenttrackDetails = useSelector(currentTrack);
     const navigate = useNavigate();
-    const [isTrackLoading, setisTrackLoading] = useState(true)
+    const [isTrackLoading, setisTrackLoading] = useState(false)
     const [trackData, settrackData] = useState({})
     const [trackDataList, settrackDataList] = useState([])
     const [totalDuration, settotalDuration] = useState('0:00')
     const [currentDuration, setcurrentDuration] = useState('0')
     const [isMegaPlayerON, setisMegaPlayerON] = useState(false);
-    const [OpenPlaylist, setOpenPlaylist] = useState(true);
+    const [OpenPlaylist, setOpenPlaylist] = useState(false);
     const [playerState, setplayerState] = useState({
         isPlaying: false,
         isMute: false,
@@ -46,7 +46,14 @@ const GlobalPlayer = () => {
 
     useEffect(() => {
         LoadTrackandPlay()
+        // audioRef?.current?.addEventListener('canplay', DummyFn)
+        // return (() => {
+        //     audioRef?.current?.removeEventListener('canplay', DummyFn)
+        // })
     }, [currenttrackDetails.songIndex])
+    const DummyFn = () => {
+        console.log("CAN PLAY TRACK");
+    }
     const LoadTrackandPlay = () => {
         settrackData(currenttrackDetails.data)
         audioRef?.current?.load()
@@ -54,21 +61,16 @@ const GlobalPlayer = () => {
         playTrack()
     }
     useEffect(() => {
+        whilePlaying()
+    }, [isMegaPlayerON == true])
+
+    useEffect(() => {
         settotalDuration(audioRef?.current?.duration)
         const Sec = Math.floor(audioRef?.current?.duration)
         if (progressBarRef?.current?.max) {
             progressBarRef.current.max = Sec
         }
-        if (audioRef?.current?.readyState > 1) {
-            if (audioRef?.current?.paused) {
-                playTrack()
-                setisTrackLoading(false)
-            }
-        } else {
-            // console.log("setting SpotLOader");
-        }
-
-        updatePalyeTime()
+        whilePlaying()
     }, [audioRef?.current?.loadedmetadata, audioRef?.current?.readyState]);
 
 
@@ -107,7 +109,6 @@ const GlobalPlayer = () => {
         pauseTrack();
         if (trackDataList.length > 1) {
             dispatch(setNextTrack({ songIndex: currenttrackDetails.songIndex + 1, data: trackDataList[currenttrackDetails.songIndex + 1] }))
-            // setcurrentTrackIndex(1)
         }
         if (trackDataList.length - 1 === currenttrackDetails.songIndex) {
             dispatch(setNextTrack({ songIndex: 0, data: trackDataList[0] }))
@@ -139,7 +140,6 @@ const GlobalPlayer = () => {
     const handleClick = () => {
         const prevState = isMegaPlayerON
         setisMegaPlayerON(!prevState);
-
     };
     const handleNaviagteToAblum = (id) => {
         navigate(RouteStrings.albums + id);
@@ -167,18 +167,10 @@ const GlobalPlayer = () => {
                 }
                 break;
             case Constants.isPrevious:
-                // console.log("Previous btn clicked ⏮");
                 playPreviousTrack()
                 break;
             case Constants.isNext:
                 playNextTrack()
-                // console.log("Next btn clicked ⏭");
-                // audio.addEventListener('ended', function () {
-                //     audio.src = "new url";
-                //     audio.pause();
-                //     audio.load();
-                //     audio.play();
-                // });
 
                 break;
             default:
@@ -205,6 +197,7 @@ const GlobalPlayer = () => {
             {trackData.id ?
                 <>
                     <audio
+                        autoPlay
                         ref={audioRef}
                         src={trackData?.downloadUrl[trackData?.downloadUrl.length - 1]?.link}
                         type="audio/mp4"
@@ -248,29 +241,29 @@ const GlobalPlayer = () => {
                                             </button>
 
                                         </div>
-                                        <div className="songlist">
+                                        <div className="current-songlist">
                                             {trackDataList?.map(item => {
                                                 return (
                                                     <>
                                                         <div id={item?.id}
                                                             key={item?.id}
 
-                                                            className={`songlist-card ${(trackData.id === item.id) && 'current-palying'}`}
+                                                            className={`current-songlist-card ${(trackData.id === item.id) && 'current-palying'}`}
                                                         >
 
-                                                            <img onClick={() => handleClick(item.id)} className="img-fluid songlist-card-img " src={item?.image[0].link} alt="album-art" />
-                                                            <div onClick={() => handleClick(item.id)} className="songlist-card-info">
-                                                                <p className="songlist-card-info-songName"> {ParseString(item.name)}</p>
-                                                                <p className="songlist-card-info-artistName">{ParseString(item?.primaryArtists)}</p>
+                                                            <img onClick={() => handleClick(item.id)} className="img-fluid current-songlist-card-img " src={item?.image[0].link} alt="album-art" />
+                                                            <div onClick={() => handleClick(item.id)} className="current-songlist-card-info">
+                                                                <p className="current-songlist-card-info-songName"> {ParseString(item.name)}</p>
+                                                                <p className="current-songlist-card-info-artistName">{ParseString(item?.primaryArtists)}</p>
                                                             </div>
-                                                            <div className="songlist-card-controls">
+                                                            <div className="current-songlist-card-controls">
                                                                 <button
                                                                     onClick={() => handlePlayPlalistSong(item)}
-                                                                    className='btn songlist-card-controls-btn '>
+                                                                    className='btn current-songlist-card-controls-btn '>
                                                                     <Icons.BsPlayFill />
                                                                     {/* <img src={Icons.play} alt="PlayCircle" className="img-fluid" /> */}
                                                                 </button>
-                                                                <button onClick={() => handleremoveTrack(item.id)} className='btn songlist-card-controls-btn'>
+                                                                <button onClick={() => handleremoveTrack(item.id)} className='btn current-songlist-card-controls-btn'>
                                                                     <Icons.AiOutlineCloseCircle />
                                                                 </button>
                                                             </div>
@@ -311,7 +304,7 @@ const GlobalPlayer = () => {
                                         //     handleNaviagteToAblum(trackData?.album?.id);
                                         // }}
                                         >
-                                            {trackData?.primaryArtists}
+                                            {ParseString(trackData?.primaryArtists)}
                                         </h5>
 
                                     </div>

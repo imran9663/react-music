@@ -3,7 +3,7 @@ import "./SpotLpaderStyles.scss";
 const SpotLoader = () => {
 
     return (
-        <span class="Spotloader"></span>
+        <span className="Spotloader"></span>
     )
 }
 

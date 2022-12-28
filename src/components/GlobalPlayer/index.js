@@ -9,6 +9,7 @@ import RouteStrings from "../../utils/RouteStrings";
 import SpotLoader from "../Loader/SpotLoader";
 import "../SeekBar/style.scss";
 import "./style.scss";
+import PlayingAnime from "../Loader/PlayingAnime";
 
 
 const GlobalPlayer = () => {
@@ -28,12 +29,14 @@ const GlobalPlayer = () => {
     const trackList = useSelector(currentPlaylist)
     const currenttrackDetails = useSelector(currentTrack);
     const navigate = useNavigate();
-    const [isTrackLoading, setisTrackLoading] = useState(false)
     const [trackData, settrackData] = useState({})
     const [trackDataList, settrackDataList] = useState([])
     const [totalDuration, settotalDuration] = useState('0:00')
     const [currentDuration, setcurrentDuration] = useState('0')
+
     const [isMegaPlayerON, setisMegaPlayerON] = useState(false);
+    const [isLoopOn, setisLoopOn] = useState(false);
+    const [isTrackLoading, setisTrackLoading] = useState(false)
     const [OpenPlaylist, setOpenPlaylist] = useState(false);
     const [playerState, setplayerState] = useState({
         isPlaying: false,
@@ -198,6 +201,7 @@ const GlobalPlayer = () => {
                 <>
                     <audio
                         autoPlay
+                        loop={isLoopOn}
                         ref={audioRef}
                         src={trackData?.downloadUrl[trackData?.downloadUrl.length - 1]?.link}
                         type="audio/mp4"
@@ -257,12 +261,12 @@ const GlobalPlayer = () => {
                                                                 <p className="current-songlist-card-info-artistName">{ParseString(item?.primaryArtists)}</p>
                                                             </div>
                                                             <div className="current-songlist-card-controls">
-                                                                <button
+                                                                {trackData.id === item.id ? <PlayingAnime /> : <button
                                                                     onClick={() => handlePlayPlalistSong(item)}
                                                                     className='btn current-songlist-card-controls-btn '>
                                                                     <Icons.BsPlayFill />
-                                                                    {/* <img src={Icons.play} alt="PlayCircle" className="img-fluid" /> */}
-                                                                </button>
+                                                                </button>}
+
                                                                 <button onClick={() => handleremoveTrack(item.id)} className='btn current-songlist-card-controls-btn'>
                                                                     <Icons.AiOutlineCloseCircle />
                                                                 </button>
@@ -324,7 +328,9 @@ const GlobalPlayer = () => {
                                         <div className="btn dummy"></div>
                                         <div className="btn dummy"></div>
                                         <div className="btn dummy"></div>
-                                        <button className="btn">
+                                        <button onClick={() => {
+                                            setisLoopOn(!isLoopOn)
+                                        }} className={`btn ${isLoopOn ? 'loop-active' : ''}`} >
                                             <Icons.BsArrowRepeat />
                                         </button>
                                         <button className="btn">
@@ -333,8 +339,14 @@ const GlobalPlayer = () => {
                                     </div>
                                     <div className="tack_card-timeLine">
                                         <div className="timings">
-                                            <p className="time">{getCorrectTimeForamt(currentDuration)}</p>
-                                            <p className="time">{getCorrectTimeForamt(totalDuration)}</p>
+                                            <p className="time">{
+                                                !isNaN(currentDuration) ?
+                                                    getCorrectTimeForamt(currentDuration) : "--:--"
+                                            }</p>
+                                            <p className="time">{
+                                                !isNaN(totalDuration) ?
+                                                    getCorrectTimeForamt(totalDuration) : "--:--"
+                                            }</p>
                                         </div>
                                         <div className="seekbar-wrapper">
                                             <input ref={progressBarRef}
@@ -351,7 +363,6 @@ const GlobalPlayer = () => {
                                         </button>
                                         {isTrackLoading ?
                                             <SpotLoader />
-
                                             : <button onClick={() => { handlePlayControls(Constants.isPlaying) }} className="btn">
                                                 {playerState.isPlaying ?
                                                     <Icons.BsPauseFill />

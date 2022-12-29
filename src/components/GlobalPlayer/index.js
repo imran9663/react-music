@@ -139,7 +139,6 @@ const GlobalPlayer = () => {
                 break;
         }
     }
-    // const tracks = useSelector(currentPlaylist);
     const handleClick = () => {
         const prevState = isMegaPlayerON
         setisMegaPlayerON(!prevState);
@@ -209,10 +208,6 @@ const GlobalPlayer = () => {
                         controls
                         className="track-audio"
                     />
-                    {/* {
-                        background:
-                    `linear-gradient(rgb(30,30,30,0.8), rgb(30,30,30,1)), url(${trackData?.image[2]?.link}) center/cover no-repeat `,
-                            } */}
                     <div
                         style={
                             {
@@ -223,124 +218,125 @@ const GlobalPlayer = () => {
                         }
                         className={`player ${isMegaPlayerON ? "mega" : "mini "}`}
                     >
-                        {isMegaPlayerON ? (
-                            <>
-                                <div className="tack_card ">
-                                    <div className="tack_card-topBar pt-1">
-                                        <button
-                                            onClick={handleClick}
-                                            className="tack_card-topBar--icon-down"
-                                        >
-                                            <Icons.BsChevronDoubleDown />
-                                        </button>
-                                        <div className="tack_card-topBar--space">
-                                            <div className="text-center text-white text-capital">
-                                                reusic
+
+                        <>
+                            <div className="tack_card ">
+                                {isMegaPlayerON &&
+                                    <>
+                                        <div className="tack_card-topBar pt-1">
+                                            <button
+                                                onClick={handleClick}
+                                                className="tack_card-topBar--icon-down"
+                                            >
+                                                <Icons.BsChevronDoubleDown />
+                                            </button>
+                                            <div className="tack_card-topBar--space">
+                                                <div className="text-center text-white text-capital">
+                                                    reusic
+                                                </div>
+                                            </div>
+                                            <button onClick={() => { togglePlayList() }} className="tack_card-topBar--icon">
+                                                <Icons.SlPlaylist color="#ffffff" />
+                                            </button>
+                                        </div>
+                                        <div className={`tack_card-playlist ${OpenPlaylist ? "active" : ''}`}>
+                                            <div className="tack_card-playlist--top-bar text-left">
+                                                <button onClick={() => { togglePlayList() }} className="btn">
+                                                    <Icons.AiOutlineCloseCircle />
+                                                </button>
+
+                                            </div>
+                                            <div className="current-songlist">
+                                                {trackDataList?.map(item => {
+                                                    return (
+                                                        <>
+                                                            <div id={item?.id}
+                                                                key={item?.id}
+
+                                                                className={`current-songlist-card ${(trackData.id === item.id) && 'current-palying'}`}
+                                                            >
+
+                                                                <img onClick={() => handleClick(item.id)} className="img-fluid current-songlist-card-img " src={item?.image[0].link} alt="album-art" />
+                                                                <div onClick={() => handleClick(item.id)} className="current-songlist-card-info">
+                                                                    <p className="current-songlist-card-info-songName"> {ParseString(item.name)}</p>
+                                                                    <p className="current-songlist-card-info-artistName">{ParseString(item?.primaryArtists)}</p>
+                                                                </div>
+                                                                <div className="current-songlist-card-controls">
+                                                                    {trackData.id === item.id ? <PlayingAnime /> : <button
+                                                                        onClick={() => handlePlayPlalistSong(item)}
+                                                                        className='btn current-songlist-card-controls-btn '>
+                                                                        <Icons.BsPlayFill />
+                                                                    </button>}
+
+                                                                    <button onClick={() => handleremoveTrack(item.id)} className='btn current-songlist-card-controls-btn'>
+                                                                        <Icons.AiOutlineCloseCircle />
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </>
+                                                    )
+                                                })}
+
+
                                             </div>
                                         </div>
-                                        <button onClick={() => { togglePlayList() }} className="tack_card-topBar--icon">
-                                            <Icons.SlPlaylist color="#ffffff" />
-                                        </button>
-                                    </div>
-                                    <div className={`tack_card-playlist ${OpenPlaylist ? "active" : ''}`}>
-                                        <div className="tack_card-playlist--top-bar text-left">
-                                            <button onClick={() => { togglePlayList() }} className="btn">
-                                                <Icons.AiOutlineCloseCircle />
+
+                                        <div className="tack_card-albumart">
+                                            <img
+                                                src={trackData?.image[trackData?.image.length - 1]?.link}
+                                                alt={trackData?.image[trackData?.image.length - 1]?.quality}
+                                                className="img-fluid"
+                                            />
+                                        </div>
+                                        <div className="tack_card-info">
+                                            <h4 className="tack-name text-center text-truncate ">{ParseString(trackData?.name)}</h4>
+                                            <h5
+                                                className="tack-album-name text-center text-underline  text-truncate "
+                                                onClick={() => {
+                                                    setisMegaPlayerON(!isMegaPlayerON);
+                                                    handleNaviagteToAblum(trackData?.album?.id);
+                                                }}
+                                            >
+                                                Album <span>
+                                                    <Icons.BsHeadphones />&nbsp;{trackData?.playCount}
+                                                </span>
+                                            </h5>
+                                            <h5
+                                                className="tack-album-name text-center text-underline  text-truncate "
+                                            // onClick={() => {
+                                            //     setisMegaPlayerON(!isMegaPlayerON);
+                                            //     handleNaviagteToAblum(trackData?.album?.id);
+                                            // }}
+                                            >
+                                                {ParseString(trackData?.primaryArtists)}
+                                            </h5>
+
+                                        </div>
+                                        <div className="tack_card-media-icons">
+                                            <button onClick={() => { handlePlayerState(Constants.isMute, playerState.isMute) }} className="btn">
+                                                {
+                                                    playerState.isMute ?
+                                                        <Icons.BsVolumeMute />
+                                                        :
+                                                        <Icons.BsVolumeUp />}
                                             </button>
-
+                                            <button onClick={() => { handlePlayerState(Constants.isFavourite, playerState.isFavourite) }} className="btn">
+                                                {playerState.isFavourite ? <Icons.BsHeartFill color='#ff0000' /> : <Icons.BsHeart />}
+                                            </button>
+                                            <div className="btn dummy"></div>
+                                            <div className="btn dummy"></div>
+                                            <div className="btn dummy"></div>
+                                            <button onClick={() => {
+                                                setisLoopOn(!isLoopOn)
+                                            }} className={`btn ${isLoopOn ? 'loop-active' : ''}`} >
+                                                <Icons.BsArrowRepeat />
+                                            </button>
+                                            <button className="btn">
+                                                <Icons.BsShuffle />
+                                            </button>
                                         </div>
-                                        <div className="current-songlist">
-                                            {trackDataList?.map(item => {
-                                                return (
-                                                    <>
-                                                        <div id={item?.id}
-                                                            key={item?.id}
-
-                                                            className={`current-songlist-card ${(trackData.id === item.id) && 'current-palying'}`}
-                                                        >
-
-                                                            <img onClick={() => handleClick(item.id)} className="img-fluid current-songlist-card-img " src={item?.image[0].link} alt="album-art" />
-                                                            <div onClick={() => handleClick(item.id)} className="current-songlist-card-info">
-                                                                <p className="current-songlist-card-info-songName"> {ParseString(item.name)}</p>
-                                                                <p className="current-songlist-card-info-artistName">{ParseString(item?.primaryArtists)}</p>
-                                                            </div>
-                                                            <div className="current-songlist-card-controls">
-                                                                {trackData.id === item.id ? <PlayingAnime /> : <button
-                                                                    onClick={() => handlePlayPlalistSong(item)}
-                                                                    className='btn current-songlist-card-controls-btn '>
-                                                                    <Icons.BsPlayFill />
-                                                                </button>}
-
-                                                                <button onClick={() => handleremoveTrack(item.id)} className='btn current-songlist-card-controls-btn'>
-                                                                    <Icons.AiOutlineCloseCircle />
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </>
-                                                )
-                                            })}
-
-
-                                        </div>
-                                    </div>
-
-
-                                    <div className="tack_card-albumart">
-                                        <img
-                                            src={trackData?.image[trackData?.image.length - 1]?.link}
-                                            alt={trackData?.image[trackData?.image.length - 1]?.quality}
-                                            className="img-fluid"
-                                        />
-                                    </div>
-                                    <div className="tack_card-info">
-                                        <h4 className="tack-name text-center text-truncate ">{ParseString(trackData?.name)}</h4>
-                                        <h5
-                                            className="tack-album-name text-center text-underline  text-truncate "
-                                            onClick={() => {
-                                                setisMegaPlayerON(!isMegaPlayerON);
-                                                handleNaviagteToAblum(trackData?.album?.id);
-                                            }}
-                                        >
-                                            Album <span>
-                                                <Icons.BsHeadphones />&nbsp;{trackData?.playCount}
-                                            </span>
-                                        </h5>
-                                        <h5
-                                            className="tack-album-name text-center text-underline  text-truncate "
-                                        // onClick={() => {
-                                        //     setisMegaPlayerON(!isMegaPlayerON);
-                                        //     handleNaviagteToAblum(trackData?.album?.id);
-                                        // }}
-                                        >
-                                            {ParseString(trackData?.primaryArtists)}
-                                        </h5>
-
-                                    </div>
-
-
-                                    <div className="tack_card-media-icons">
-                                        <button onClick={() => { handlePlayerState(Constants.isMute, playerState.isMute) }} className="btn">
-                                            {
-                                                playerState.isMute ?
-                                                    <Icons.BsVolumeMute />
-                                                    :
-                                                    <Icons.BsVolumeUp />}
-                                        </button>
-                                        <button onClick={() => { handlePlayerState(Constants.isFavourite, playerState.isFavourite) }} className="btn">
-                                            {playerState.isFavourite ? <Icons.BsHeartFill color='#ff0000' /> : <Icons.BsHeart />}
-                                        </button>
-                                        <div className="btn dummy"></div>
-                                        <div className="btn dummy"></div>
-                                        <div className="btn dummy"></div>
-                                        <button onClick={() => {
-                                            setisLoopOn(!isLoopOn)
-                                        }} className={`btn ${isLoopOn ? 'loop-active' : ''}`} >
-                                            <Icons.BsArrowRepeat />
-                                        </button>
-                                        <button className="btn">
-                                            <Icons.BsShuffle />
-                                        </button>
-                                    </div>
+                                    </>}
+                                {isMegaPlayerON && <>
                                     <div className="tack_card-timeLine">
                                         <div className="timings">
                                             <p className="time">{
@@ -352,15 +348,19 @@ const GlobalPlayer = () => {
                                                     getCorrectTimeForamt(totalDuration) : "--:--"
                                             }</p>
                                         </div>
-                                        <div className="seekbar-wrapper">
-                                            <input ref={progressBarRef}
-                                                onChange={handleRangeChange}
-                                                type='range'
-                                                max={0}
-                                                value={currentDuration}
-                                                className="seekBar" />
-                                        </div>
                                     </div>
+                                </>}
+                                <div className={isMegaPlayerON ? "mega-seekbar-wrapper" : "mini-seekbar-wrapper"}>
+                                    <input
+                                        disabled={!isMegaPlayerON}
+                                        ref={progressBarRef}
+                                        onChange={handleRangeChange}
+                                        type='range'
+                                        max={0}
+                                        value={currentDuration}
+                                        className="seekBar" />
+                                </div>
+                                {isMegaPlayerON ? <>
                                     <div className="tack_card-controls">
                                         <button onClick={() => { handlePlayControls(Constants.isPrevious) }} className="btn">
                                             <Icons.BsChevronBarLeft />
@@ -376,37 +376,38 @@ const GlobalPlayer = () => {
                                             <Icons.BsChevronBarRight />
                                         </button>
                                     </div>
-                                </div>
-                            </>
-                        ) : (
-                            <>
-                                <div onClick={handleClick} className="col-2 image">
-                                    <img
-                                        src={trackData?.image[0]?.link}
-                                        alt={trackData?.image[0]?.quality}
-                                        className="img-fluid albumart"
-                                    />
-                                </div>
-                                <div onClick={handleClick} className="col-6 text-truncate  info">
-                                    <h5 className=" trackName text-trucate ">{ParseString(trackData?.name)}</h5>
-                                    <p className=" artists text-trucate"> {ParseString(trackData?.primaryArtists)}</p>
-                                </div>
-                                <div className="col-4  controls">
-                                    <button onClick={() => { handlePlayControls(Constants.isPrevious) }} className="btn">
-                                        <Icons.BsChevronBarLeft />
-                                    </button>
-                                    <button onClick={() => { handlePlayControls(Constants.isPlaying) }} className="btn">
-                                        {playerState.isPlaying ? <Icons.BsPauseFill /> : <Icons.BsPlayFill />}
-                                    </button>
-                                    <button onClick={() => { handlePlayControls(Constants.isNext) }} className="btn">
-                                        <Icons.BsChevronBarRight />
-                                    </button>
-                                </div>
-                            </>
-                        )}
+                                </> : <>
+                                    <div className="miniplayer-wrapper">
+                                        <div onClick={handleClick} className="col-2 image">
+                                            <img
+                                                src={trackData?.image[0]?.link}
+                                                alt={trackData?.image[0]?.quality}
+                                                className="img-fluid albumart"
+                                            />
+                                        </div>
+                                        <div onClick={handleClick} className="col-6 text-truncate  info">
+                                            <h5 className=" trackName text-trucate ">{ParseString(trackData?.name)}</h5>
+                                            <p className=" artists text-trucate"> {ParseString(trackData?.primaryArtists)}</p>
+                                        </div>
+                                        <div className="col-4  controls">
+                                            <button onClick={() => { handlePlayControls(Constants.isPrevious) }} className="btn">
+                                                <Icons.BsChevronBarLeft />
+                                            </button>
+                                            <button onClick={() => { handlePlayControls(Constants.isPlaying) }} className="btn">
+                                                {playerState.isPlaying ? <Icons.BsPauseFill /> : <Icons.BsPlayFill />}
+                                            </button>
+                                            <button onClick={() => { handlePlayControls(Constants.isNext) }} className="btn">
+                                                <Icons.BsChevronBarRight />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </>}
+                            </div>
+                        </>
                     </div>
                 </>
-                : <><SpotLoader /></>}
+                : <><SpotLoader />
+                </>}
             <Toaster
                 position="bottom-center"
                 reverseOrder={true}

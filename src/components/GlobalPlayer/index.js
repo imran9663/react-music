@@ -231,8 +231,8 @@ const GlobalPlayer = () => {
                                                 <Icons.BsChevronDoubleDown />
                                             </button>
                                             <div className="tack_card-topBar--space">
-                                                <div className="text-center text-white text-capital">
-                                                    reusic
+                                                <div className="text-center text-white text-capitalize">
+                                                    now playing
                                                 </div>
                                             </div>
                                             <button onClick={() => { togglePlayList() }} className="tack_card-topBar--icon">
@@ -281,14 +281,14 @@ const GlobalPlayer = () => {
                                             </div>
                                         </div>
 
-                                        <div className="tack_card-albumart">
+                                        <div className="tack_card-albumart text-center">
                                             <img
                                                 src={trackData?.image[trackData?.image.length - 1]?.link}
                                                 alt={trackData?.image[trackData?.image.length - 1]?.quality}
                                                 className="img-fluid"
                                             />
                                         </div>
-                                        <div className="tack_card-info">
+                                        <div className="tack_card-info  text-center">
                                             <h4 className="tack-name text-center text-truncate ">{ParseString(trackData?.name)}</h4>
                                             <h5
                                                 className="tack-album-name text-center text-underline  text-truncate "

@@ -209,13 +209,17 @@ const GlobalPlayer = () => {
                         controls
                         className="track-audio"
                     />
+                    {/* {
+                        background:
+                    `linear-gradient(rgb(30,30,30,0.8), rgb(30,30,30,1)), url(${trackData?.image[2]?.link}) center/cover no-repeat `,
+                            } */}
                     <div
                         style={
-                            isMegaPlayerON
-                                ? {
-                                    background: `linear-gradient(rgb(30,30,30,0.6), rgb(30,30,30,1)), url(${trackData?.image[2]?.link}),center,no-repeat,cover `,
-                                }
-                                : { background: "#1e1e1e" }
+                            {
+                                background:
+                                    `linear-gradient(rgb(30,30,30,0.8), rgb(30,30,30,1)), url(${trackData?.image[2]?.link}) center/cover no-repeat `,
+                            }
+
                         }
                         className={`player ${isMegaPlayerON ? "mega" : "mini "}`}
                     >

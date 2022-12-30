@@ -38,6 +38,11 @@ const Search = () => {
         const { value } = e.target
         setsearchedValue(value)
     }
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            handleBlur()
+        }
+    }
     const handleBlur = () => {
         console.log("call Api method");
         searchedValue != '' && getSearchedData()
@@ -62,7 +67,7 @@ const Search = () => {
             <div className="search_wrapper ">
                 {/* <p className='text-center text-light'>Search</p> */}
                 <div className="searchbar-wrapper">
-                    <input onBlur={handleBlur} onChange={handleChange} value={searchedValue} autoFocus placeholder='search here...' type="text" className='input' name="" id="" />
+                    <input onBlur={handleBlur} onKeyDown={handleKeyDown} onChange={handleChange} value={searchedValue} autoFocus placeholder='search here...' type="text" className='input' name="" id="" />
                     <button className="btn">
                         <Icons.search />
                     </button>

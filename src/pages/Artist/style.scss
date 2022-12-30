@@ -1,0 +1,93 @@
+@import "../../utils/Styles/color.scss";
+
+.artistPage {
+  width: 100vw;
+  height: 35vh;
+  display: flex;
+  position: relative;
+  top: 0;
+  left: 0;
+  //   border: solid red 1px;
+  overflow: hidden;
+  &-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+  &-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#1e1e1e1d, #1e1e1e79, #0d280c);
+    z-index: 2;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    .main-info {
+      .name {
+        margin: unset;
+        span {
+          svg {
+            color: $accent-color;
+            font-size: 1rem;
+            transform: translate(5px, -5px);
+          }
+        }
+      }
+      .domaintype {
+        margin: unset;
+        font-size: 12px;
+        color: #c6efc5;
+      }
+    }
+    .followerCount {
+      width: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .count {
+        color: $white;
+        font-size: 1rem;
+        font-weight: 700;
+        margin: unset;
+      }
+      .follower {
+        color: $white;
+        font-size: 1rem;
+        font-weight: 400;
+        margin: unset;
+        text-transform: capitalize;
+      }
+    }
+  }
+}
+.navbar {
+  width: 100%;
+  margin: 0;
+  //   border: solid red 1px;
+  background-color: #0d280c;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem 0 1rem;
+  &-link {
+    font-size: 0.8rem;
+    color: #c6efc5;
+    text-decoration: unset;
+    padding: 0 0.15rem;
+    border-bottom: solid 2px transparent;
+  }
+  .active {
+    font-weight: 600;
+    color: #7bd977;
+    border-bottom: solid 2px $accent-color;
+  }
+}

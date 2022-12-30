@@ -7,20 +7,22 @@ import { Icons } from '../../assets/Icons'
 const RoundCard = ({ item, Style, imgWidth }) => {
     const navigate = useNavigate()
     const handleClick = () => {
+        console.log("RoundCard handle click",);
         if (item.artistid) {
-            navigate(RouteStrings.song + item.artistid)
-        } else if (navigate(RouteStrings.song + item.id)) {
-            navigate(RouteStrings.song + item.id)
+            navigate(RouteStrings.artist + "#" + item.artistid)
+        } else if (item.id) {
+            navigate(RouteStrings.artist + "#" + item.id)
         }
     }
 
     return (
         <>
             <div style={Style} onClick={handleClick} className="d-flex flex-column round-wrapper ">
-                <img onError={({ currentTarget }) => {
-                    currentTarget.onerror = null;
-                    currentTarget.src = Icons.defualtImage;
-                }} style={{ width: imgWidth }} src={getCorrectSrc(item.image)} alt="artist" className="img-fluid rounded-circle" />
+                <img
+                    onError={({ currentTarget }) => {
+                        currentTarget.onerror = null;
+                        currentTarget.src = Icons.defualtImage;
+                    }} style={{ width: imgWidth }} src={getCorrectSrc(item.image)} alt="artist" className="img-fluid rounded-circle" />
                 <p className="text-center text-light">
                     {item?.name ? item?.name : item?.title}
                 </p>

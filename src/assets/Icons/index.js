@@ -7,6 +7,7 @@ import { RxDot, RxDragHandleDots2 } from 'react-icons/rx';
 import { SiReact } from 'react-icons/si';
 import { SlPlaylist } from 'react-icons/sl';
 import { TfiLoop } from 'react-icons/tfi';
+import { GoVerified } from 'react-icons/go';
 
 import mello from './mello.svg'
 import nointernet from './no_internet.svg'
@@ -47,4 +48,5 @@ export const Icons = {
     AiOutlineUser: AiOutlineUser,
     RxDragHandleDots2: RxDragHandleDots2,
     BiUserCircle: BiUserCircle,
+    GoVerified: GoVerified,
 }

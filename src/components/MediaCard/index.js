@@ -18,8 +18,7 @@ const MediaCard = ({ Data, type }) => {
                 navigate(RouteStrings.song + Data.id)
                 break;
             case 'artist':
-                // navigate(RouteStrings.song + Data.id)
-                navigate(RouteStrings.home)
+                navigate(RouteStrings.artist + "#" + Data.id)
                 break;
             default:
                 console.log("cannot find type ");

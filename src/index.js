@@ -17,7 +17,6 @@ root.render(
   <BrowserRouter>
     <Provider store={store}>
       <App />
-      {/* <Drag /> */}
     </Provider>
   </BrowserRouter>
 

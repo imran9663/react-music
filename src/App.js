@@ -11,6 +11,7 @@ import Search from './pages/Search'
 import Account from './pages/Account'
 import Album from './pages/Album'
 import Landing from './components/Landing'
+import NoNetwork from './pages/NoNetwork'
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
           <Route path={RouteStrings.account} element={<Account />} />
           <Route path={RouteStrings.song + ':id'} element={<Song />} />
         </Route>
+        <Route path={RouteStrings.noNetwork} element={<NoNetwork />} />
       </Routes>
 
 

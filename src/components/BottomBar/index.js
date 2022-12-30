@@ -12,30 +12,35 @@ const BottomBar = () => {
                     className={({ isActive }) =>
                         isActive ? "anchor-links-active" : "anchor-links"}
                 >
-                    <img src={Icons.home} alt="for you" className="img-fluid" />
-                    <p className="linkName">home</p>
-                    <div className="activity-bar"></div>
+                    <Icons.home />
+                    {/* <p className="linkName">home</p> */}
+                    <div className="activity-bar mt-2 px-2"></div>
                 </NavLink>
                 <NavLink
                     to={RouteStrings.search}
                     className={({ isActive }) =>
                         isActive ? "anchor-links-active" : "anchor-links"}>
-                    <img src={Icons.search} alt="for you" className="img-fluid" />
-                    <p className="linkName">discover</p><div className="activity-bar"></div>
+                    <Icons.search />
+                    <div className="activity-bar mt-2 px-2"></div>
+
+                    {/* <p className="linkName">discover</p><div className="activity-bar mt-2 px-2"></div> */}
                 </NavLink>
                 <NavLink
-                    to={RouteStrings.playlist}
+                    to={RouteStrings.playlist + "848372055"}
                     className={({ isActive }) =>
                         isActive ? "anchor-links-active" : "anchor-links"}>
-                    <img src={Icons.heart} alt="for you" className="img-fluid" />
-                    <p className="linkName">Favorite</p><div className="activity-bar"></div>
+                    <Icons.BsHeart />
+                    <div className="activity-bar mt-2 px-2"></div>
+
+                    {/* <p className="linkName">Favorite</p><div className="activity-bar mt-2 px-2"></div> */}
                 </NavLink>
                 <NavLink
                     to={RouteStrings.account}
                     className={({ isActive }) =>
                         isActive ? "anchor-links-active" : "anchor-links"}>
-                    <img src={Icons.user} alt="for you" className="img-fluid" />
-                    <p className="linkName">you</p><div className="activity-bar"></div>
+                    <Icons.AiOutlineUser />
+                    <div className="activity-bar mt-2 px-2 "></div>
+                    {/* <p className="linkName">you</p><div className="activity-bar mt-2 px-2"></div> */}
                 </NavLink>
             </div>
         </>

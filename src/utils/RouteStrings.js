@@ -6,5 +6,6 @@ const RouteStrings = {
     account: '/account',
     playlist: '/playlist/',
     albums: '/albums/',
+    noNetwork: '/noNetwork',
 }
 export default RouteStrings

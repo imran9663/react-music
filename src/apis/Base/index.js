@@ -1,9 +1,6 @@
 import axios from 'axios';
-// let AuthToken = process.env.REACT_APP_RAPID_API_KEY;
-// console.log("Authtoken", AuthToken);
+import RouteStrings from '../../utils/RouteStrings';
 const headers = {
-    // Authorization: `Bearer AuthToken`,
-    // 'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
     accept: "application/json",
     "accept-language": "en_US",
     "content-type": "application/json",
@@ -19,11 +16,16 @@ axiosInstence.interceptors.response.use(
             resolve(response);
         }),
     (error) => {
+        console.log("error.response", error?.code)
+        if (error.code = 'ERR_NETWORK') {
+            window.location.href = RouteStrings.noNetwork
+        }
         if (!error.response) {
             return new Promise((resolve, reject) => {
                 reject(error);
             });
         }
+
         if (error.response.status === 401) {
             window.location.reload();
             localStorage.clear()

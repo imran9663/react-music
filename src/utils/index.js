@@ -7,7 +7,13 @@ export const StringToNum = (arg) => {
     Number(arg)
 }
 
-
+export const getNamefromArray = (arr) => {
+    const name = []
+    arr.map(_ => {
+        name.push(_.name)
+    })
+    return name.toString()
+}
 
 export const getLanguageObject = () => {
     const language = 'Hindi,English,Punjabi,Telugu,Tamil,Bhojpuri,Bengali,Malayalam,Kannada,Marathi,Gujarati,Haryanvi,Urdu,Assamese,Rajasthani,Odia'
@@ -23,6 +29,46 @@ export const getLanguageObject = () => {
     })
     return newval
 }
+export const getSortedResposeObj = (res) => {
+    let arranged = [];
+    const newObj = []
+    const newpositionsKey = Object.keys(res);
+    const newpositionsValues = Object.values(res);
+    newpositionsValues.map((item, ind) => {
+        const ructObj = {
+            ...item,
+            type: newpositionsKey[ind]
+        }
+        newObj.push(ructObj)
+    })
+    newObj.sort(function (a, b) {
+        //sort by x, secondary by y
+        return a.position == b.position ? a.position - b.position : a.position - b.position;
+    });
+    for (let i = 0; i < newObj.length; i++) {
 
+        //check if was already added
+        if (typeof (newObj[i].wasAdded) == "undefined") {
+            arranged.push(newObj[i]);
+            newObj[i].wasAdded = "true";
+
+            for (let j = i + 1; j < newObj.length; j++) {
+                if (newObj[i].y > newObj[j].y && typeof (newObj[j].wasAdded) == "undefined") {
+                    arranged.push(newObj[j]);
+                    newObj[j].wasAdded = "true";
+                }
+            }
+        }
+    }
+    return arranged
+};
+export const getCorrectSrc = (item) => {
+    if (typeof item === 'object') {
+        return item.length > 0 && item[item.length - 1].link
+    }
+    if (typeof item === 'string') {
+        return item
+    }
+}
 
 export const Consoletyle = 'background-color: darkblue; color: white; font-style: italic; border: 5px solid hotpink; font-size: 2em;'

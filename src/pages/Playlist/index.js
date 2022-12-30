@@ -11,6 +11,7 @@ import {
     setLocalPlayListData,
     currentPlaylist,
 } from "../../Redux/Reducers/PlayList-slice";
+import { Toaster, toast } from "react-hot-toast";
 const PlayList = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -26,10 +27,15 @@ const PlayList = () => {
         setisLoading(true);
         await getRequest(configURL.playlist + id)
             .then((res) => {
-                setplaylistData(res?.data?.data);
+                if (res?.data?.data !== null) {
+                    setplaylistData(res?.data?.data);
+
+                } else {
+                    toast.loading('No Data');
+                }
             })
             .catch((err) => {
-                console.log(err);
+                toast.error('Somting wnet wrong!..');
             })
             .finally(() => {
                 setisLoading(false);
@@ -55,7 +61,10 @@ const PlayList = () => {
                     {Object.keys(playlistData).length > 0 && (
                         <>
                             <div className="hero">
-                                <img
+                                <img onError={({ currentTarget }) => {
+                                    currentTarget.onerror = null;
+                                    currentTarget.src = Icons.defualtImage;
+                                }}
                                     className=" hero-image"
                                     src={
                                         playlistData?.image[playlistData?.image.length - 1]?.link
@@ -66,7 +75,10 @@ const PlayList = () => {
                             </div>
                             <div className="playlist-info">
                                 <div className="col-4 image-cover">
-                                    <img
+                                    <img onError={({ currentTarget }) => {
+                                        currentTarget.onerror = null;
+                                        currentTarget.src = Icons.defualtImage;
+                                    }}
                                         src={playlistData?.image[0]?.link}
                                         alt=""
                                         className="prfilethumb"
@@ -101,58 +113,79 @@ const PlayList = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="w-100 play-button-wrapper">
+                            {playlistData?.songs.length > 0 && <div className="w-100 play-button-wrapper">
                                 <button onClick={handlePlayAlbum} className="btn round_btn">
                                     <Icons.BsPlayFill />
                                 </button>
-                            </div>
+                            </div>}
+
                             <div className="songlist">
-                                {playlistData?.songs.map((item) => {
-                                    return (
-                                        <>
-                                            <div
-                                                id={item?.id}
-                                                key={item?.id}
-                                                className="songlist-card"
-                                            >
-                                                <img
-                                                    onClick={() => handleClick(item.id)}
-                                                    className="img-fluid songlist-card-img "
-                                                    src={item?.image[0].link}
-                                                    alt="album-art"
-                                                />
+                                {playlistData?.songs.length > 0 ? <>
+                                    {playlistData?.songs.map((item) => {
+                                        return (
+                                            <>
                                                 <div
-                                                    onClick={() => handleClick(item.id)}
-                                                    className="songlist-card-info"
+                                                    id={item?.id}
+                                                    key={item?.id}
+                                                    className="songlist-card"
                                                 >
-                                                    <p className="songlist-card-info-songName">
-                                                        {" "}
-                                                        {item.name}
-                                                    </p>
-                                                    <p className="songlist-card-info-artistName">
-                                                        {item?.primaryArtists}
-                                                    </p>
-                                                </div>
-                                                <div className="songlist-card-controls">
-                                                    <button
-                                                        onClick={() => handlePlaySong(item)}
-                                                        className="btn songlist-card-controls-btn "
+                                                    <img onError={({ currentTarget }) => {
+                                                        currentTarget.onerror = null;
+                                                        currentTarget.src = Icons.defualtImage;
+                                                    }}
+                                                        onClick={() => handleClick(item.id)}
+                                                        className="img-fluid songlist-card-img "
+                                                        src={item?.image[0].link}
+                                                        alt="album-art"
+                                                    />
+                                                    <div
+                                                        onClick={() => handleClick(item.id)}
+                                                        className="songlist-card-info"
                                                     >
-                                                        <Icons.BsPlayFill />
-                                                    </button>
-                                                    <button className="btn songlist-card-controls-btn">
-                                                        <Icons.BsThreeDotsVertical />
-                                                    </button>
+                                                        <p className="songlist-card-info-songName">
+                                                            {" "}
+                                                            {item.name}
+                                                        </p>
+                                                        <p className="songlist-card-info-artistName">
+                                                            {item?.primaryArtists}
+                                                        </p>
+                                                    </div>
+                                                    <div className="songlist-card-controls">
+                                                        <button
+                                                            onClick={() => handlePlaySong(item)}
+                                                            className="btn songlist-card-controls-btn "
+                                                        >
+                                                            <Icons.BsPlayFill />
+                                                        </button>
+                                                        <button className="btn songlist-card-controls-btn">
+                                                            <Icons.BsThreeDotsVertical />
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </>
-                                    );
-                                })}
+                                            </>
+                                        );
+                                    })}
+                                </> : <>
+                                    <div className="nosongs_wrapper">
+                                        <img onError={({ currentTarget }) => {
+                                            currentTarget.onerror = null;
+                                            currentTarget.src = Icons.defualtImage;
+                                        }} className="img-fluid" src={Icons.mello} alt="no data found " />
+                                        <h4 className="text-light mt-2">No Songs Found</h4>
+                                    </div>
+
+                                </>}
+
                             </div>
                         </>
                     )}
                 </div>
             )}
+            <Toaster
+                position="bottom-center"
+                reverseOrder={true}
+            />
+
         </>
     );
 };

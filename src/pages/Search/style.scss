@@ -1,0 +1,74 @@
+@import " ../../../../utils/Styles/color.scss";
+
+.search_wrapper {
+  min-height: 100vh;
+  min-width: 100vw;
+  height: auto;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding: 1rem 0.5rem;
+  align-items: center;
+  p {
+    font-size: 1rem;
+  }
+  .searchbar-wrapper {
+    width: 100%;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: solid $grey-80 2px;
+    margin-bottom: 5rem;
+    .input {
+      border: unset;
+      outline: unset;
+      background: $grey-80;
+      height: 2.5rem;
+      flex: 1;
+      color: $white;
+      padding: 0 0.5rem;
+      font-size: 1.2rem;
+      text-transform: capitalize;
+    }
+    .btn {
+      svg {
+        color: $accent-color;
+      }
+    }
+  }
+}
+
+.artist-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100vw;
+  padding: unset;
+  padding-left: 1rem;
+}
+.result-data {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  width: 100vw;
+  gap: 1.5rem;
+}
+.songs {
+  flex-direction: column;
+}
+.searchHeading {
+  // font-family: "SF Pro Display";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: $white;
+  text-transform: capitalize;
+  margin: 2rem 1rem 1rem 1rem;
+}

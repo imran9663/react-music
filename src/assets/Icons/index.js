@@ -1,61 +1,24 @@
-import PlayCircle from "./play-circle.svg";
-import PauseCircle from "./pause-circle.svg";
-import SkipBack from "./skip-back.svg";
-import SkipForward from "./skip-forward.svg";
-import barchart from "./bar-chart.svg";
-import heart from "./heart.svg";
-import search from "./search.svg";
-import user from "./user.svg";
-import home from "./home.svg";
-import music from "./music.svg";
-import play from "./play.svg";
-import pause from "./pause.svg";
-import morevertical from "./more-vertical.svg";
-// icons  from React-icons
-import { BsChevronDoubleDown } from 'react-icons/bs'
-import { BsVolumeMute } from 'react-icons/bs'
-import { BsVolumeUp } from 'react-icons/bs'
-import { BsVolumeDown } from 'react-icons/bs'
-import { BsHeart } from 'react-icons/bs'
-import { BsHeartFill } from 'react-icons/bs'
-import { BsArrowRepeat } from 'react-icons/bs'
-import { BsShuffle } from 'react-icons/bs'
-import { BsPlayFill } from 'react-icons/bs'
-import { BsPauseFill } from 'react-icons/bs'
-import { BsChevronBarLeft } from 'react-icons/bs'
-import { BsChevronBarRight } from 'react-icons/bs'
-import { BsHeadphones } from 'react-icons/bs'
-import { BsArrowLeft } from 'react-icons/bs'
-import { BsThreeDotsVertical } from 'react-icons/bs'
-import { BsCloudDownloadFill } from 'react-icons/bs'
-import { BsMusicNote } from 'react-icons/bs'
+import { BsArrowLeft, BsArrowRepeat, BsArrowRight, BsChevronBarLeft, BsChevronBarRight, BsChevronDoubleDown, BsCloudDownloadFill, BsHeadphones, BsHeart, BsHeartFill, BsMusicNote, BsPauseFill, BsPlayFill, BsShuffle, BsThreeDotsVertical, BsVolumeDown, BsVolumeMute, BsVolumeUp } from 'react-icons/bs';
+import { AiOutlineCloseCircle, AiOutlineUser } from 'react-icons/ai';
+import { BiAlbum, BiUserCircle } from 'react-icons/bi';
+import { FiHome, FiSearch } from 'react-icons/fi';
+import { HiLanguage } from 'react-icons/hi2';
+import { RxDot, RxDragHandleDots2 } from 'react-icons/rx';
+import { SiReact } from 'react-icons/si';
+import { SlPlaylist } from 'react-icons/sl';
+import { TfiLoop } from 'react-icons/tfi';
 
-import { SlPlaylist } from 'react-icons/sl'
-import { TfiLoop } from 'react-icons/tfi'
-import { BiAlbum } from 'react-icons/bi'
-import { BiUserCircle } from 'react-icons/bi'
-import { HiLanguage } from 'react-icons/hi2'
-import { RxDot } from 'react-icons/rx'
-import { RxDragHandleDots2 } from 'react-icons/rx'
-import { SiReact } from 'react-icons/si'
-import { AiOutlineCloseCircle } from 'react-icons/ai'
-import { AiOutlineUser } from 'react-icons/ai'
+import mello from './mello.svg'
+import nointernet from './no_internet.svg'
+import defualtImage from './defualtImage.svg'
 
 export const Icons = {
-    PlayCircle: PlayCircle,
-    PauseCircle: PauseCircle,
-    SkipBack: SkipBack,
-    SkipForward: SkipForward,
-    barchart: barchart,
-    heart: heart,
-    search: search,
-    user: user,
-    home: home,
-    music: music,
-    pause: pause,
-    play: play,
-    morevertical: morevertical,
+    nointernet: nointernet,
+    mello: mello,
+    defualtImage: defualtImage,
 
+    home: FiHome,
+    search: FiSearch,
     BsChevronDoubleDown: BsChevronDoubleDown,
     SlPlaylist: SlPlaylist,
     BsVolumeMute: BsVolumeMute,
@@ -72,6 +35,7 @@ export const Icons = {
     BsChevronBarRight: BsChevronBarRight,
     BsHeadphones: BsHeadphones,
     BsArrowLeft: BsArrowLeft,
+    BsArrowRight: BsArrowRight,
     BsThreeDotsVertical: BsThreeDotsVertical,
     BiAlbum: BiAlbum,
     HiLanguage: HiLanguage,

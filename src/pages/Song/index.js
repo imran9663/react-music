@@ -72,7 +72,10 @@ const Song = () => {
                             </button>
                         </div>
                         <div className="song_warpper-albumart">
-                            <img
+                            <img onError={({ currentTarget }) => {
+                                currentTarget.onerror = null;
+                                currentTarget.src = Icons.defualtImage;
+                            }}
                                 src={songData[0].image[songData[0].image.length - 1].link}
                                 alt={songData[0].image[songData[0].image.length - 1].link}
                                 className="img-fluid"

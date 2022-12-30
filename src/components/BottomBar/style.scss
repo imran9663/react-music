@@ -16,9 +16,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    img {
+    svg {
+      color: $white;
       width: 1rem;
       height: 1rem;
+      text-decoration: none;
       transition: all ease 0.2s;
     }
     p {
@@ -44,7 +46,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    img {
+    svg {
+      text-decoration: none;
+      color: $accent-color;
       width: 1.25rem;
       height: 1.25rem;
       transition: all ease 0.2s;

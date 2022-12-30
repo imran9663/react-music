@@ -50,7 +50,10 @@ const Album = () => {
                     {Object.keys(playlistData).length > 0 &&
                         <>
                             <div className="hero">
-                                <img
+                                <img onError={({ currentTarget }) => {
+                                    currentTarget.onerror = null;
+                                    currentTarget.src = Icons.defualtImage;
+                                }}
                                     className=' hero-image'
                                     src={playlistData.image[2].link}
                                     alt="hero "
@@ -60,7 +63,10 @@ const Album = () => {
                             </div>
                             <div className="playlist-info">
                                 <div className="col-4 image-cover">
-                                    <img src={playlistData.image[0].link} alt="" className="prfilethumb" />
+                                    <img onError={({ currentTarget }) => {
+                                        currentTarget.onerror = null;
+                                        currentTarget.src = Icons.defualtImage;
+                                    }} src={playlistData.image[0].link} alt="" className="prfilethumb" />
                                 </div>
                                 <div className=" col-8 playlist-info-headings">
                                     <h4 className='text-capitalize text-white mt-2'>
@@ -93,7 +99,10 @@ const Album = () => {
                                     return (
                                         <>
                                             <div key={item.id} className="songlist-card">
-                                                <img onClick={() => handleClick(item.id)} className="img-fluid songlist-card-img " src={item?.image[1].link} alt="album-art" />
+                                                <img onError={({ currentTarget }) => {
+                                                    currentTarget.onerror = null;
+                                                    currentTarget.src = Icons.defualtImage;
+                                                }} onClick={() => handleClick(item.id)} className="img-fluid songlist-card-img " src={item?.image[1].link} alt="album-art" />
                                                 <div onClick={() => handleClick(item.id)} className="songlist-card-info">
                                                     <p className="songlist-card-info-songName"> {item.name}</p>
                                                     <p className="songlist-card-info-artistName">{item?.primaryArtists}</p>

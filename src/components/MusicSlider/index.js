@@ -57,7 +57,10 @@ const MusicSlider = (props) => {
               <>
                 <div key={ind}>
                   <button onClick={() => handleClick(item)} className={isSquare ? 'newCard isSquare' : 'newCard '}>
-                    <img src={item?.image[2].link} alt="album art" className="newCard-image" />
+                    <img onError={({ currentTarget }) => {
+                      currentTarget.onerror = null;
+                      currentTarget.src = Icons.defualtImage;
+                    }} src={item?.image[2].link} alt="album art" className="newCard-image" />
                     {<div className="newCard-overlay">
                       {item.songCount !== "" && Number(item.songCount) > 1 &&
                         <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light newCard-overlay-badge">

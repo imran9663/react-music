@@ -256,7 +256,10 @@ const GlobalPlayer = () => {
                                                                 className={`current-songlist-card ${(trackData.id === item.id) && 'current-palying'}`}
                                                             >
 
-                                                                <img onClick={() => handleClick(item.id)} className="img-fluid current-songlist-card-img " src={item?.image[0].link} alt="album-art" />
+                                                                <img onError={({ currentTarget }) => {
+                                                                    currentTarget.onerror = null;
+                                                                    currentTarget.src = Icons.defualtImage;
+                                                                }} onClick={() => handleClick(item.id)} className="img-fluid current-songlist-card-img " src={item?.image[0].link} alt="album-art" />
                                                                 <div onClick={() => handleClick(item.id)} className="current-songlist-card-info">
                                                                     <p className="current-songlist-card-info-songName"> {ParseString(item.name)}</p>
                                                                     <p className="current-songlist-card-info-artistName">{ParseString(item?.primaryArtists)}</p>
@@ -282,7 +285,10 @@ const GlobalPlayer = () => {
                                         </div>
 
                                         <div className="tack_card-albumart text-center">
-                                            <img
+                                            <img onError={({ currentTarget }) => {
+                                                currentTarget.onerror = null;
+                                                currentTarget.src = Icons.defualtImage;
+                                            }}
                                                 src={trackData?.image[trackData?.image.length - 1]?.link}
                                                 alt={trackData?.image[trackData?.image.length - 1]?.quality}
                                                 className="img-fluid"
@@ -379,7 +385,10 @@ const GlobalPlayer = () => {
                                 </> : <>
                                     <div className="miniplayer-wrapper">
                                         <div onClick={handleClick} className="col-2 image">
-                                            <img
+                                            <img onError={({ currentTarget }) => {
+                                                currentTarget.onerror = null;
+                                                currentTarget.src = Icons.defualtImage;
+                                            }}
                                                 src={trackData?.image[0]?.link}
                                                 alt={trackData?.image[0]?.quality}
                                                 className="img-fluid albumart"

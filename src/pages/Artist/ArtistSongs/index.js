@@ -64,7 +64,6 @@ const ArtistSongs = () => {
             <div onScroll={onScrollHandler} className="songlist artist-list">
                 <div className="songlist">
                     {songs?.results?.map(item => {
-                        item.type = 'song'
                         return (
                             <>
                                 <SongStrip data={item} />

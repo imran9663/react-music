@@ -1,1 +1,107 @@
 @import "../../../utils/Styles/color.scss";
+.artist_details {
+  width: 100vw;
+  min-height: 60vh;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  .countStatus {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-around;
+    .followerCount {
+      width: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .count {
+        color: $white;
+        font-size: 1rem;
+        font-weight: 700;
+        margin: unset;
+      }
+      .follower {
+        color: $white;
+        font-size: 1rem;
+        font-weight: 400;
+        margin: unset;
+        text-transform: capitalize;
+      }
+    }
+    .vertical-bar {
+      width: 1px;
+      height: 3rem;
+      border-radius: 4px;
+      background-color: $accent-color;
+      margin: 0.25rem 0;
+    }
+  }
+  .languages {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .heading {
+      color: $white;
+      font-size: 1rem;
+      font-weight: 700;
+      margin: unset;
+    }
+    &-list {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 1rem;
+      min-height: 8rem;
+      &-wrapper {
+        position: relative;
+        &-item {
+          color: $white;
+          font-size: 0.8rem;
+          font-weight: 400;
+          margin: unset;
+          border-radius: 25px;
+          border: solid 2px $accent-color;
+          padding: 0.15rem 0.75rem;
+        }
+        svg {
+          color: #ffd700;
+          position: absolute;
+          top: -28%;
+          left: 86%;
+          transform: rotateZ(45deg);
+        }
+      }
+    }
+  }
+  .socialMedia {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+    margin-top: 2rem;
+    &-icon {
+      a {
+        cursor: pointer;
+        background-color: #b3e9b1;
+        padding: 0.5rem;
+        border-radius: 12px;
+        svg {
+          font-size: 1.5rem;
+          color: #143c12;
+        }
+      }
+    }
+  }
+}

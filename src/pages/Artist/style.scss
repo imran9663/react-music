@@ -21,10 +21,13 @@
     left: 0;
     margin: 1rem;
     border-radius: 50%;
+    // background-color: $accent-color;
+    padding: 0.5rem 0.6rem;
     svg {
-      font-size: 1.5rem;
+      font-size: 1rem;
       font-weight: 700;
-      color: $accent-color;
+      color: $white;
+      transform: translateY(-2px);
     }
   }
   &-info {
@@ -64,18 +67,12 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      .count {
+      .follow-button {
+        background-color: $accent-color;
         color: $white;
         font-size: 1rem;
         font-weight: 700;
         margin: unset;
-      }
-      .follower {
-        color: $white;
-        font-size: 1rem;
-        font-weight: 400;
-        margin: unset;
-        text-transform: capitalize;
       }
     }
   }

@@ -33,6 +33,22 @@ export const getLanguageObject = () => {
     })
     return newval
 }
+export const filterFromLanguage = (arg) => {
+    const langObj = getLanguageObject();
+    let machedLangArr = []
+    arg?.map(key => {
+        const match = langObj.filter(val => {
+            if (key.toLowerCase() === val.name.toLowerCase()) {
+                return val
+            }
+        })
+        machedLangArr = [...machedLangArr, ...match]
+
+        return
+    })
+    // console.log("machedLangArr", machedLangArr);
+    return machedLangArr
+}
 export const getSortedResposeObj = (res) => {
     let arranged = [];
     const newObj = []

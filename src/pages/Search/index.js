@@ -12,6 +12,7 @@ const Search = () => {
     const [searchedValue, setsearchedValue] = useState("")
     const [resultData, setresultData] = useState([])
     const [isLoading, setisLoading] = useState(false);
+    const [ReadOnly, setReadOnly] = useState(false)
     useEffect(() => {
         console.log("resultData", resultData)
     }, [resultData])
@@ -46,6 +47,10 @@ const Search = () => {
     const handleBlur = () => {
         console.log("call Api method");
         searchedValue != '' && getSearchedData()
+        setReadOnly(true)
+    }
+    const handleFocus = () => {
+        setReadOnly(false)
     }
     const getTopquerytype = (obj) => {
         console.log("getTopquerytype", obj);
@@ -67,7 +72,7 @@ const Search = () => {
             <div className="search_wrapper ">
                 {/* <p className='text-center text-light'>Search</p> */}
                 <div className="searchbar-wrapper">
-                    <input onBlur={handleBlur} onKeyDown={handleKeyDown} onChange={handleChange} value={searchedValue} autoFocus placeholder='search here...' type="text" className='input' name="" id="" />
+                    <input readOnly={ReadOnly} onFocus={handleFocus} onBlur={handleBlur} onKeyDown={handleKeyDown} onChange={handleChange} value={searchedValue} autoFocus placeholder='search here...' type="text" className='input' name="" id="" />
                     <button className="btn">
                         <Icons.search />
                     </button>

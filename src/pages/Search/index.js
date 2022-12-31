@@ -45,32 +45,16 @@ const Search = () => {
         }
     }
     const handleBlur = () => {
-        console.log("call Api method");
         searchedValue != '' && getSearchedData()
         setReadOnly(true)
     }
     const handleFocus = () => {
         setReadOnly(false)
     }
-    const getTopquerytype = (obj) => {
-        console.log("getTopquerytype", obj);
-        switch (obj?.results[0]?.type) {
-            case 'artist':
-                return <>
-                    <div className="artist-container">
-                        <h5 className="text-center text-capitalize text-underline text-light pb-2 ">{obj.results[0].description}</h5>
-                        <RoundCard Style={{ width: '6rem', margin: '0px ' }} imgWidth={"6rem"} item={obj.results[0]} />
-                    </div>
-                </>
-            default:
-                <MediaCard Data={obj.results[0]} />
-                break;
-        }
-    }
+
     return (
         <>
             <div className="search_wrapper ">
-                {/* <p className='text-center text-light'>Search</p> */}
                 <div className="searchbar-wrapper">
                     <input readOnly={ReadOnly} onFocus={handleFocus} onBlur={handleBlur} onKeyDown={handleKeyDown} onChange={handleChange} value={searchedValue} autoFocus placeholder='search here...' type="text" className='input' name="" id="" />
                     <button className="btn">
@@ -90,16 +74,20 @@ const Search = () => {
                                             // if (ind === 0) { return getTopquerytype(item) }
                                             return (
                                                 <>
-                                                    <h5 className='text-white searchHeading'>{item.type === 'topQuery' ? 'Top Results ' : item.type}</h5>
-                                                    <div className={`result-data ${item.type === 'songs' ? "songs" : ""}`}>
-                                                        {
-                                                            item?.results.map((val) => {
-                                                                return (
-                                                                    <MediaCard Data={val} />
-                                                                )
-                                                            })
-                                                        }
-                                                    </div>
+                                                    {item?.results.length > 0 &&
+                                                        <>
+                                                            <h5 className='text-white searchHeading'>{item.type === 'topQuery' ? 'Top Results ' : item.type}</h5>
+                                                            <div className={`result-data ${item.type === 'songs' ? "songs" : ""}`}>
+                                                                {
+                                                                    item?.results.map((val) => {
+                                                                        return (
+                                                                            <MediaCard Data={val} />
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </div>
+                                                        </>
+                                                    }
                                                 </>
                                             )
                                         })

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes } from 'react-router'
 import './App.scss'
 import Account from './pages/Account'
@@ -16,6 +16,15 @@ import ArtistSongs from './pages/Artist/ArtistSongs'
 import ArtistAlbums from './pages/Artist/ArtistAlbums'
 
 const App = () => {
+  useEffect(() => {
+
+    // let elem = document.documentElement;
+    // elem.requestFullscreen({ navigationUI: "show" }).then(() => { }).catch((err) => {
+    //   alert(`An error occurred while trying to switch into fullscreen mode: ${err.message} (${err.name})`);
+    //   console.log("fullscreen err", JSON.parse(err));
+    // });
+  }, [])
+
   return (
     <>
 

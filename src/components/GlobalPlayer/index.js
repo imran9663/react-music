@@ -202,7 +202,8 @@ const GlobalPlayer = () => {
                         autoPlay
                         loop={isLoopOn}
                         ref={audioRef}
-                        src={trackData?.downloadUrl[trackData?.downloadUrl.length - 1]?.link}
+
+                        src={trackData?.downloadUrl[trackData?.downloadUrl?.length - 1]?.link}
                         type="audio/mp4"
                         preload="metadata"
                         controls

@@ -307,7 +307,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 0px 0 2rem 0;
+    margin: 0px 0 1rem 0;
     .timings {
       width: 100%;
       display: flex;
@@ -315,7 +315,7 @@
       justify-content: space-between;
       align-items: center;
       .time {
-        font-size: 1rem;
+        font-size: 0.5rem;
         color: #ffffff84;
         margin: unset;
         padding: 0 0.5rem;
@@ -339,7 +339,7 @@
       }
     }
     svg {
-      font-size: 2rem;
+      font-size: 1.5rem;
       color: #ffffff84;
     }
   }

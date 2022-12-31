@@ -12,6 +12,7 @@ import './style.scss'
 import { ParseString, getNamefromArray } from '../../utils'
 import RoundCard from '../../components/RoundCard'
 import topArtist from '../../utils/data/index.json'
+import SongStrip from '../../components/SongStrip'
 const Home = () => {
     const [isLoading, setisLoading] = useState(false)
     const [HomePageData, setHomePageData] = useState({
@@ -70,26 +71,7 @@ const Home = () => {
                             <div className="homepage-songlist mx-3">
                                 {HomePageData?.trenadingSongs.map(item => {
                                     return (
-                                        <>
-                                            <div key={item?.id} className="homepage-songlist-card">
-                                                <img onError={({ currentTarget }) => {
-                                                    currentTarget.onerror = null;
-                                                    currentTarget.src = Icons.defualtImage;
-                                                }} onClick={() => handleClick(item?.id)} className="img-fluid homepage-songlist-card-img " src={item?.image[1].link} alt="album-art" />
-                                                <div onClick={() => handleClick(item?.id)} className="homepage-songlist-card-info">
-                                                    <p className="homepage-songlist-card-info-songName"> {ParseString(item?.name)}</p>
-                                                    <p className="homepage-songlist-card-info-artistName">{getNamefromArray(item?.primaryArtists)}</p>
-                                                </div>
-                                                <div className="homepage-songlist-card-controls">
-                                                    <button onClick={() => handlePlaySong(item)} className='btn homepage-songlist-card-controls-btn '>
-                                                        <Icons.BsPlayFill />
-                                                    </button>
-                                                    <button className='btn homepage-songlist-card-controls-btn'>
-                                                        <Icons.BsThreeDotsVertical />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </>
+                                        <SongStrip data={item} />
                                     )
                                 })}
                             </div>

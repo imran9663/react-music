@@ -202,7 +202,6 @@ const GlobalPlayer = () => {
                         autoPlay
                         loop={isLoopOn}
                         ref={audioRef}
-
                         src={trackData?.downloadUrl[trackData?.downloadUrl?.length - 1]?.link}
                         type="audio/mp4"
                         preload="metadata"
@@ -245,7 +244,6 @@ const GlobalPlayer = () => {
                                                 <button onClick={() => { togglePlayList() }} className="btn">
                                                     <Icons.AiOutlineCloseCircle />
                                                 </button>
-
                                             </div>
                                             <div className="current-songlist">
                                                 {trackDataList?.map(item => {
@@ -253,7 +251,6 @@ const GlobalPlayer = () => {
                                                         <>
                                                             <div id={item?.id}
                                                                 key={item?.id}
-
                                                                 className={`current-songlist-card ${(trackData.id === item.id) && 'current-palying'}`}
                                                             >
 

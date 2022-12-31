@@ -1,6 +1,6 @@
 @import "../../utils/Styles/color.scss";
 
-.songlist {
+.homepage-songlist {
   display: flex;
   flex-direction: column;
   padding: 0.25rem;
@@ -29,8 +29,9 @@
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
+      gap: 0.15rem;
       &-songName {
-        font-size: 1.2rem;
+        font-size: 0.8rem;
         font-weight: 500;
         font-style: normal;
         color: $white;
@@ -42,7 +43,7 @@
         text-overflow: ellipsis;
       }
       &-artistName {
-        font-size: 0.8em;
+        font-size: 0.4rem;
         font-weight: 400;
         font-style: normal;
         color: $white;
@@ -78,12 +79,17 @@
   overflow-y: hidden;
   display: flex;
   flex-direction: row;
+  justify-content: center;
   flex-wrap: nowrap;
+  gap: 1rem;
   .btn {
-    min-width: 5rem;
-    font-size: 1rem;
+    min-width: fit-content;
+    font-size: 0.75rem;
+
     svg {
       color: #ffffff;
+      font-size: 1rem;
+      transform: translate(5px, -1px);
     }
   }
 }

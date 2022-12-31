@@ -23,7 +23,7 @@ const RoundCard = ({ item, Style, imgWidth }) => {
                         currentTarget.onerror = null;
                         currentTarget.src = Icons.defualtImage;
                     }} style={{ width: imgWidth }} src={getCorrectSrc(item.image)} alt="artist" className="img-fluid rounded-circle" />
-                <p className="text-center text-light">
+                <p className="text-center text-light text-truncate">
                     {item?.name ? item?.name : item?.title}
                 </p>
             </div>

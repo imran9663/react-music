@@ -13,6 +13,7 @@
   justify-content: start;
   padding: 1rem 0.5rem;
   align-items: center;
+  padding-bottom: 5rem;
   p {
     font-size: 1rem;
   }
@@ -23,17 +24,19 @@
     justify-content: space-between;
     align-items: center;
     border: solid $grey-80 2px;
-    margin-bottom: 5rem;
     .input {
       border: unset;
       outline: unset;
       background: $grey-80;
       height: 2.5rem;
       flex: 1;
-      color: $white;
+      color: $accent-color;
       padding: 0 0.5rem;
-      font-size: 1.2rem;
+      font-size: 1rem;
       text-transform: capitalize;
+      ::placeholder {
+        color: $accent-color-border;
+      }
     }
     .btn {
       svg {

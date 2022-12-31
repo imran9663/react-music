@@ -111,6 +111,9 @@ const Search = () => {
                     }
                 </div>
             </div>
+            <div className="p-4">
+                <div className="null opacity-0"></div>
+            </div>
             <Toaster
                 position="bottom-center"
                 reverseOrder={true}

@@ -15,6 +15,18 @@
     object-fit: cover;
     z-index: 1;
   }
+  .back-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 1rem;
+    border-radius: 50%;
+    svg {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: $accent-color;
+    }
+  }
   &-info {
     position: absolute;
     top: 0;

@@ -9,7 +9,7 @@ import { Icons } from '../../assets/Icons'
 import { setLocalPlayListData } from '../../Redux/Reducers/PlayList-slice'
 import { useDispatch } from 'react-redux'
 import './style.scss'
-import { getNamefromArray } from '../../utils'
+import { ParseString, getNamefromArray } from '../../utils'
 import RoundCard from '../../components/RoundCard'
 import topArtist from '../../utils/data/index.json'
 const Home = () => {
@@ -67,24 +67,24 @@ const Home = () => {
                     <h5 className='text-light  mx-3 text-capitalize'>Songs</h5>
                     {isLoading ? <SlideLoader /> :
                         <>
-                            <div className="songlist mx-3">
+                            <div className="homepage-songlist mx-3">
                                 {HomePageData?.trenadingSongs.map(item => {
                                     return (
                                         <>
-                                            <div key={item?.id} className="songlist-card">
+                                            <div key={item?.id} className="homepage-songlist-card">
                                                 <img onError={({ currentTarget }) => {
                                                     currentTarget.onerror = null;
                                                     currentTarget.src = Icons.defualtImage;
-                                                }} onClick={() => handleClick(item?.id)} className="img-fluid songlist-card-img " src={item?.image[1].link} alt="album-art" />
-                                                <div onClick={() => handleClick(item?.id)} className="songlist-card-info">
-                                                    <p className="songlist-card-info-songName"> {item?.name}</p>
-                                                    <p className="songlist-card-info-artistName">{getNamefromArray(item?.primaryArtists)}</p>
+                                                }} onClick={() => handleClick(item?.id)} className="img-fluid homepage-songlist-card-img " src={item?.image[1].link} alt="album-art" />
+                                                <div onClick={() => handleClick(item?.id)} className="homepage-songlist-card-info">
+                                                    <p className="homepage-songlist-card-info-songName"> {ParseString(item?.name)}</p>
+                                                    <p className="homepage-songlist-card-info-artistName">{getNamefromArray(item?.primaryArtists)}</p>
                                                 </div>
-                                                <div className="songlist-card-controls">
-                                                    <button onClick={() => handlePlaySong(item)} className='btn songlist-card-controls-btn '>
+                                                <div className="homepage-songlist-card-controls">
+                                                    <button onClick={() => handlePlaySong(item)} className='btn homepage-songlist-card-controls-btn '>
                                                         <Icons.BsPlayFill />
                                                     </button>
-                                                    <button className='btn songlist-card-controls-btn'>
+                                                    <button className='btn homepage-songlist-card-controls-btn'>
                                                         <Icons.BsThreeDotsVertical />
                                                     </button>
                                                 </div>
@@ -129,7 +129,9 @@ const Home = () => {
                         <MusicSlider data={HomePageData?.playlists} />}
                 </section>
             </div>
-            <div className="h-10"></div>
+            <div className="p-5 m-5">
+                <div className="null opacity-0"></div>
+            </div>
         </>
     )
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './style.scss';
-import { NavLink, Outlet, useLocation, useParams } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import axiosInstence from '../../apis/Base';
 import { configURL } from '../../apis/Base/config';
 import axios from 'axios';
@@ -81,6 +81,7 @@ const Artist = () => {
     useEffect(() => {
         setid(getHashFromURl())
     }, [])
+    const navigate = useNavigate()
     useEffect(() => {
         id !== '' && createArtistDetails()
     }, [id])
@@ -107,6 +108,9 @@ const Artist = () => {
             <div className="artistPage">
                 <img className='img-fluid artistPage-img' src={getCorrectSrc(artist.details.image)} alt="" />
                 <div className="artistPage-info">
+                    <div onClick={() => { navigate(-1) }} className="back-icon ">
+                        <Icons.BsArrowLeft />
+                    </div>
                     <div className="row main-info">
                         <h3 className="text-left text-white name">
                             {artist.details.name} <span> <Icons.GoVerified /></span>

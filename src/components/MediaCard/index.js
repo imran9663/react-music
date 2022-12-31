@@ -41,7 +41,7 @@ const MediaCard = ({ Data, type }) => {
         }
             {(Data.type === 'song') &&
                 <>
-                    <div onClick={handleClick} className="songCard">
+                    <div onClick={handleClick} className="songCard ">
                         <img onError={({ currentTarget }) => {
                             currentTarget.onerror = null;
                             currentTarget.src = Icons.defualtImage;

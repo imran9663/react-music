@@ -12,7 +12,7 @@ export const getNamefromArray = (arr) => {
     arr.map(_ => {
         name.push(_.name)
     })
-    return name.toString()
+    return ParseString(name.toString())
 }
 
 export const getLanguageObject = () => {

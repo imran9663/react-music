@@ -1,17 +1,25 @@
 @import "../../utils/Styles/color.scss";
 
 .round-wrapper {
-  // min-width: 7rem;
-  // min-height: 7rem;
+  min-width: 9rem;
+  min-height: 9rem;
   width: auto;
   height: auto;
-  margin: 1rem 2rem 0 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
   p {
     font-size: 1rem;
     padding-top: 0.5rem;
     font-weight: 600;
   }
   img {
+    width: 7rem;
+    height: 7rem;
+    object-fit: cover;
+
     border: solid 2px transparent;
     outline: solid 4px $accent-color;
   }

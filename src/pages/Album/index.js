@@ -9,6 +9,7 @@ import Loader from '../../components/Loader/Index'
 import { useDispatch, useSelector } from 'react-redux'
 import { setLocalPlayListData, currentPlaylist } from '../../Redux/Reducers/PlayList-slice'
 import { ParseString } from '../../utils'
+import SongStrip from '../../components/SongStrip'
 const Album = () => {
     const { id } = useParams()
     const navigate = useNavigate()
@@ -98,24 +99,7 @@ const Album = () => {
                                 {playlistData.songs.map(item => {
                                     return (
                                         <>
-                                            <div key={item.id} className="songlist-card">
-                                                <img onError={({ currentTarget }) => {
-                                                    currentTarget.onerror = null;
-                                                    currentTarget.src = Icons.defualtImage;
-                                                }} onClick={() => handleClick(item.id)} className="img-fluid songlist-card-img " src={item?.image[1].link} alt="album-art" />
-                                                <div onClick={() => handleClick(item.id)} className="songlist-card-info">
-                                                    <p className="songlist-card-info-songName"> {item.name}</p>
-                                                    <p className="songlist-card-info-artistName">{item?.primaryArtists}</p>
-                                                </div>
-                                                <div className="songlist-card-controls">
-                                                    <button onClick={() => handlePlaySong(item)} className='btn songlist-card-controls-btn '>
-                                                        <Icons.BsPlayFill />
-                                                    </button>
-                                                    <button className='btn songlist-card-controls-btn'>
-                                                        <Icons.BsThreeDotsVertical />
-                                                    </button>
-                                                </div>
-                                            </div>
+                                            <SongStrip data={item} />
                                         </>
                                     )
                                 })}

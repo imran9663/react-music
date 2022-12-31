@@ -1,9 +1,9 @@
 @import " ../../../../utils/Styles/color.scss";
 
 .search_wrapper {
-  min-height: 100vh;
+  min-height: 85vh;
   min-width: 100vw;
-  max-height: 100vh;
+  max-height: 90vh;
   max-width: 100vw;
   overflow-x: hidden;
   height: auto;
@@ -18,12 +18,14 @@
     font-size: 1rem;
   }
   .searchbar-wrapper {
-    width: 100%;
-    border-radius: 4px;
+    width: 90%;
+    border-radius: 1.5rem;
+    border: 1px red solid;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: solid $grey-80 2px;
+    border: solid #4a4a4a 2px;
+
     .input {
       border: unset;
       outline: unset;
@@ -33,6 +35,8 @@
       color: $accent-color;
       padding: 0 0.5rem;
       font-size: 1rem;
+      border-top-left-radius: 1.5rem;
+      border-bottom-left-radius: 1.5rem;
       text-transform: capitalize;
       ::placeholder {
         color: $accent-color-border;

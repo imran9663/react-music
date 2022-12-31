@@ -26,14 +26,15 @@ const SongStrip = ({ data }) => {
                     <p className="homepage-songlist-card-info-songName"> {ParseString(data?.name)}</p>
                     <p className="homepage-songlist-card-info-artistName">{getNamefromArray(data?.primaryArtists)}</p>
                 </div>
-                <div className="homepage-songlist-card-controls">
-                    {data?.downloadUrl?.length > 0 && <button onClick={() => handlePlaySong(data)} className='btn homepage-songlist-card-controls-btn '>
-                        <Icons.BsPlayFill />
-                    </button>}
-                    <button className='btn homepage-songlist-card-controls-btn'>
-                        <Icons.BsThreeDotsVertical />
-                    </button>
-                </div>
+                {data?.downloadUrl?.length > 0 &&
+                    <div className="homepage-songlist-card-controls">
+                        <button onClick={() => handlePlaySong(data)} className='btn homepage-songlist-card-controls-btn '>
+                            <Icons.BsPlayFill />
+                        </button>
+                        <button className='btn homepage-songlist-card-controls-btn'>
+                            <Icons.BsThreeDotsVertical />
+                        </button>
+                    </div>}
             </div>
         </>
     )

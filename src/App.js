@@ -36,10 +36,10 @@ const App = () => {
           <Route path={RouteStrings.search} element={<Search />} />
           <Route path={RouteStrings.account} element={<Account />} />
           <Route path={RouteStrings.song + ':id'} element={<Song />} />
-          <Route path={RouteStrings.artist} element={<Artist />} >
-            <Route path={RouteStrings.artistDetails} element={<ArtistDetails />} />
-            <Route path={RouteStrings.artistSongs} element={<ArtistSongs />} />
-            <Route path={RouteStrings.artistAlbums} element={<ArtistAlbums />} />
+          <Route path={RouteStrings.artist + ':id'} element={<Artist />} >
+            <Route path={RouteStrings.artist + ':id' + RouteStrings.artistDetails} element={<ArtistDetails />} />
+            <Route path={RouteStrings.artist + ':id' + RouteStrings.artistSongs} element={<ArtistSongs />} />
+            <Route path={RouteStrings.artist + ':id' + RouteStrings.artistAlbums} element={<ArtistAlbums />} />
           </Route>
         </Route>
         <Route path={RouteStrings.noNetwork} element={<NoNetwork />} />

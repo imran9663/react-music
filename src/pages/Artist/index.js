@@ -3,14 +3,16 @@ import './style.scss';
 import { NavLink, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import axiosInstence from '../../apis/Base';
 import { configURL } from '../../apis/Base/config';
+import { getRequest } from '../../apis/Base/serviceMethods';
 import axios from 'axios';
 import { Toaster, toast } from 'react-hot-toast';
 import { getCorrectSrc, nFormatter } from '../../utils';
 import { Icons } from '../../assets/Icons';
 import RouteStrings from '../../utils/RouteStrings';
+
 const Artist = () => {
-    const location = useLocation();
-    const [id, setid] = useState('')
+    const params = useParams();
+
     const [artist, setartist] = useState({
         details: {
             "id": "459320",
@@ -75,33 +77,23 @@ const Artist = () => {
             ],
             "isRadioPresent": true
         },
-        sonngs: {},
-        albums: {},
     })
     useEffect(() => {
-        setid(getHashFromURl())
+
+        params.id !== '' && createArtistDetails(params.id)
     }, [])
     const navigate = useNavigate()
-    useEffect(() => {
-        id !== '' && createArtistDetails()
-    }, [id])
+
     const page = 1;
-    const getHashFromURl = () => window.location.hash.replace("#", '')
-    const createArtistDetails = async () => {
-
-        const requestOne = axiosInstence.get(configURL.artist + `?id=${id}`,)
-        const requestTwo = axiosInstence.get(configURL.artist + `/${id}/songs?page=${page}`)
-        const requestThree = axiosInstence.get(configURL.artist + `/${id}/albums?page=${page}`)
-
-        axios.all([requestOne, requestTwo, requestThree]).then(axios.spread((...responses) => {
-            const responseOne = responses[0]
-            const responseTwo = responses[1]
-            const responesThree = responses[2]
-            setartist({ ...artist, details: responseOne.data.data })
-            console.log("resp", responseOne, responseTwo, responesThree);
-        })).catch(errors => {
-            toast.error("😥someting went wrog");
-        })
+    // const getHashFromURl = () => window.location.hash.replace("#", '')
+    const createArtistDetails = async (id) => {
+        await getRequest(configURL.artist + `?id=${id}`)
+            .then(res => {
+                setartist({ ...artist, details: res.data.data })
+            })
+            .catch(errors => {
+                toast.error("😥someting went wrog");
+            })
     }
     return (
         <>
@@ -130,14 +122,13 @@ const Artist = () => {
                 </div>
             </div>
             <div className="navbar">
-                <NavLink index to={RouteStrings.artistDetails}
+                <NavLink index to={RouteStrings.artist + params.id + RouteStrings.artistDetails}
                     className={({ isActive }) =>
                         isActive ? "navbar-link active" : 'navbar-link'
                     }
-
                 > Details</NavLink>
-                <NavLink to={RouteStrings.artistSongs} className="navbar-link"> Songs</NavLink>
-                <NavLink to={RouteStrings.artistAlbums} className="navbar-link"> Albums</NavLink>
+                <NavLink to={RouteStrings.artist + params.id + RouteStrings.artistSongs} className="navbar-link"> Songs</NavLink>
+                <NavLink to={RouteStrings.artist + params.id + RouteStrings.artistAlbums} className="navbar-link"> Albums</NavLink>
             </div>
             <Outlet />
             <Toaster position='bottom' />

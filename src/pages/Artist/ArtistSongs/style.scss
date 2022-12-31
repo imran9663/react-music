@@ -1,1 +1,15 @@
 @import "../../../utils/Styles/color.scss";
+.artist-list {
+  width: 100vw;
+  height: 50vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.go-back-btn {
+  color: $white;
+  background: $accent-color;
+  svg {
+    color: $white;
+    font-size: 1rem;
+  }
+}

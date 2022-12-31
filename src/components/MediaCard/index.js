@@ -4,7 +4,7 @@ import RouteStrings from '../../utils/RouteStrings'
 import './style.scss'
 import { getCorrectSrc } from '../../utils'
 import { Icons } from '../../assets/Icons'
-const MediaCard = ({ Data, type }) => {
+const MediaCard = ({ Data, Style, ImgStyle }) => {
     const navigate = useNavigate()
     const handleClick = () => {
         switch ((Data.type).toLowerCase()) {
@@ -18,19 +18,18 @@ const MediaCard = ({ Data, type }) => {
                 navigate(RouteStrings.song + Data.id)
                 break;
             case 'artist':
-                navigate(RouteStrings.artist + "#" + Data.id)
+                navigate(RouteStrings.artist + Data.id)
                 break;
             default:
                 console.log("cannot find type ");
                 break;
         }
     }
-
     return (
         <>{
             (Data.type === 'playlist' || Data.type === 'album') &&
-            <div onClick={handleClick} className={`albumCard ${Data.type === 'playlist' && 'playlist'}`}>
-                <img onError={({ currentTarget }) => {
+            <div style={Style} onClick={handleClick} className={`albumCard ${Data.type === 'playlist' && 'playlist'}`}>
+                <img style={ImgStyle} onError={({ currentTarget }) => {
                     currentTarget.onerror = null;
                     currentTarget.src = Icons.defualtImage;
                 }} className="albumCard-img-top" src={getCorrectSrc(Data.image)} alt='albumart' />

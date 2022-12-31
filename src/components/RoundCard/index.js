@@ -9,9 +9,9 @@ const RoundCard = ({ item, Style, imgWidth }) => {
     const handleClick = () => {
         console.log("RoundCard handle click",);
         if (item.artistid) {
-            navigate(RouteStrings.artist + "#" + item.artistid)
+            navigate(RouteStrings.artist + item.artistid)
         } else if (item.id) {
-            navigate(RouteStrings.artist + "#" + item.id)
+            navigate(RouteStrings.artist + item.id)
         }
     }
 

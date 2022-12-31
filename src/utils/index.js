@@ -8,11 +8,15 @@ export const StringToNum = (arg) => {
 }
 
 export const getNamefromArray = (arr) => {
-    const name = []
-    arr.map(_ => {
-        name.push(_.name)
-    })
-    return ParseString(name.toString())
+    if (typeof arr === 'object') {
+        const name = []
+        arr?.map(_ => {
+            name.push(_?.name)
+        })
+        return ParseString(name.toString())
+    }
+    else { return ParseString(arr) }
+
 }
 
 export const getLanguageObject = () => {

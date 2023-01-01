@@ -33,7 +33,7 @@ const Home = () => {
     const handlePlaySong = (songData) => {
         dispatch(setLocalPlayListData(songData))
     }
-    const languages = ['kannada', 'hindi']
+    const languages = ['hindi', 'kannada']
     const getHomePageData = async () => {
         setisLoading(true)
         await getRequest(configURL.homePage + languages).then(res => {

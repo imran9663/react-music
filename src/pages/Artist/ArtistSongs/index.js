@@ -67,8 +67,6 @@ const ArtistSongs = () => {
                         return (
                             <>
                                 <SongStrip data={item} />
-                                {/* <MediaCard Data={item} /> */}
-
                             </>
                         )
                     })}

@@ -234,42 +234,76 @@
     transform: translateX(0vw);
     transition: all 0.2s ease;
   }
-  &-albumart {
-    margin-top: 2rem;
-    // flex: 1;
-    width: 100%;
-    border-radius: 12px;
+  &-details {
+    position: relative;
     overflow: hidden;
+    &-albumart {
+      margin-top: 2rem;
+      // flex: 1;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      img {
+        width: 15rem;
+        height: 15rem;
+        box-shadow: rgba(114, 114, 114, 0.25) 0px 54px 55px,
+          rgba(114, 114, 114, 0.12) 0px -12px 30px,
+          rgba(114, 114, 114, 0.12) 0px 4px 6px,
+          rgba(114, 114, 114, 0.17) 0px 12px 13px,
+          rgba(0, 0, 0, 0.09) 0px -3px 5px;
+      }
+    }
+    &-info {
+      margin-top: 2rem;
+      width: 100%;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .tack-name {
+        width: 80%;
+        color: $white;
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+      .tack-album-name {
+        width: 80%;
+        color: $white;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+    }
+    &-textTrack {
+      width: 100%;
+      height: 100%;
+      transition: all 0.2s ease;
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 1rem;
+      transform: translateY(100%);
 
-    img {
-      width: 15rem;
-      height: 15rem;
-      box-shadow: rgba(114, 114, 114, 0.25) 0px 54px 55px,
-        rgba(114, 114, 114, 0.12) 0px -12px 30px,
-        rgba(114, 114, 114, 0.12) 0px 4px 6px,
-        rgba(114, 114, 114, 0.17) 0px 12px 13px,
-        rgba(0, 0, 0, 0.09) 0px -3px 5px;
+      &-lyrics {
+        font-weight: 400;
+        font-size: 1.375rem;
+        word-break: break-word;
+        line-height: 186.75%;
+        text-align: center;
+        color: $white;
+      }
     }
-  }
-  &-info {
-    margin-top: 2rem;
-    width: 100%;
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    .tack-name {
-      width: 80%;
-      color: $white;
-      font-size: 1.2rem;
-      font-weight: 600;
-    }
-    .tack-album-name {
-      width: 80%;
-      color: $white;
-      font-size: 0.8rem;
-      font-weight: 600;
+    .track-active {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      transition: all 0.2s ease;
+      background: rgba(30, 30, 30, 0.25);
+      box-shadow: 0 8px 12px 0 rgba(66, 67, 67, 0.37);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      transform: translateY(0);
     }
   }
   &-media-icons {
@@ -277,6 +311,7 @@
     display: flex;
     margin-top: 0.5rem;
     flex-direction: row;
+    gap: 1.5rem;
     justify-content: space-between;
     align-items: center;
     .btn {
@@ -294,6 +329,31 @@
       svg {
         font-size: 1.2rem;
         color: #ffffff84;
+      }
+    }
+    .lyrics {
+      width: 80%;
+      flex: 1;
+      border-radius: 4px;
+      padding: 0.25rem;
+      border: solid #ffffff84 1px;
+      &:active {
+        border: unset;
+        outline: unset;
+        border-radius: unset;
+        padding: 0.25rem;
+      }
+      svg {
+        font-size: 0.75rem;
+        transform: rotateZ(180deg);
+      }
+      .text-headeing {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 0.8rem;
+        line-height: 27px;
+        color: #ffffff84;
+        margin: unset;
       }
     }
     .loop-active {

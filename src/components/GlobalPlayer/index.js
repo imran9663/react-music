@@ -10,6 +10,8 @@ import SpotLoader from "../Loader/SpotLoader";
 import "../SeekBar/style.scss";
 import "./style.scss";
 import PlayingAnime from "../Loader/PlayingAnime";
+import { getRequest } from "../../apis/Base/serviceMethods";
+import { configURL } from "../../apis/Base/config";
 
 
 const GlobalPlayer = () => {
@@ -36,6 +38,10 @@ const GlobalPlayer = () => {
 
     const [isMegaPlayerON, setisMegaPlayerON] = useState(false);
     const [isLoopOn, setisLoopOn] = useState(false);
+    const [ShowLyrics, setShowLyrics] = useState({
+        state: false,
+        data: {}
+    });
     const [isTrackLoading, setisTrackLoading] = useState(false)
     const [OpenPlaylist, setOpenPlaylist] = useState(false);
     const [playerState, setplayerState] = useState({
@@ -49,11 +55,17 @@ const GlobalPlayer = () => {
 
     useEffect(() => {
         LoadTrackandPlay()
-        // audioRef?.current?.addEventListener('canplay', DummyFn)
-        // return (() => {
-        //     audioRef?.current?.removeEventListener('canplay', DummyFn)
-        // })
+        getSongLyrics()
     }, [currenttrackDetails.songIndex])
+    const getSongLyrics = async () => {
+        if (currenttrackDetails.data.hasLyrics === "true") {
+            await getRequest(configURL.lyrics + currenttrackDetails.data.id).then(res => {
+                setShowLyrics({ ...ShowLyrics, data: res.data.data })
+            }).catch(err => {
+                toast.error("somting went wrong ")
+            })
+        }
+    }
     const DummyFn = () => {
         console.log("CAN PLAY TRACK");
     }
@@ -194,6 +206,7 @@ const GlobalPlayer = () => {
             dispatch(removeTrackFromPlayList(id))
         }
     }
+
     return (
         <>
             {trackData.id ?
@@ -281,40 +294,45 @@ const GlobalPlayer = () => {
 
                                             </div>
                                         </div>
-
-                                        <div className="tack_card-albumart text-center">
-                                            <img onError={({ currentTarget }) => {
-                                                currentTarget.onerror = null;
-                                                currentTarget.src = Icons.defualtImage;
-                                            }}
-                                                src={trackData?.image[trackData?.image.length - 1]?.link}
-                                                alt={trackData?.image[trackData?.image.length - 1]?.quality}
-                                                className="img-fluid"
-                                            />
-                                        </div>
-                                        <div className="tack_card-info  text-center">
-                                            <h4 className="tack-name text-center text-truncate ">{ParseString(trackData?.name)}</h4>
-                                            <h5
-                                                className="tack-album-name text-center text-underline  text-truncate "
-                                                onClick={() => {
-                                                    setisMegaPlayerON(!isMegaPlayerON);
-                                                    handleNaviagteToAblum(trackData?.album?.id);
+                                        <div className="tack_card-details">
+                                            <div className="tack_card-details-albumart text-center">
+                                                <img onError={({ currentTarget }) => {
+                                                    currentTarget.onerror = null;
+                                                    currentTarget.src = Icons.defualtImage;
                                                 }}
-                                            >
-                                                Album <span>
-                                                    <Icons.BsHeadphones />&nbsp;{trackData?.playCount}
-                                                </span>
-                                            </h5>
-                                            <h5
-                                                className="tack-album-name text-center text-underline  text-truncate "
-                                            // onClick={() => {
-                                            //     setisMegaPlayerON(!isMegaPlayerON);
-                                            //     handleNaviagteToAblum(trackData?.album?.id);
-                                            // }}
-                                            >
-                                                {ParseString(trackData?.primaryArtists)}
-                                            </h5>
+                                                    src={trackData?.image[trackData?.image.length - 1]?.link}
+                                                    alt={trackData?.image[trackData?.image.length - 1]?.quality}
+                                                    className="img-fluid"
+                                                />
+                                            </div>
+                                            <div className="tack_card-details-info  text-center">
+                                                <h4 className="tack-name text-center text-truncate ">{ParseString(trackData?.name)}</h4>
+                                                <h5
+                                                    className="tack-album-name text-center text-underline  text-truncate "
+                                                    onClick={() => {
+                                                        setisMegaPlayerON(!isMegaPlayerON);
+                                                        handleNaviagteToAblum(trackData?.album?.id);
+                                                    }}
+                                                >
+                                                    Album <span>
+                                                        <Icons.BsHeadphones />&nbsp;{trackData?.playCount}
+                                                    </span>
+                                                </h5>
+                                                <h5
+                                                    className="tack-album-name text-center text-underline  text-truncate "
+                                                // onClick={() => {
+                                                //     setisMegaPlayerON(!isMegaPlayerON);
+                                                //     handleNaviagteToAblum(trackData?.album?.id);
+                                                // }}
+                                                >
+                                                    {ParseString(trackData?.primaryArtists)}
+                                                </h5>
 
+                                            </div>
+                                            <div className={`tack_card-details-textTrack ${ShowLyrics.state && 'track-active'} text-center`}>
+                                                <h4 className="tack_card-details-textTrack-lyrics">{ShowLyrics.data?.lyrics}</h4>
+                                                <p className="text-muted">{ShowLyrics.data?.copyright}</p>
+                                            </div>
                                         </div>
                                         <div className="tack_card-media-icons">
                                             <button onClick={() => { handlePlayerState(Constants.isMute, playerState.isMute) }} className="btn">
@@ -327,9 +345,16 @@ const GlobalPlayer = () => {
                                             <button onClick={() => { handlePlayerState(Constants.isFavourite, playerState.isFavourite) }} className="btn">
                                                 {playerState.isFavourite ? <Icons.BsHeartFill color='#ff0000' /> : <Icons.BsHeart />}
                                             </button>
-                                            <div className="btn dummy"></div>
-                                            <div className="btn dummy"></div>
-                                            <div className="btn dummy"></div>
+                                            {trackData.hasLyrics === 'true' ? <div onClick={() => {
+                                                setShowLyrics({ ...ShowLyrics, state: !ShowLyrics.state })
+                                            }} className="btn lyrics">
+                                                {/* <Icons.BsChevronDoubleDown /> */}
+                                                <p className="text-headeing">
+                                                    Lyrics
+                                                </p>
+                                            </div> :
+                                                <div className="btn dummy px-5"></div>
+                                            }
                                             <button onClick={() => {
                                                 setisLoopOn(!isLoopOn)
                                             }} className={`btn ${isLoopOn ? 'loop-active' : ''}`} >

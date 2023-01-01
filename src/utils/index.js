@@ -1,3 +1,6 @@
+import { gradient } from "./data/inex"
+
+
 export const ParseString = (arg) => {
     let text = arg?.replace(/&quot;/g, '"')
     return text?.replace(/&amp;/g, '&')
@@ -16,6 +19,9 @@ export const getNamefromArray = (arr) => {
     }
     else { return ParseString(arr) }
 
+}
+export const getRandomGradients = () => {
+    return `linear-gradient( ${gradient[Math.floor((Math.random() * gradient.length))].key})`;
 }
 
 export const getLanguageObject = () => {

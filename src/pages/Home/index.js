@@ -54,10 +54,16 @@ const Home = () => {
     const artistLength = 7
     return (
         <>
-            <div className="mt-5">
-                <section className='mb-3 '>
-                    <h2 className='text-light mx-3 text-capitalize'>Trending</h2>
-                    <h5 className='text-light mx-3 text-capitalize'>albums</h5>
+            <div className="homewrapper">
+                <section>
+                    <div className="banner">
+                        <div className="hello">Hello <span>Imran</span></div>
+                    </div>
+                    <div className="trendingWrapper">
+                        <h2 className='text-light  text-capitalize trending'>Trending</h2>
+                        <div id="curved-corner-topleft"></div>
+                    </div>
+                    <h5 className='text-light mt-3 mx-3 text-capitalize'>albums</h5>
                     {isLoading ? <SlideLoader /> :
                         <>
                             <div className="m-3">

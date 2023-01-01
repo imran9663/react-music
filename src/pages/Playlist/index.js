@@ -5,7 +5,6 @@ import { configURL } from "../../apis/Base/config";
 import "./style.scss";
 import { Icons } from "../../assets/Icons";
 import RouteStrings from "../../utils/RouteStrings";
-import Loader from "../../components/Loader/Index";
 import { useDispatch, useSelector } from "react-redux";
 import {
     setLocalPlayListData,
@@ -13,6 +12,8 @@ import {
 } from "../../Redux/Reducers/PlayList-slice";
 import { Toaster, toast } from "react-hot-toast";
 import SongStrip from "../../components/SongStrip";
+import SongStripeLoader from "../../components/Loader/SongStripeLoader";
+import BannerLoader from "../../components/Loader/BannerLoader";
 const PlayList = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -54,9 +55,17 @@ const PlayList = () => {
     return (
         <>
             {isLoading ? (
-                <h2 className="text-light">
-                    <Loader />
-                </h2>
+                <>
+                    <BannerLoader />
+                    <br />
+                    <br />
+                    <br />
+                    <SongStripeLoader />
+                    <SongStripeLoader />
+                    <SongStripeLoader />
+                    <SongStripeLoader />
+                </>
+
             ) : (
                 <div className=" d-flex flex-column playlist-container">
                     {Object.keys(playlistData).length > 0 && (

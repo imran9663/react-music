@@ -183,3 +183,70 @@
     opacity: 1;
   }
 }
+
+///
+.songpage-loader {
+  width: 100vw;
+  height: 215px;
+  display: block;
+  margin: auto;
+  position: relative;
+  background: #1e1e1e;
+  box-sizing: border-box;
+}
+.songpage-loader::after {
+  content: "";
+  width: calc(100% - 30px);
+  height: calc(100% - 30px);
+  top: 15px;
+  left: 15px;
+  position: absolute;
+  background-image: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.5) 50%,
+      transparent 100%
+    ),
+    radial-gradient(circle 50px, #ddd 100%, transparent 0),
+    linear-gradient(#ddd 16px, transparent 0),
+    linear-gradient(#ddd 24px, transparent 0);
+  background-repeat: no-repeat;
+  background-size: 75px 175px, 100% 100px, 80% 16px, 80% 16px;
+  background-position: -185px 0, center 10px, center 125px, center 155px;
+  box-sizing: border-box;
+  animation: songPageAnimloader 1s linear infinite;
+}
+
+@keyframes songPageAnimloader {
+  to {
+    background-position: 185px 0, center 10px, center 125px, center 155px;
+  }
+}
+.stripe-loader {
+  width: 360px;
+  height: 100px;
+  display: block;
+  background-image: linear-gradient(
+      100deg,
+      transparent,
+      rgba(38, 50, 56, 0.5) 50%,
+      transparent 80%
+    ),
+    linear-gradient(#fff 20px, transparent 0),
+    linear-gradient(#fff 20px, transparent 0),
+    linear-gradient(#fff 20px, transparent 0);
+  background-repeat: no-repeat;
+  background-size: 75px 100px, 0px 0px, 360px 20px, 360px 20px;
+  background-position: -50% 0, 0px 0, 10px 40px, 10px 80px, 120px 120px;
+  box-sizing: border-box;
+  animation: stripeanimloader 1s linear infinite;
+}
+
+@keyframes stripeanimloader {
+  0% {
+    background-position: 0% 0, 120px 0, 10px 40px, 10px 80px, 120px 120px;
+  }
+  100% {
+    background-position: 100% 0, 120px 0, 10px 40px, 10px 80px, 120px 120px;
+  }
+}

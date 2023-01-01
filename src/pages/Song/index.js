@@ -1,33 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router";
-import { getRequest } from "../../apis/Base/serviceMethods";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router";
+import { setLocalPlayListData } from "../../Redux/Reducers/PlayList-slice";
 import { configURL } from "../../apis/Base/config";
-import Loader from "../../components/Loader/Index";
-import GlobalPlayer from "../../components/GlobalPlayer";
+import { getRequest } from "../../apis/Base/serviceMethods";
 import { Icons } from "../../assets/Icons";
-import "./style.scss";
 import { ParseString } from "../../utils";
 import RouteStrings from "../../utils/RouteStrings";
-import { useDispatch } from "react-redux";
-import { setLocalPlayListData } from "../../Redux/Reducers/PlayList-slice";
+import "./style.scss";
+import Loader from "./Loader";
+import { Toaster, toast } from "react-hot-toast";
 const Song = () => {
     const naviagte = useNavigate();
     const { id } = useParams()
     const dispatch = useDispatch()
     const [songData, setsongData] = useState([]);
     const [albumSongs, setalbumSongs] = useState([]);
-    const [isLoading, setisLoading] = useState(false);
+    const [isLoading, setisLoading] = useState(true);
     useEffect(() => {
         getSongDetails()
     }, []);
-    // useEffect(() => {
-    //     getSongsFromAlbum()
-    // }, [songData[0].album])
+
 
     const getSongDetails = async () => {
         setisLoading(true);
         await getRequest(configURL.song + id).then(res => {
-            console.log("res", res.data.data);
             setsongData(res.data.data);
         }).catch(err => {
             console.log("getSongDetails err", err);
@@ -42,6 +39,7 @@ const Song = () => {
                 setalbumSongs(res.data.data);
             }).catch(err => {
                 console.log("getSongDetails err", err);
+                toast.error("Someting Went Wrong ")
             }).finally(() => {
                 setisLoading(false);
             })
@@ -59,6 +57,9 @@ const Song = () => {
     }
     return (
         <>
+            {isLoading && <div className="loadingwrapper">
+                <Loader />
+            </div>}
             {
                 songData.length > 0 ? <>
                     <div className="song_warpper">
@@ -107,12 +108,10 @@ const Song = () => {
                                 {/* <Icons.BsHeartFill fill="#ff0000" size={28} /> */}
                             </button>
                         </div>
-                        {/* <div className="Atrist w-100">
-                    <h4 className="text-white text-left">More From this Album </h4>
-                </div> */}
                     </div>
                 </> : null
             }
+            <Toaster position="bottom" />
         </>
     );
 };

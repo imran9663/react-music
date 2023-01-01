@@ -22,7 +22,6 @@ const Search = () => {
         let url = new URL(process.env.REACT_APP_API_BASE_URL + configURL.searchAll);
         url.searchParams.set('query', searchedValue);
         await getRequest(url).then((res) => {
-            console.log(res.data.data);
             if (res.data.data != null) {
                 setresultData(getSortedResposeObj(res.data.data))
             } else {
@@ -47,6 +46,9 @@ const Search = () => {
     const handleBlur = () => {
         searchedValue != '' && getSearchedData()
         setReadOnly(true)
+        setTimeout(() => {
+            setReadOnly(false)
+        }, 100);
     }
     const handleFocus = () => {
         setReadOnly(false)
@@ -56,7 +58,7 @@ const Search = () => {
         <>
             <div className="search_wrapper ">
                 <div className="searchbar-wrapper">
-                    <input readOnly={ReadOnly} onFocus={handleFocus} onBlur={handleBlur} onKeyDown={handleKeyDown} onChange={handleChange} value={searchedValue} autoFocus placeholder='search here...' type="text" className='input' name="" id="" />
+                    <input readOnly={ReadOnly} onFocus={handleFocus} onBlur={handleBlur} onKeyDown={handleKeyDown} onChange={handleChange} value={searchedValue} placeholder='search here...' type="text" className='input' name="" id="" />
                     <button className="btn">
                         <Icons.search />
                     </button>

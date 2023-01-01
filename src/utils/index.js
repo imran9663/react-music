@@ -1,7 +1,6 @@
 export const ParseString = (arg) => {
     let text = arg?.replace(/&quot;/g, '"')
     return text?.replace(/&amp;/g, '&')
-
 }
 export const StringToNum = (arg) => {
     Number(arg)

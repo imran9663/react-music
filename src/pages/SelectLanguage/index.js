@@ -19,10 +19,20 @@ const SelectLanguage = () => {
     const handleUpdateLang = (name, checked) => {
         if (checked) {
             selectedlanArr.push(name.toLowerCase())
-        } else {
-            setselectedLang(selectedLang.filter(val => {
+        }
+        if (checked === false) {
+            console.log('checked false');
+            console.log("fliterd arr", selectedlanArr.filter(val => {
                 return val.toLowerCase() !== name.toLowerCase()
-            }))
+            }));
+            const newvalues = selectedlanArr.filter(val => {
+                return val.toLowerCase() !== name.toLowerCase()
+            })
+            const localvalues = selectedLang.filter(val => {
+                return val.toLowerCase() !== name.toLowerCase()
+            })
+            const newArr = [...newvalues, ...localvalues,]
+            setselectedLang([...new Set(newArr)])
         }
     }
     const handleClick = () => {
@@ -51,10 +61,10 @@ const SelectLanguage = () => {
                     <button onClick={handleClick} className='btn btn-success ml-3'> save</button>
                 </div>
                 <div className="mt-2 d-flex flex-row gap={2} flex-wrap justify-content-around align-ietems-center ">
-                    {langArr?.map(data => {
+                    {langArr?.map((data, ind) => {
                         return (
                             <>
-                                <div className="m-2">
+                                <div key={ind} className="m-2">
                                     <CoustomCheckbox DefulatChecked={machedLangFromArr(data?.name)} updateLanguage={handleUpdateLang} data={data} />
                                 </div>
                             </>

@@ -10,6 +10,7 @@ import store from './Redux/store';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <BrowserRouter>
     <Provider store={store}>

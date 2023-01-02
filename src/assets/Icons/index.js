@@ -1,6 +1,13 @@
 import { AiFillCrown, AiOutlineCloseCircle, AiOutlineUser } from 'react-icons/ai';
 import { BiAlbum, BiUserCircle } from 'react-icons/bi';
-import { BsArrowLeft, BsArrowRepeat, BsArrowRight, BsChevronBarLeft, BsChevronBarRight, BsChevronDoubleDown, BsCloudDownloadFill, BsHeadphones, BsHeart, BsHeartFill, BsMusicNote, BsPauseFill, BsPlayFill, BsShuffle, BsThreeDotsVertical, BsVolumeDown, BsVolumeMute, BsVolumeUp } from 'react-icons/bs';
+import {
+    BsArrowLeft,
+    BsArrowRepeat,
+    BsArrowRight,
+    BsChevronBarLeft,
+    BsChevronBarRight,
+    BsChevronDoubleDown, BsCloudDownloadFill, BsHeadphones, BsHeart, BsHeartFill, BsMusicNote, BsPauseFill, BsPlayFill, BsShuffle, BsThreeDotsVertical, BsVolumeDown, BsVolumeMute, BsVolumeUp
+} from 'react-icons/bs';
 import { FaFacebookF, FaTwitter, FaWikipediaW } from 'react-icons/fa';
 import { FiHome, FiSearch } from 'react-icons/fi';
 import { GoVerified } from 'react-icons/go';
@@ -9,11 +16,18 @@ import { RxDot, RxDragHandleDots2 } from 'react-icons/rx';
 import { SiReact } from 'react-icons/si';
 import { SlPlaylist } from 'react-icons/sl';
 import { TfiLoop } from 'react-icons/tfi';
+import { BiArrowBack } from 'react-icons/bi';
+import { AiFillRightCircle } from 'react-icons/ai';
+
+
+
 import defualtImage from './defualtImage.svg';
 import mello from './mello.svg';
 import nointernet from './no_internet.svg';
+import notFound from './not_found.svg';
 
 export const Icons = {
+    notFound: notFound,
     nointernet: nointernet,
     mello: mello,
     defualtImage: defualtImage,
@@ -53,4 +67,6 @@ export const Icons = {
     FaFacebookF: FaFacebookF,
     FaTwitter: FaTwitter,
     FaWikipediaW: FaWikipediaW,
+    BiArrowBack: BiArrowBack,
+    AiFillRightCircle: AiFillRightCircle,
 }

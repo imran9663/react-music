@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Route, Routes } from 'react-router'
+import { Route, Routes, useRouteError } from 'react-router'
 import './App.scss'
 import Account from './pages/Account'
 import Album from './pages/Album'
@@ -15,32 +15,41 @@ import ArtistDetails from './pages/Artist/ArtistDetails'
 import ArtistSongs from './pages/Artist/ArtistSongs'
 import ArtistAlbums from './pages/Artist/ArtistAlbums'
 import SelectLanguage from './pages/SelectLanguage'
+import NotFound from './pages/NotFound'
 
 const App = () => {
   useEffect(() => {
 
 
   }, [])
+  function ErrorBoundary () {
+    const error = useRouteError();
+    console.error(error);
+    return <div>{error.message}</div>;
+  }
+
 
   return (
     <>
 
-      <Routes>
-        <Route path='/' element={<Main />}>
-          <Route path={RouteStrings.home} element={<Home />} />
-          <Route path={RouteStrings.playlist + ':id'} element={<PlayList />} />
-          <Route path={RouteStrings.albums + ':id'} element={<Album />} />
-          <Route path={RouteStrings.search} element={<Search />} />
-          <Route path={RouteStrings.account} element={<Account />} />
-          <Route path={RouteStrings.song + ':id'} element={<Song />} />
-          <Route path={RouteStrings.artist + ':id'} element={<Artist />} >
-            <Route path={RouteStrings.artist + ':id' + RouteStrings.artistDetails} element={<ArtistDetails />} />
-            <Route path={RouteStrings.artist + ':id' + RouteStrings.artistSongs} element={<ArtistSongs />} />
-            <Route path={RouteStrings.artist + ':id' + RouteStrings.artistAlbums} element={<ArtistAlbums />} />
+      <Routes >
+        <Route errorElement={<ErrorBoundary />} path='*' element={<NotFound />} />
+        <Route errorElement={<ErrorBoundary />} path='/' element={<Main />}>
+          <Route errorElement={<ErrorBoundary />} path='*' element={<NotFound />} />
+          <Route errorElement={<ErrorBoundary />} path={RouteStrings.home} element={<Home />} />
+          <Route errorElement={<ErrorBoundary />} path={RouteStrings.playlist + ':id'} element={<PlayList />} />
+          <Route errorElement={<ErrorBoundary />} path={RouteStrings.albums + ':id'} element={<Album />} />
+          <Route errorElement={<ErrorBoundary />} path={RouteStrings.search} element={<Search />} />
+          <Route errorElement={<ErrorBoundary />} path={RouteStrings.account} element={<Account />} />
+          <Route errorElement={<ErrorBoundary />} path={RouteStrings.song + ':id'} element={<Song />} />
+          <Route errorElement={<ErrorBoundary />} path={RouteStrings.artist + ':id'} element={<Artist />} >
+            <Route errorElement={<ErrorBoundary />} path={RouteStrings.artist + ':id' + RouteStrings.artistDetails} element={<ArtistDetails />} />
+            <Route errorElement={<ErrorBoundary />} path={RouteStrings.artist + ':id' + RouteStrings.artistSongs} element={<ArtistSongs />} />
+            <Route errorElement={<ErrorBoundary />} path={RouteStrings.artist + ':id' + RouteStrings.artistAlbums} element={<ArtistAlbums />} />
           </Route>
         </Route>
-        <Route path={RouteStrings.selectLanguage} element={<SelectLanguage />} />
-        <Route path={RouteStrings.noNetwork} element={<NoNetwork />} />
+        <Route errorElement={<ErrorBoundary />} path={RouteStrings.selectLanguage} element={<SelectLanguage />} />
+        <Route errorElement={<ErrorBoundary />} path={RouteStrings.noNetwork} element={<NoNetwork />} />
       </Routes>
 
 

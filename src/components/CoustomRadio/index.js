@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './style.scss'
-import { getRandomGradients } from '../../utils'
-const CoustomCheckbox = (props) => {
-    const { data, Type, updateLanguage, DefulatChecked } = props
+const CoustomRadio = (props) => {
+    const { data, updateLanguage, DefulatChecked } = props
     const handleChange = (e) => {
         const { name, checked } = e.target
         updateLanguage(name, checked)
@@ -10,19 +9,19 @@ const CoustomCheckbox = (props) => {
     return (
         <>
             {/*  */}
-            <div className="checkbox-wrapper-16">
-                <label name={data?.name} className="checkbox-wrapper">
+            <div className="radio-wrapper-16">
+                <label name={data?.name} className="radio-wrapper">
                     <input
-                        name={data?.name}
+                        name={'radio'}
                         id={data?.name}
                         onChange={handleChange}
                         defaultChecked={DefulatChecked ? DefulatChecked : false}
                         value={data?.name}
                         defaultValue={data?.name}
-                        type={Type ? Type : "checkbox"}
-                        className="checkbox-input" />
-                    <span style={{ background: getRandomGradients() }} className="checkbox-tile">
-                        <span className="checkbox-icon">
+                        type={"radio"}
+                        className="radio-input" />
+                    <span className="radio-tile">
+                        <span className="radio-icon">
                             {data?.value?.split(' ')[0]}
                         </span>
                     </span>
@@ -32,4 +31,4 @@ const CoustomCheckbox = (props) => {
     )
 }
 
-export default CoustomCheckbox
+export default CoustomRadio

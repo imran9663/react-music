@@ -61,3 +61,13 @@ body::-webkit-scrollbar-thumb {
     }
   }
 }
+.btn-accent {
+  background-color: $accent-color;
+  color: $white;
+  padding: 0.5rem 1rem;
+}
+.btn-error {
+  background-color: $error;
+  color: $white;
+  padding: 0.5rem 1rem;
+}

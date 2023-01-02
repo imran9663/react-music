@@ -1,0 +1,21 @@
+.pageWrapper {
+  min-width: 100vw;
+  min-height: 100vh;
+  height: auto;
+  width: 100vw;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  &-topbar {
+    width: 100%;
+    height: fit-content;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+  }
+}

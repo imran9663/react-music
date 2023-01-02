@@ -13,9 +13,6 @@ const Search = () => {
     const [resultData, setresultData] = useState([])
     const [isLoading, setisLoading] = useState(false);
     const [ReadOnly, setReadOnly] = useState(false)
-    useEffect(() => {
-        console.log("resultData", resultData)
-    }, [resultData])
 
     const getSearchedData = async () => {
         setisLoading(true)

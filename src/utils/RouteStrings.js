@@ -10,6 +10,7 @@ const RouteStrings = {
     artistDetails: '/',
     artistSongs: '/songs',
     artistAlbums: '/albums',
+    selectLanguage: '/selectLanguage',
     noNetwork: '/noNetwork',
 }
 export default RouteStrings

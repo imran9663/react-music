@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Account = () => {
     return (
-        <div>Account</div>
+        <>
+            <h2 className='text-center text-light'>Account</h2>
+        </>
     )
 }
 

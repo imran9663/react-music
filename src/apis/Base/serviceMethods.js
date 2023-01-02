@@ -18,7 +18,6 @@ export const getRequest = async (url) => {
 export const postRequest = async (url, data) => {
     try {
         const response = await axiosInstence.post(url, data);
-        console.log('postRequest response==>', response);
         return response;
     } catch (error) {
         console.log('postRequest  error==>', error.response);

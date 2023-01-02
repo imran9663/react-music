@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 import { currentPlaylist } from '../../Redux/Reducers/PlayList-slice'
 import RouteStrings from '../../utils/RouteStrings'
 import Landing from '../../components/Landing'
+import { loaclStorageStrings } from '../../utils/localStorageStrings'
 
 const Main = () => {
     const [showGlobalPlayer, setshowGlobalPlayer] = useState(false)
@@ -17,14 +18,16 @@ const Main = () => {
     useEffect(() => {
         routeTomain()
     }, [])
+    const islanguagesSelected = () => {
+        const lang = JSON.parse(localStorage.getItem(loaclStorageStrings.lang))
+        return (lang != null && lang.length > 0) ? true : false
+    }
     const routeTomain = () => {
         setTimeout(() => {
             setshowLanding(false)
-            navigate(RouteStrings.home)
+            islanguagesSelected() ? navigate(RouteStrings.home) : navigate(RouteStrings.selectLanguage)
         }, 1000);
     }
-
-
     useEffect(() => {
         tracks?.length > 0 ? setshowGlobalPlayer(true) : setshowGlobalPlayer(false)
     }, [tracks?.length])

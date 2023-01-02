@@ -13,6 +13,7 @@ import { ParseString, getNamefromArray } from '../../utils'
 import RoundCard from '../../components/RoundCard'
 import topArtist from '../../utils/data/index.json'
 import SongStrip from '../../components/SongStrip'
+import { loaclStorageStrings } from '../../utils/localStorageStrings'
 const Home = () => {
     const [isLoading, setisLoading] = useState(false)
     const [HomePageData, setHomePageData] = useState({
@@ -22,18 +23,25 @@ const Home = () => {
         trenadingAlbums: [],
         trenadingSongs: [],
     })
+    const [languages, setlanguages] = useState([])
     const navigate = useNavigate()
     const dispatch = useDispatch()
     useEffect(() => {
-        getHomePageData()
+        getLoaclStorageLang()
     }, [])
+    useEffect(() => {
+        languages?.length > 0 && getHomePageData()
+    }, [languages])
+
+    const getLoaclStorageLang = () => {
+        setlanguages(JSON.parse(localStorage.getItem(loaclStorageStrings.lang)))
+    }
     const handleClick = (id) => {
         navigate(RouteStrings.song + id)
     }
     const handlePlaySong = (songData) => {
         dispatch(setLocalPlayListData(songData))
     }
-    const languages = ['hindi', 'kannada']
     const getHomePageData = async () => {
         setisLoading(true)
         await getRequest(configURL.homePage + languages).then(res => {

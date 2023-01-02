@@ -35,10 +35,8 @@ const Song = () => {
     const getSongsFromAlbum = async () => {
         if (songData[0].album.id) {
             await getRequest(configURL.albums + songData[0].album.id).then(res => {
-                console.log("res", res.data.data);
                 setalbumSongs(res.data.data);
             }).catch(err => {
-                console.log("getSongDetails err", err);
                 toast.error("Someting Went Wrong ")
             }).finally(() => {
                 setisLoading(false);

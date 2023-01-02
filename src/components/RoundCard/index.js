@@ -7,7 +7,6 @@ import { Icons } from '../../assets/Icons'
 const RoundCard = ({ item, Style, imgWidth }) => {
     const navigate = useNavigate()
     const handleClick = () => {
-        console.log("RoundCard handle click",);
         if (item.artistid) {
             navigate(RouteStrings.artist + item.artistid)
         } else if (item.id) {

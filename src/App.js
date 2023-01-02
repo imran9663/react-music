@@ -14,15 +14,12 @@ import Artist from './pages/Artist'
 import ArtistDetails from './pages/Artist/ArtistDetails'
 import ArtistSongs from './pages/Artist/ArtistSongs'
 import ArtistAlbums from './pages/Artist/ArtistAlbums'
+import SelectLanguage from './pages/SelectLanguage'
 
 const App = () => {
   useEffect(() => {
 
-    // let elem = document.documentElement;
-    // elem.requestFullscreen({ navigationUI: "show" }).then(() => { }).catch((err) => {
-    //   alert(`An error occurred while trying to switch into fullscreen mode: ${err.message} (${err.name})`);
-    //   console.log("fullscreen err", JSON.parse(err));
-    // });
+
   }, [])
 
   return (
@@ -42,6 +39,7 @@ const App = () => {
             <Route path={RouteStrings.artist + ':id' + RouteStrings.artistAlbums} element={<ArtistAlbums />} />
           </Route>
         </Route>
+        <Route path={RouteStrings.selectLanguage} element={<SelectLanguage />} />
         <Route path={RouteStrings.noNetwork} element={<NoNetwork />} />
       </Routes>
 

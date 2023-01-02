@@ -18,8 +18,7 @@ const CurrentTrackSlice = createSlice({
             state.gbl_player = action.payload
         },
         playSingleSong (state, action) {
-            console.log("state", state);
-            console.log("action", action);
+
         }
     }
 

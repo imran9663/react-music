@@ -14,6 +14,7 @@ import { Toaster, toast } from "react-hot-toast";
 import SongStrip from "../../components/SongStrip";
 import SongStripeLoader from "../../components/Loader/SongStripeLoader";
 import BannerLoader from "../../components/Loader/BannerLoader";
+import Topbar from "../../components/Topbar";
 const PlayList = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -83,6 +84,8 @@ const PlayList = () => {
                                 />
                                 <div className="hero-overlay"></div>
                             </div>
+
+                            <Topbar tbClassName={'tbar'} />
                             <div className="playlist-info">
                                 <div className="col-4 image-cover">
                                     <img onError={({ currentTarget }) => {

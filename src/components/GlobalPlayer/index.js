@@ -17,7 +17,7 @@ import { configURL } from "../../apis/Base/config";
 const GlobalPlayer = () => {
     const Constants = {
         isPlaying: 'isPlaying',
-        isMute: 'isMute',
+        showVolumeBar: 'showVolumeBar',
         isFavourite: 'isFavourite',
         isPrevious: 'isPrevious',
         isNext: 'isNext',
@@ -35,6 +35,7 @@ const GlobalPlayer = () => {
     const [trackDataList, settrackDataList] = useState([])
     const [totalDuration, settotalDuration] = useState('0:00')
     const [currentDuration, setcurrentDuration] = useState('0')
+    const [currentVolume, setcurrentVolume] = useState(1);
 
     const [isMegaPlayerON, setisMegaPlayerON] = useState(false);
     const [isLoopOn, setisLoopOn] = useState(false);
@@ -46,7 +47,7 @@ const GlobalPlayer = () => {
     const [OpenPlaylist, setOpenPlaylist] = useState(false);
     const [playerState, setplayerState] = useState({
         isPlaying: false,
-        isMute: false,
+        showVolumeBar: false,
         isFavourite: false,
     })
     useEffect(() => {
@@ -69,6 +70,14 @@ const GlobalPlayer = () => {
     const DummyFn = () => {
         console.log("CAN PLAY TRACK");
     }
+    const handleVolumeChange = (e) => {
+        const { value } = e.target
+        if (audioRef?.current?.volume >= 0) {
+            audioRef.current.volume = value
+            setcurrentVolume(value)
+        }
+    }
+
     const LoadTrackandPlay = () => {
         settrackData(currenttrackDetails.data)
         audioRef?.current?.load()
@@ -88,6 +97,9 @@ const GlobalPlayer = () => {
         whilePlaying()
     }, [audioRef?.current?.loadedmetadata, audioRef?.current?.readyState]);
 
+    useEffect(() => {
+        getVolumeIcons()
+    }, [currentVolume])
 
     const getCorrectTimeForamt = (sec) => {
         const Trackduration = sec
@@ -143,13 +155,7 @@ const GlobalPlayer = () => {
     }
     const handlePlayerState = (id, state, data = {}) => {
         setplayerState({ ...playerState, [id]: !state })
-        switch (id) {
-            case Constants.isMute:
-                audioRef.current.muted = !state
-                break;
-            default:
-                break;
-        }
+
     }
     const handleClick = () => {
         const prevState = isMegaPlayerON
@@ -205,6 +211,20 @@ const GlobalPlayer = () => {
         else {
             dispatch(removeTrackFromPlayList(id))
         }
+    }
+    const getVolumeIcons = () => {
+        if (currentVolume >= 0.9) {
+            return <Icons.BsVolumeUp />
+        }
+        if (currentVolume <= 0.8 && currentVolume >= 0.1) {
+            return <Icons.BsVolumeDown />
+        }
+        if (currentVolume <= 0) {
+            return <Icons.BsVolumeMute />
+        }
+    }
+    const handleVolumeOnblur = () => {
+        console.log("handleBlur Called ");
     }
 
     return (
@@ -290,8 +310,6 @@ const GlobalPlayer = () => {
                                                         </>
                                                     )
                                                 })}
-
-
                                             </div>
                                         </div>
                                         <div className="tack_card-details">
@@ -335,13 +353,27 @@ const GlobalPlayer = () => {
                                             </div>
                                         </div>
                                         <div className="tack_card-media-icons">
-                                            <button onClick={() => { handlePlayerState(Constants.isMute, playerState.isMute) }} className="btn">
-                                                {
-                                                    playerState.isMute ?
-                                                        <Icons.BsVolumeMute />
-                                                        :
-                                                        <Icons.BsVolumeUp />}
-                                            </button>
+                                            <div className="volume-wrapper">
+                                                <button onClick={() => { handlePlayerState(Constants.showVolumeBar, playerState.showVolumeBar) }} className="btn">
+                                                    {getVolumeIcons()}
+                                                </button>
+                                                {playerState.showVolumeBar &&
+                                                    <div className="vertical-input">
+                                                        <input
+                                                            orient="vertical"
+                                                            type="range"
+                                                            step={0.1}
+                                                            min={0}
+                                                            max={1}
+                                                            onBlur={() => { handleVolumeOnblur() }}
+                                                            className="volumeBar"
+                                                            name="volume"
+                                                            onChange={handleVolumeChange}
+                                                        />
+                                                    </div>
+                                                }
+                                            </div>
+
                                             <button onClick={() => { handlePlayerState(Constants.isFavourite, playerState.isFavourite) }} className="btn">
                                                 {playerState.isFavourite ? <Icons.BsHeartFill color='#ff0000' /> : <Icons.BsHeart />}
                                             </button>

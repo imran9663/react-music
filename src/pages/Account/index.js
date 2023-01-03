@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import './style.scss'
 import { Icons } from '../../assets/Icons'
 import CoustomRadio from '../../components/CoustomRadio'
+import { useNavigate } from 'react-router'
+import RouteStrings from '../../utils/RouteStrings'
 
 const Account = () => {
     const qualityArr = [
@@ -18,6 +20,12 @@ const Account = () => {
             value: 'HIGH ',
         },
     ]
+    const Navigate = useNavigate()
+    const handleLogOut = () => {
+        localStorage.clear()
+        // Navigate('/')
+        window.location.assign(RouteStrings.home)
+    }
     return (
         <>
             <div className="Account-cont">
@@ -41,7 +49,7 @@ const Account = () => {
                     </div>
                 </div>
                 <div className="account-body ">
-                    <div className="data-saver mt-2">
+                    <div className="data-saver px-2 mt-2">
                         <div className="data-saver--heading">Audio Quality</div>
                         <div className="data-saver--list">
                             {qualityArr.map(item => {
@@ -53,18 +61,20 @@ const Account = () => {
                             })}
                         </div>
                     </div>
-                    <div className="languages mt-4">
+                    <div onClick={() => {
+                        Navigate(RouteStrings.updateLanguage)
+                    }} className="languages p-2 mt-4">
                         <h5 className="languages--heading">Languages</h5>
                         <Icons.AiFillRightCircle />
                     </div>
-                    <div className="developer">
+                    {/* <div className="developer">
 
                     </div>
                     <div className="disclaimer">
 
-                    </div>
+                    </div> */}
                     <div className="logout">
-                        <button className="btn btn-danger">
+                        <button onClick={handleLogOut} className="btn btn-danger">
                             Logout
                         </button>
                     </div>

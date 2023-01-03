@@ -11,6 +11,7 @@ import { ParseString } from '../../utils'
 import SongStrip from '../../components/SongStrip'
 import SongStripeLoader from '../../components/Loader/SongStripeLoader'
 import BannerLoader from '../../components/Loader/BannerLoader'
+import Topbar from '../../components/Topbar'
 const Album = () => {
     const { id } = useParams()
     const navigate = useNavigate()
@@ -61,6 +62,7 @@ const Album = () => {
                     {Object.keys(playlistData).length > 0 &&
                         <>
                             <div className="hero">
+
                                 <img onError={({ currentTarget }) => {
                                     currentTarget.onerror = null;
                                     currentTarget.src = Icons.defualtImage;
@@ -72,7 +74,17 @@ const Album = () => {
                                 <div className="hero-overlay">
                                 </div>
                             </div>
+                            <div className="song_warpper-top-bar tbar">
+                                <button onClick={() => { navigate(-1) }} className="btn back-btn">
+                                    <Icons.BsArrowLeft />
+                                </button>
+                                <button className="btn">
+                                    <Icons.BsThreeDotsVertical />
+                                </button>
+                            </div>
+                            <Topbar tbClassName={'tbar'} />
                             <div className="playlist-info">
+
                                 <div className="col-4 image-cover">
                                     <img onError={({ currentTarget }) => {
                                         currentTarget.onerror = null;

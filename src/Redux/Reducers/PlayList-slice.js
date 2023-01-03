@@ -17,8 +17,10 @@ const PlayListSlice = createSlice({
 
         //setLocalPlayListData, 
         setLocalPlayListData (state, action) {
+            // if (action.payload?.length > 0 && state.data.length > 0) {
 
-
+            // }
+            // else
             if (action.payload?.length > 0) {
                 console.log("action length is =>", action.payload.length);
                 state.data = action.payload
@@ -36,6 +38,7 @@ const PlayListSlice = createSlice({
                     }
                 }
                 else if (state.data.length > 0) {
+                    console.log("action.payload", action.payload);
                     state.data = [...state.data, action.payload]
                     // state.data = state.data.splice(state.gbl_player.songIndex + 1, 0, action.payload)
                     state.gbl_player = {

@@ -26,6 +26,13 @@
       background: linear-gradient(#1f1f1f34, $dark-bg);
     }
   }
+  .tbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent;
+    z-index: 10;
+  }
   .playlist-info {
     width: 100vw;
     display: flex;

@@ -113,3 +113,11 @@ export function nFormatter (num, digits) {
 }
 
 export const Consoletyle = 'background-color: darkblue; color: white; font-style: italic; border: 5px solid hotpink; font-size: 2em;'
+export const insertArrToSpecificIndex = (arr, index, newItem) => [
+    // part of the array before the specified index
+    ...arr.slice(0, index),
+    // inserted item
+    ...newItem,
+    // part of the array after the specified index
+    ...arr.slice(index)
+]

@@ -15,11 +15,15 @@ const Song = () => {
     const { id } = useParams()
     const dispatch = useDispatch()
     const [songData, setsongData] = useState([]);
+    const [trackArtists, settrackArtists] = useState([]);
     const [albumSongs, setalbumSongs] = useState([]);
     const [isLoading, setisLoading] = useState(true);
     useEffect(() => {
         getSongDetails()
     }, []);
+    useEffect(() => {
+        songData.length > 0 && getAllArtistwithid()
+    }, [songData]);
 
 
     const getSongDetails = async () => {
@@ -53,6 +57,19 @@ const Song = () => {
     const handlePlaySong = () => {
         dispatch(setLocalPlayListData(songData[0]))
     }
+
+    const getAllArtistwithid = () => {
+        console.log("songData", songData);
+        const artistArr = songData[0]?.primaryArtists.split(', ')
+        const artistIDArr = songData[0]?.primaryArtistsId.split(', ')
+        const newobjArr = []
+        artistArr.map((item, ind) => {
+            const obj = { name: item, id: artistIDArr[ind] }
+            newobjArr.push(obj)
+            return newobjArr
+        })
+        settrackArtists(newobjArr)
+    }
     return (
         <>
             {isLoading && <div className="loadingwrapper">
@@ -65,7 +82,6 @@ const Song = () => {
                             <button onClick={handleGoBack} className="btn back-btn">
                                 <Icons.BsArrowLeft />
                             </button>
-
                             <button className="btn">
                                 <Icons.BsThreeDotsVertical />
                             </button>
@@ -87,7 +103,15 @@ const Song = () => {
                     </h5> */}
 
                             <p className="artists">
-                                By <br /> {songData[0].primaryArtists}
+                                By <br />
+
+                                {trackArtists?.map((item => {
+                                    return (
+                                        <span key={item.id} onClick={() => { naviagte(RouteStrings.artist + item.id) }} className=" px-1">
+                                            {item.name},
+                                        </span>
+                                    )
+                                }))}
                             </p>
                             <div className="cont">
                                 <p className="language">

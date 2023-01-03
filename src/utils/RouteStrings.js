@@ -11,6 +11,7 @@ const RouteStrings = {
     artistSongs: '/songs',
     artistAlbums: '/albums',
     selectLanguage: '/selectLanguage',
+    updateLanguage: '/updateLanguage',
     noNetwork: '/noNetwork',
 }
 export default RouteStrings

@@ -18,6 +18,8 @@ import { SlPlaylist } from 'react-icons/sl';
 import { TfiLoop } from 'react-icons/tfi';
 import { BiArrowBack } from 'react-icons/bi';
 import { AiFillRightCircle } from 'react-icons/ai';
+import { BiAddToQueue } from 'react-icons/bi';
+import { IoPlaySkipForward } from 'react-icons/io5';
 
 
 
@@ -69,4 +71,6 @@ export const Icons = {
     FaWikipediaW: FaWikipediaW,
     BiArrowBack: BiArrowBack,
     AiFillRightCircle: AiFillRightCircle,
+    BiAddToQueue: BiAddToQueue,
+    IoPlaySkipForward: IoPlaySkipForward,
 }

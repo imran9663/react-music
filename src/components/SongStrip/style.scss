@@ -12,11 +12,14 @@
     margin-bottom: 1rem;
     border: solid 2px $accent-color-border;
     border-radius: 4px;
-    overflow: hidden;
+    // overflow: hidden;
     display: flex;
     justify-content: space-around;
     flex-direction: row;
     &-img {
+      width: 3rem;
+      height: 3rem;
+      object-fit: cover;
       border-radius: 4px;
       box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     }
@@ -66,7 +69,24 @@
       &-btn {
         margin: unset;
         padding: 0.5rem;
+        background: transparent;
+        &:hover,
+        &:active,
+        &:focus,
+        &:focus-visible,
+        &:focus-within {
+          background: transparent;
+          box-shadow: unset;
+        }
       }
     }
   }
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+.dd-menu {
+  background: #1e1e1e;
+  box-shadow: rgba(60, 60, 60, 0.35) 0px 5px 15px;
 }

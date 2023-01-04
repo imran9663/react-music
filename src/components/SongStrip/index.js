@@ -4,14 +4,28 @@ import { ParseString, getNamefromArray } from '../../utils';
 import RouteStrings from '../../utils/RouteStrings';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { setLocalPlayListData } from '../../Redux/Reducers/PlayList-slice';
+import { addAndPlayNextTrack, addToQueue, setLocalPlayListData } from '../../Redux/Reducers/PlayList-slice';
 import './style.scss'
+import Dropdown from 'react-bootstrap/Dropdown';
 const SongStrip = ({ data }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const handleClick = (id) => {
         navigate(RouteStrings.song + id)
-    }
+    };
+    const handleClickDropDownItem = (songData, newAction) => {
+        console.log("dd item clicked");
+        switch (newAction) {
+            case 'playNext':
+                dispatch(addAndPlayNextTrack(songData))
+                break;
+            case 'addtoQueue':
+                dispatch(addToQueue(songData))
+                break;
+            default:
+                break;
+        }
+    };
     const handlePlaySong = (songData) => {
         dispatch(setLocalPlayListData(songData))
     }
@@ -31,9 +45,21 @@ const SongStrip = ({ data }) => {
                         <button onClick={() => handlePlaySong(data)} className='btn homepage-songlist-card-controls-btn '>
                             <Icons.BsPlayFill />
                         </button>
-                        <button className='btn homepage-songlist-card-controls-btn'>
-                            <Icons.BsThreeDotsVertical />
-                        </button>
+                        <Dropdown>
+                            <Dropdown.Toggle variant="dark" id="dropdown-basic" className='homepage-songlist-card-controls-btn'>
+                                <Icons.BsThreeDotsVertical />
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu variant="dark" className='dd-menu'>
+                                <Dropdown.Item onClick={() => handleClickDropDownItem(data, 'playNext')}>
+                                    <span><Icons.IoPlaySkipForward /></span> Play next
+                                </Dropdown.Item>
+                                <Dropdown.Item onClick={() => handleClickDropDownItem(data, 'addtoQueue')}>
+                                    <span><Icons.BiAddToQueue /></span> Add to queue
+                                </Dropdown.Item>
+
+                            </Dropdown.Menu>
+                        </Dropdown>
+
                     </div>}
             </div>
         </>

@@ -52,10 +52,10 @@ const Account = () => {
                     <div className="data-saver px-2 mt-2">
                         <div className="data-saver--heading">Audio Quality</div>
                         <div className="data-saver--list">
-                            {qualityArr.map(item => {
+                            {qualityArr.map((item, ind) => {
                                 return (
                                     <>
-                                        <CoustomRadio data={item} />
+                                        <CoustomRadio key={ind} data={item} />
                                     </>
                                 )
                             })}

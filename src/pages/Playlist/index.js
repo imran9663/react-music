@@ -134,10 +134,10 @@ const PlayList = () => {
 
                             <div className="songlist">
                                 {playlistData?.songs.length > 0 ? <>
-                                    {playlistData?.songs.map((item) => {
+                                    {playlistData?.songs.map((item, ind) => {
                                         return (
                                             <>
-                                                <SongStrip data={item} />
+                                                <SongStrip key={ind} data={item} />
                                             </>
                                         );
                                     })}

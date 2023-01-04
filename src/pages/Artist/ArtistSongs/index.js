@@ -63,10 +63,10 @@ const ArtistSongs = () => {
         <>
             <div onScroll={onScrollHandler} className="songlist artist-list">
                 <div className="songlist">
-                    {songs?.results?.map(item => {
+                    {songs?.results?.map((item, ind) => {
                         return (
                             <>
-                                <SongStrip data={item} />
+                                <SongStrip key={ind} data={item} />
                             </>
                         )
                     })}

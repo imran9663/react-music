@@ -55,7 +55,7 @@ const ArtistDetails = () => {
                     <h5 className='heading'>Languages</h5>
                     <div className="languages-list">
                         {
-                            filterFromLanguage(artist.details.availableLanguages).map(item => {
+                            filterFromLanguage(artist.details.availableLanguages).map((item) => {
                                 return (
                                     <>
                                         <div key={item.name} className="languages-list-wrapper">

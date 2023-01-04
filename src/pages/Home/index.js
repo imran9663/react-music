@@ -83,9 +83,9 @@ const Home = () => {
                     {isLoading ? <SlideLoader /> :
                         <>
                             <div className="homepage-songlist mx-3">
-                                {HomePageData?.trenadingSongs.map(item => {
+                                {HomePageData?.trenadingSongs.map((item, ind) => {
                                     return (
-                                        <SongStrip data={item} />
+                                        <SongStrip key={ind} data={item} />
                                     )
                                 })}
                             </div>
@@ -103,7 +103,7 @@ const Home = () => {
                             if (ind <= artistLength) {
                                 return (
                                     <>
-                                        <RoundCard item={item} />
+                                        <RoundCard key={ind} item={item} />
                                     </>
                                 )
                             }

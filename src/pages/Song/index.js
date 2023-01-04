@@ -105,7 +105,7 @@ const Song = () => {
                             <p className="artists">
                                 By <br />
 
-                                {trackArtists?.map((item => {
+                                {trackArtists?.map(((item) => {
                                     return (
                                         <span key={item.id} onClick={() => { naviagte(RouteStrings.artist + item.id) }} className=" px-1">
                                             {item.name},

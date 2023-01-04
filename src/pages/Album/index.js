@@ -118,10 +118,10 @@ const Album = () => {
                                 </button>
                             </div>
                             <div className="songlist">
-                                {playlistData.songs.map(item => {
+                                {playlistData.songs.map((item, ind) => {
                                     return (
                                         <>
-                                            <SongStrip data={item} />
+                                            <SongStrip key={ind} data={item} />
                                         </>
                                     )
                                 })}

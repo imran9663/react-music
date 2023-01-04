@@ -75,12 +75,12 @@ const Search = () => {
                                                 <>
                                                     {item?.results.length > 0 &&
                                                         <>
-                                                            <h5 className='text-white searchHeading'>{item.type === 'topQuery' ? 'Top Results ' : item.type}</h5>
+                                                            <h5 key={ind} className='text-white searchHeading'>{item.type === 'topQuery' ? 'Top Results ' : item.type}</h5>
                                                             <div className={`result-data ${item.type === 'songs' ? "songs" : ""}`}>
                                                                 {
-                                                                    item?.results.map((val) => {
+                                                                    item?.results.map((val, kye) => {
                                                                         return (
-                                                                            <MediaCard Data={val} />
+                                                                            <MediaCard key={kye} Data={val} />
                                                                         )
                                                                     })
                                                                 }

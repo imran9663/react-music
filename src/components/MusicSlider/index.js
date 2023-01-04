@@ -66,7 +66,6 @@ const MusicSlider = (props) => {
                           <Icons.BsMusicNote />{Number(item.songCount) > 9 ? '9+' : item.songCount}
                         </span>
                       }
-
                       <p className="newCard-overlay-name">
                         {item.name ? ParseString(item.name) : ParseString(item.title)}
                       </p>

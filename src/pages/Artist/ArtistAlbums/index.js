@@ -63,10 +63,11 @@ const ArtistAlbums = () => {
         <>
             <div onScroll={onScrollHandler} className="songlist artist-list">
                 <div className="songlist d-flex flex-wrap">
-                    {songs?.results?.map(item => {
+                    {songs?.results?.map((item, ind) => {
                         return (
                             <>
                                 <MediaCard
+                                    key={ind}
                                     Style={{ width: '9rem' }}
                                     ImgStyle={{ width: '8rem', height: '8rem' }}
                                     Data={item} />

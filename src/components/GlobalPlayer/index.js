@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { currentPlaylist, currentTrack, removeTrackFromPlayList, setLocalPlayListData, setNextTrack } from "../../Redux/Reducers/PlayList-slice";
+import { currentPlaylist, currentTrack, removeTrackFromPlayList, setLocalPlayListData, setNextTrack, setPreviousTrack } from "../../Redux/Reducers/PlayList-slice";
 import { Icons } from "../../assets/Icons";
 import { ConsoleStyle, ParseString } from "../../utils";
 import RouteStrings from "../../utils/RouteStrings";
@@ -98,8 +98,13 @@ const GlobalPlayer = () => {
     }, [audioRef?.current?.loadedmetadata, audioRef?.current?.readyState]);
 
     useEffect(() => {
-        getVolumeIcons()
+        GetVolumeIcons()
     }, [currentVolume])
+    useEffect(() => {
+        setTimeout(() => {
+            setplayerState({ ...playerState, showVolumeBar: false })
+        }, 7000);
+    }, [playerState.showVolumeBar == true])
 
     const getCorrectTimeForamt = (sec) => {
         const Trackduration = sec
@@ -128,29 +133,29 @@ const GlobalPlayer = () => {
         if (audioRef?.current?.ended) {
             cancelAnimationFrame(animationRef?.current)
             setplayerState({ ...playerState, isPlaying: false })
-            // resetToZero()
             playNextTrack()
         }
     }
     const playNextTrack = () => {
         pauseTrack();
-        if (trackDataList.length > 1) {
+        if (trackDataList.length > 1 && currenttrackDetails.songIndex < trackDataList.length - 1) {
+            console.log("playing if");
             dispatch(setNextTrack({ songIndex: currenttrackDetails.songIndex + 1, data: trackDataList[currenttrackDetails.songIndex + 1] }))
         }
-        if (trackDataList.length - 1 === currenttrackDetails.songIndex) {
+        else if (trackDataList.length > 1 && currenttrackDetails.songIndex === trackDataList.length - 1) {
+            console.log("playing if else");
             dispatch(setNextTrack({ songIndex: 0, data: trackDataList[0] }))
         }
+
     }
     const playPreviousTrack = () => {
+        // console.log("plating previos  track");
         if (trackData.songIndex > 1) {
             pauseTrack();
-            dispatch(setNextTrack({ songIndex: trackData.songIndex - 1, data: trackDataList[trackData.songIndex - 1] }))
-            // audioRef.current.src = trackData.downloadUrl[trackData[currentTrackIndex + 1].length - 1];
-            // audioRef.current.load();
-            // playTrack()
+            dispatch(setPreviousTrack({ songIndex: trackData.songIndex - 1, data: trackDataList[trackData.songIndex - 1] }))
         } else {
-            dispatch(setNextTrack({ songIndex: 0, data: trackDataList[0] }))
-
+            dispatch(setPreviousTrack({ songIndex: 0, data: trackDataList[0] }))
+            toast("Playing First Track")
         }
     }
     const handlePlayerState = (id, state, data = {}) => {
@@ -212,7 +217,7 @@ const GlobalPlayer = () => {
             dispatch(removeTrackFromPlayList(id))
         }
     }
-    const getVolumeIcons = () => {
+    const GetVolumeIcons = () => {
         if (currentVolume >= 0.9) {
             return <Icons.BsVolumeUp />
         }
@@ -247,11 +252,9 @@ const GlobalPlayer = () => {
                                 background:
                                     `linear-gradient(rgb(30,30,30,0.8), rgb(30,30,30,1)), url(${trackData?.image[2]?.link}) center/cover no-repeat `,
                             }
-
                         }
                         className={`player ${isMegaPlayerON ? "mega" : "mini "}`}
                     >
-
                         <>
                             <div className="tack_card ">
                                 {isMegaPlayerON &&
@@ -279,14 +282,12 @@ const GlobalPlayer = () => {
                                                 </button>
                                             </div>
                                             <div className="current-songlist">
-                                                {trackDataList?.map(item => {
+                                                {trackDataList?.map((item, ind) => {
                                                     return (
                                                         <>
-                                                            <div id={item?.id}
-                                                                key={item?.id}
+                                                            <div key={ind} id={item?.id}
                                                                 className={`current-songlist-card ${(trackData.id === item.id) && 'current-palying'}`}
                                                             >
-
                                                                 <img onError={({ currentTarget }) => {
                                                                     currentTarget.onerror = null;
                                                                     currentTarget.src = Icons.defualtImage;
@@ -355,20 +356,23 @@ const GlobalPlayer = () => {
                                         <div className="tack_card-media-icons">
                                             <div className="volume-wrapper">
                                                 <button onClick={() => { handlePlayerState(Constants.showVolumeBar, playerState.showVolumeBar) }} className="btn">
-                                                    {getVolumeIcons()}
+                                                    {<GetVolumeIcons />}
                                                 </button>
                                                 {playerState.showVolumeBar &&
                                                     <div className="vertical-input">
                                                         <input
+                                                            tabIndex={0}
                                                             orient="vertical"
                                                             type="range"
                                                             step={0.1}
                                                             min={0}
                                                             max={1}
+                                                            value={currentVolume}
                                                             onBlur={() => { handleVolumeOnblur() }}
                                                             className="volumeBar"
                                                             name="volume"
                                                             onChange={handleVolumeChange}
+                                                        // onInput={handleVolumeChange}
                                                         />
                                                     </div>
                                                 }
@@ -474,7 +478,6 @@ const GlobalPlayer = () => {
                 </>}
             <Toaster
                 position="bottom-center"
-                reverseOrder={true}
             />
         </>
     );

@@ -272,7 +272,7 @@ const GlobalPlayer = () => {
                                                 </div>
                                             </div>
                                             <button onClick={() => { togglePlayList() }} className="tack_card-topBar--icon">
-                                                <Icons.SlPlaylist color="#ffffff" />
+                                                <Icons.SlPlaylist />
                                             </button>
                                         </div>
                                         <div className={`tack_card-playlist ${OpenPlaylist ? "active" : ''}`}>

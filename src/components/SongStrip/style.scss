@@ -70,6 +70,7 @@
         margin: unset;
         padding: 0.5rem;
         background: transparent;
+
         &:hover,
         &:active,
         &:focus,
@@ -89,4 +90,8 @@
 .dd-menu {
   background: #1e1e1e;
   box-shadow: rgba(60, 60, 60, 0.35) 0px 5px 15px;
+}
+svg {
+  color: #ffffff84;
+  font-size: 1rem;
 }

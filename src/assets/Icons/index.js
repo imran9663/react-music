@@ -1,32 +1,50 @@
-import { AiFillCrown, AiOutlineCloseCircle, AiOutlineUser } from 'react-icons/ai';
-import { BiAlbum, BiUserCircle } from 'react-icons/bi';
-import {
-    BsArrowLeft,
-    BsArrowRepeat,
-    BsArrowRight,
-    BsChevronBarLeft,
-    BsChevronBarRight,
-    BsChevronDoubleDown, BsCloudDownloadFill, BsHeadphones, BsHeart, BsHeartFill, BsMusicNote, BsPauseFill, BsPlayFill, BsShuffle, BsThreeDotsVertical, BsVolumeDown, BsVolumeMute, BsVolumeUp
-} from 'react-icons/bs';
-import { FaFacebookF, FaTwitter, FaWikipediaW } from 'react-icons/fa';
-import { FiHome, FiSearch } from 'react-icons/fi';
-import { GoVerified } from 'react-icons/go';
-import { HiLanguage } from 'react-icons/hi2';
-import { RxDot, RxDragHandleDots2 } from 'react-icons/rx';
-import { SiReact } from 'react-icons/si';
-import { SlPlaylist } from 'react-icons/sl';
-import { TfiLoop } from 'react-icons/tfi';
-import { BiArrowBack } from 'react-icons/bi';
-import { AiFillRightCircle } from 'react-icons/ai';
-import { BiAddToQueue } from 'react-icons/bi';
-import { IoPlaySkipForward } from 'react-icons/io5';
+
+import { ReactComponent as AiFillCrown } from "./AiFillCrown.svg";
+import { ReactComponent as AiOutlineCloseCircle } from "./AiOutlineCloseCircle.svg";
+import { ReactComponent as AiOutlineUser } from "./AiOutlineUser.svg";
+import { ReactComponent as AiFillRightCircle } from "./AiFillRightCircle.svg";
+import { ReactComponent as BiArrowBack } from "./BiArrowBack.svg";
+import { ReactComponent as BiAddToQueue } from "./BiAddToQueue.svg";
+import { ReactComponent as BiAlbum } from "./BiAlbum.svg";
+import { ReactComponent as BiUserCircle } from "./BiUserCircle.svg";
+import { ReactComponent as BsChevronDoubleDown } from "./BsChevronDoubleDown.svg";
+import { ReactComponent as BsVolumeMute } from "./BsVolumeMute.svg";
+import { ReactComponent as BsVolumeUp } from "./BsVolumeUp.svg";
+import { ReactComponent as BsVolumeDown } from "./BsVolumeDown.svg";
+import { ReactComponent as BsHeart } from "./BsHeart.svg";
+import { ReactComponent as BsHeartFill } from "./BsHeartFill.svg";
+import { ReactComponent as BsArrowRepeat } from "./BsArrowRepeat.svg";
+import { ReactComponent as BsShuffle } from "./BsShuffle.svg";
+import { ReactComponent as BsPlayFill } from "./BsPlayFill.svg";
+import { ReactComponent as BsPauseFill } from "./BsPauseFill.svg";
+import { ReactComponent as BsChevronBarLeft } from "./BsChevronBarLeft.svg";
+import { ReactComponent as BsChevronBarRight } from "./BsChevronBarRight.svg";
+import { ReactComponent as BsHeadphones } from "./BsHeadphones.svg";
+import { ReactComponent as BsArrowLeft } from "./BsArrowLeft.svg";
+import { ReactComponent as BsThreeDotsVertical } from "./BsThreeDotsVertical.svg";
+import { ReactComponent as BsCloudDownloadFill } from "./BsCloudDownloadFill.svg";
+import { ReactComponent as BsMusicNote } from "./BsMusicNote.svg";
+import { ReactComponent as BsArrowRight } from "./BsArrowRight.svg";
+import { ReactComponent as FiHome } from "./FiHome.svg";
+import { ReactComponent as FiSearch } from "./FiSearch.svg";
+import { ReactComponent as FaFacebookF } from "./FaFacebookF.svg";
+import { ReactComponent as FaTwitter } from "./FaTwitter.svg";
+import { ReactComponent as FaWikipediaW } from "./FaWikipediaW.svg";
+import { ReactComponent as GoVerified } from "./GoVerified.svg";
+import { ReactComponent as HiLanguage } from "./HiLanguage.svg";
+import { ReactComponent as RxDot } from "./RxDot.svg";
+import { ReactComponent as RxDragHandleDots2 } from "./RxDragHandleDots2.svg";
+import { ReactComponent as SiReact } from "./SiReact.svg";
+import { ReactComponent as SlPlaylist } from "./SlPlaylist.svg";
+import { ReactComponent as TfiLoop } from "./TfiLoop.svg";
+import { ReactComponent as IoPlaySkipForward } from "./IoPlaySkipForward.svg";
 
 
 
-import defualtImage from './defualtImage.svg';
-import mello from './mello.svg';
-import nointernet from './no_internet.svg';
-import notFound from './not_found.svg';
+import defualtImage from "./defualtImage.svg";
+import mello from "./mello.svg";
+import nointernet from "./no_internet.svg";
+import notFound from "./not_found.svg";
 
 export const Icons = {
     notFound: notFound,
@@ -73,4 +91,4 @@ export const Icons = {
     AiFillRightCircle: AiFillRightCircle,
     BiAddToQueue: BiAddToQueue,
     IoPlaySkipForward: IoPlaySkipForward,
-}
+};

@@ -1,63 +1,162 @@
-import React, { useEffect } from 'react'
-import { Route, Routes, useRouteError } from 'react-router'
-import './App.scss'
-import Account from './pages/Account'
-import Album from './pages/Album'
-import Home from './pages/Home'
-import Main from './pages/Main'
-import NoNetwork from './pages/NoNetwork'
-import PlayList from './pages/Playlist'
-import Search from './pages/Search'
-import Song from './pages/Song'
-import RouteStrings from './utils/RouteStrings'
-import Artist from './pages/Artist'
-import ArtistDetails from './pages/Artist/ArtistDetails'
-import ArtistSongs from './pages/Artist/ArtistSongs'
-import ArtistAlbums from './pages/Artist/ArtistAlbums'
-import SelectLanguage from './pages/SelectLanguage'
-import NotFound from './pages/NotFound'
+import React, { Suspense, useEffect } from "react";
+import "./App.scss";
+import { Route, Routes, useRouteError } from "react-router";
+import RouteStrings from "./utils/RouteStrings";
+const SpotLoader = React.lazy(() => import("./components/Loader/SpotLoader"));
+
+const Account = React.lazy(() => import("./pages/Account"));
+const Album = React.lazy(() => import("./pages/Album"));
+const Home = React.lazy(() => import("./pages/Home"));
+const Main = React.lazy(() => import("./pages/Main"));
+const NoNetwork = React.lazy(() => import("./pages/NoNetwork"));
+const PlayList = React.lazy(() => import("./pages/Playlist"));
+const Search = React.lazy(() => import("./pages/Search"));
+const Song = React.lazy(() => import("./pages/Song"));
+const Artist = React.lazy(() => import("./pages/Artist"));
+const ArtistDetails = React.lazy(() => import("./pages/Artist/ArtistDetails"));
+const ArtistSongs = React.lazy(() => import("./pages/Artist/ArtistSongs"));
+const ArtistAlbums = React.lazy(() => import("./pages/Artist/ArtistAlbums"));
+const SelectLanguage = React.lazy(() => import("./pages/SelectLanguage"));
+const NotFound = React.lazy(() => import("./pages/NotFound"));
 
 const App = () => {
-  useEffect(() => {
-  }, [])
+  useEffect(() => { }, []);
   function ErrorBoundary () {
     const error = useRouteError();
     console.error(error);
     return <div>{error.message}</div>;
   }
 
-
   return (
     <>
-
-      <Routes >
-        <Route errorElement={<ErrorBoundary />} path='*' element={<NotFound />} />
-        <Route errorElement={<ErrorBoundary />} path='/' element={<Main />}>
-          <Route errorElement={<ErrorBoundary />} path={RouteStrings.home} element={<Home />} />
-          <Route errorElement={<ErrorBoundary />} path={RouteStrings.playlist + ':id'} element={<PlayList />} />
-          <Route errorElement={<ErrorBoundary />} path={RouteStrings.albums + ':id'} element={<Album />} />
-          <Route errorElement={<ErrorBoundary />} path={RouteStrings.search} element={<Search />} />
-          <Route errorElement={<ErrorBoundary />} path={RouteStrings.account} element={<Account />} />
-          <Route errorElement={<ErrorBoundary />} path={RouteStrings.song + ':id'} element={<Song />} />
-          <Route errorElement={<ErrorBoundary />} path={RouteStrings.updateLanguage} element={<SelectLanguage />} />
-
-          <Route errorElement={<ErrorBoundary />} path={RouteStrings.artist + ':id'} element={<Artist />} >
-            <Route errorElement={<ErrorBoundary />} path={RouteStrings.artist + ':id' + RouteStrings.artistDetails} element={<ArtistDetails />} />
-            <Route errorElement={<ErrorBoundary />} path={RouteStrings.artist + ':id' + RouteStrings.artistSongs} element={<ArtistSongs />} />
-            <Route errorElement={<ErrorBoundary />} path={RouteStrings.artist + ':id' + RouteStrings.artistAlbums} element={<ArtistAlbums />} />
+      {/* <Suspense fallback={<SpotLoader />}> */}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<SpotLoader />}>
+              <Main />
+            </Suspense>
+          }
+        >
+          <Route
+            path={RouteStrings.home}
+            element={
+              <Suspense fallback={<SpotLoader />}>
+                <Home />
+              </Suspense>
+            }
+          />
+          <Route
+            path={RouteStrings.playlist + ":id"}
+            element={
+              <Suspense fallback={<SpotLoader />}>
+                <PlayList />
+              </Suspense>
+            }
+          />
+          <Route
+            path={RouteStrings.albums + ":id"}
+            element={
+              <Suspense fallback={<SpotLoader />}>
+                <Album />
+              </Suspense>
+            }
+          />
+          <Route
+            path={RouteStrings.search}
+            element={
+              <Suspense fallback={<SpotLoader />}>
+                <Search />
+              </Suspense>
+            }
+          />
+          <Route
+            path={RouteStrings.account}
+            element={
+              <Suspense fallback={<SpotLoader />}>
+                <Account />
+              </Suspense>
+            }
+          />
+          <Route
+            path={RouteStrings.song + ":id"}
+            element={
+              <Suspense fallback={<SpotLoader />}>
+                <Song />
+              </Suspense>
+            }
+          />
+          <Route
+            path={RouteStrings.updateLanguage}
+            element={
+              <Suspense fallback={<SpotLoader />}>
+                <SelectLanguage />
+              </Suspense>
+            }
+          />
+          <Route
+            path={RouteStrings.artist + ":id"}
+            element={
+              <Suspense fallback={<SpotLoader />}>
+                <Artist />
+              </Suspense>
+            }
+          >
+            <Route
+              path={RouteStrings.artist + ":id" + RouteStrings.artistDetails}
+              element={
+                <Suspense fallback={<SpotLoader />}>
+                  <ArtistDetails />
+                </Suspense>
+              }
+            />
+            <Route
+              path={RouteStrings.artist + ":id" + RouteStrings.artistSongs}
+              element={
+                <Suspense fallback={<SpotLoader />}>
+                  <ArtistSongs />
+                </Suspense>
+              }
+            />
+            <Route
+              path={RouteStrings.artist + ":id" + RouteStrings.artistAlbums}
+              element={
+                <Suspense fallback={<SpotLoader />}>
+                  <ArtistAlbums />
+                </Suspense>
+              }
+            />
           </Route>
-
         </Route>
-        <Route errorElement={<ErrorBoundary />} path={RouteStrings.selectLanguage} element={<SelectLanguage />} />
-        <Route errorElement={<ErrorBoundary />} path={RouteStrings.noNetwork} element={<NoNetwork />} />
+        <Route
+          path={RouteStrings.selectLanguage}
+          element={
+            <Suspense fallback={<SpotLoader />}>
+              <SelectLanguage />
+            </Suspense>
+          }
+        />
+        <Route
+          path={RouteStrings.noNetwork}
+          element={
+            <Suspense fallback={<SpotLoader />}>
+              <NoNetwork />
+            </Suspense>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <Suspense fallback={<SpotLoader />}>
+              <NotFound />
+            </Suspense>
+          }
+        />
       </Routes>
-
-
+      {/* </Suspense> */}
     </>
-  )
-}
+  );
+};
 
-
-
-
-export default App
+export default App;

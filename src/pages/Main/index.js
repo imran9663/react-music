@@ -33,7 +33,6 @@ const Main = () => {
     }, [tracks?.length])
     return (
         <> {showLanding ? <Landing /> :
-
             <div className=" cover">
                 <Outlet />
                 <div className="bottom_components">

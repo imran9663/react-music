@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Slice } from "../constants";
 import { insertArrToSpecificIndex } from "../../utils";
-import { BiAddToQueue } from "react-icons/bi";
 
 const initialState = {
     data: [],

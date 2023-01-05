@@ -14,7 +14,6 @@ const SongStrip = ({ data }) => {
         navigate(RouteStrings.song + id)
     };
     const handleClickDropDownItem = (songData, newAction) => {
-        console.log("dd item clicked");
         switch (newAction) {
             case 'playNext':
                 dispatch(addAndPlayNextTrack(songData))
@@ -56,7 +55,6 @@ const SongStrip = ({ data }) => {
                                 <Dropdown.Item onClick={() => handleClickDropDownItem(data, 'addtoQueue')}>
                                     <span><Icons.BiAddToQueue /></span> Add to queue
                                 </Dropdown.Item>
-
                             </Dropdown.Menu>
                         </Dropdown>
 

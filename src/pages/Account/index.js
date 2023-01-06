@@ -10,14 +10,17 @@ const Account = () => {
         {
             name: 'low',
             value: 'LOW ',
+            defualtSlected: false,
         },
         {
             name: 'medium',
             value: 'MEDIUM ',
+            defualtSlected: false,
         },
         {
             name: 'high',
             value: 'HIGH ',
+            defualtSlected: true,
         },
     ]
     const Navigate = useNavigate()
@@ -32,7 +35,7 @@ const Account = () => {
                 <div className="hero-wrapper">
                     <div className="hero">
                         <div className="top-bar">
-                            <button className="btn">
+                            <button onClick={() => { Navigate(-1) }} className="btn">
                                 <Icons.BiArrowBack />
                             </button>
                             <button className="btn">

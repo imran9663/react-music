@@ -1,7 +1,7 @@
 import React from 'react'
 import './style.scss'
 const CoustomRadio = (props) => {
-    const { data, updateLanguage, DefulatChecked } = props
+    const { data, updateLanguage, } = props
     const handleChange = (e) => {
         const { name, checked } = e.target
         updateLanguage(name, checked)
@@ -15,7 +15,7 @@ const CoustomRadio = (props) => {
                         name={'radio'}
                         id={data?.name}
                         onChange={handleChange}
-                        defaultChecked={DefulatChecked ? DefulatChecked : false}
+                        defualtChecked={data.defualtSlected}
                         value={data?.name}
                         defaultValue={data?.name}
                         type={"radio"}

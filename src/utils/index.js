@@ -125,6 +125,7 @@ export const insertArrToSpecificIndex = (arr, index, newItem) => {
         // return [...arr.slice(0, index), ...newItem, ...arr.slice(index)]
     }
     else {
+        console.log("arr, index, newItem", arr, index, newItem);
         if (!arr.some(el => el.id === newItem.id)) {
             return [...arr.slice(0, index), newItem, ...arr.slice(index)]
         }

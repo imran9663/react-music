@@ -110,7 +110,7 @@ const PlayListSlice = createSlice({
         },
         addAndPlayNextTrack (state, action) {
             const CureentSongIndex = state.gbl_player.songIndex;
-            if (CureentSongIndex > 0) {
+            if (state.data.length > 0) {
                 const addedlist = insertArrToSpecificIndex(
                     state.data,
                     CureentSongIndex + 1,

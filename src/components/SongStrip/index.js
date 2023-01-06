@@ -16,6 +16,7 @@ const SongStrip = ({ data }) => {
     const handleClickDropDownItem = (songData, newAction) => {
         switch (newAction) {
             case 'playNext':
+                console.log("adding to next index");
                 dispatch(addAndPlayNextTrack(songData))
                 break;
             case 'addtoQueue':

@@ -47,83 +47,46 @@ const GlobalPlayer = () => {
         showVolumeBar: false,
         isFavourite: false,
     })
-
-    var audioSrc = trackDataList[currentIndex]?.downloadUrl[trackDataList[currentIndex]?.downloadUrl?.length - 1]?.link;
-    const audioRef = useRef(new Audio(trackList[0]?.downloadUrl[trackDataList[currentIndex]?.downloadUrl?.length - 1]?.link));
+    const [currentNewSong, setcurrentNewSong] = useState({});
+    const audioRef = useRef(new Audio(''));
 
     useEffect(() => {
-        settrackDataList(trackList)
-        setCurrentIndex(currenttrackDetails?.songIndex)
-        setcurrentNewSong(currenttrackDetails.data);
+        settrackDataList(trackList);
+        console.log("trackList", trackList);
+    }, [trackList])
 
-    }, [trackList, currenttrackDetails])
+
     useEffect(() => {
         LoadSongAndPlay()
-    }, [currenttrackDetails])
-    const [currentNewSong, setcurrentNewSong] = useState({});
-    const LoadSongAndPlay = () => {
-        setCurrentIndex(currenttrackDetails?.songIndex)
-        setcurrentNewSong(currenttrackDetails.data);
-    }
-    useEffect(() => {
-        setcurrentNewSong(trackDataList[currentIndex]);
         getSongLyrics()
-    }, [currentIndex, trackDataList]);
-
-    const { duration } = audioRef.current;
-    const Sec = Math.floor(duration);
-    if (progressBarRef?.current?.max) {
-        progressBarRef.current.max = Sec
+    }, [currenttrackDetails.data])
+    const LoadSongAndPlay = () => {
+        if (Object.values(currenttrackDetails.data).length > 0) {
+            PauseTrack()
+            const prevState = isPlaying
+            setIsPlaying(!prevState);
+            setCurrentIndex(currenttrackDetails?.songIndex)
+            setcurrentNewSong(currenttrackDetails.data);
+            audioRef.current = new Audio(currenttrackDetails.data?.downloadUrl[currenttrackDetails.data?.downloadUrl?.length - 1]?.link)
+            console.log("isPlaying", audioRef.current.played);
+            setTrackProgress(audioRef.current.currentTime);
+            setIsPlaying(true)
+            Playtrack()
+        }
+        else {
+            toast('❌ No track Found to Play')
+        }
     }
-
-    const startTimer = () => {
-        clearInterval(intervalRef.current);
-        intervalRef.current = setInterval(() => {
-            if (audioRef.current.ended) {
-                handleNext();
-            } else {
-                setTrackProgress(Math.floor(audioRef.current.currentTime));
-                if (progressBarRef?.current?.value) {
-                    progressBarRef.current.value = audioRef.current.currentTime;
-                }
-                updatePalyeTime()
-            }
-        }, [1000]);
-    };
-
-    useEffect(() => {
-        if (audioRef.current.src) {
-            if (isPlaying) {
-                audioRef.current.play();
-                startTimer();
-            } else {
-                clearInterval(intervalRef.current);
-                audioRef.current.pause();
-            }
-        } else {
-            if (isPlaying) {
-                audioRef.current = new Audio(audioSrc);
-                audioRef.current.play();
-                startTimer();
-            } else {
-                clearInterval(intervalRef.current);
-                audioRef.current.pause();
-            }
+    let totalDuration;
+    if (audioRef?.current) {
+        const { duration } = audioRef.current;
+        const Sec = Math.floor(duration);
+        // setcurrentNewSongTotalDuration(Sec);
+        totalDuration = Sec
+        if (progressBarRef?.current?.max) {
+            progressBarRef.current.max = Sec
         }
-    }, [isPlaying, currentNewSong]);
-
-    useEffect(() => {
-        audioRef.current.pause();
-        audioRef.current = new Audio(audioSrc);
-        setTrackProgress(audioRef.current.currentTime);
-        if (isReady.current) {
-            audioRef.current.play();
-            setIsPlaying(true);
-            startTimer();
-        } else {
-            isReady.current = true;
-        }
-    }, [currentIndex, currentNewSong]);
+    }
 
     useEffect(() => {
         return () => {
@@ -132,11 +95,62 @@ const GlobalPlayer = () => {
         };
     }, []);
 
+    const startTimer = () => {
+        clearInterval(intervalRef.current);
+        intervalRef.current = setInterval(() => {
+            if (audioRef.current.ended) {
+                console.log("Song End");
+                handleNext();
+            } else {
+                setTrackProgress(Math.floor(audioRef.current.currentTime));
+                if (progressBarRef?.current?.value) {
+                    progressBarRef.current.value = audioRef.current.currentTime;
+                    updatePalyeTime()
+                }
+            }
+        }, [1000]);
+    };
+    useEffect(() => {
+        updatePalyeTime()
+    }, [progressBarRef?.current])
+
+    useEffect(() => {
+        console.log(" if", audioRef?.current?.src);
+        if (audioRef?.current?.src) {
+            if (isPlaying) {
+                Playtrack()
+            } else {
+                PauseTrack()
+            }
+        } else {
+            console.log(" else ", audioRef?.current?.src);
+            if (isPlaying) {
+                Playtrack()
+            } else {
+                PauseTrack()
+            }
+        }
+    }, [isPlaying]);
+
+    const Playtrack = () => {
+        audioRef.current.play();
+        startTimer();
+    }
+    const PauseTrack = () => {
+        clearInterval(intervalRef.current);
+        audioRef.current.pause();
+    }
+
     const handleNext = () => {
+        setIsPlaying(((prevState) => !prevState))
+        // audioRef.current.pause();
+        audioRef.current.src = ''
+        clearInterval(intervalRef.current);
         if (currentIndex < trackDataList.length - 1) {
             dispatch(setNextTrack({ songIndex: currenttrackDetails.songIndex + 1, data: trackDataList[currenttrackDetails.songIndex + 1] }))
         } else {
             dispatch(setNextTrack({ songIndex: 0, data: trackDataList[0] }))
+            toast("➿ playing again ")
         }
     };
 
@@ -157,8 +171,9 @@ const GlobalPlayer = () => {
     }
     const updatePalyeTime = () => {
         setcurrentDuration(progressBarRef?.current?.value)
-        progressBarRef.current?.style.setProperty('--seek-before-width', `${progressBarRef.current.value / duration * 100}%`)
+        progressBarRef.current?.style.setProperty('--seek-before-width', `${progressBarRef.current.value / totalDuration * 100}%`)
     }
+
 
     const getSongLyrics = async () => {
         if (currenttrackDetails.data.hasLyrics === "true") {
@@ -235,8 +250,10 @@ const GlobalPlayer = () => {
         }
     }
 
-
-
+    const OnClearPlayList = () => {
+        alert("All the Song will be removed Do you want to Continue !")
+        dispatch(clearPlayList());
+    }
     return (
         <>
             {currentNewSong?.id ?
@@ -273,10 +290,10 @@ const GlobalPlayer = () => {
                                             </button>
                                         </div>
                                         <div className={`tack_card-playlist ${OpenPlaylist ? "active" : ''}`}>
-                                            <div className="tack_card-playlist--top-bar text-left">
+                                            <div className="tack_card-playlist--top-bar">
                                                 <button
-                                                    onClick={() => { dispatch(clearPlayList()) }}
-                                                    className="btn closeBtn">
+                                                    onClick={() => { OnClearPlayList() }}
+                                                    className="btn closeBtn delete">
                                                     <Icons.BsTrashCan />
                                                 </button>
                                                 <button
@@ -418,8 +435,8 @@ const GlobalPlayer = () => {
                                                     getCorrectTimeForamt(trackProgress) : "--:--"
                                             }</p>
                                             <p className="time">{
-                                                !isNaN(duration) ?
-                                                    getCorrectTimeForamt(duration) : "--:--"
+                                                !isNaN(totalDuration) ?
+                                                    getCorrectTimeForamt(totalDuration) : "--:--"
                                             }</p>
                                         </div>
                                     </div>

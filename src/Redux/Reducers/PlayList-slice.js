@@ -110,13 +110,23 @@ const PlayListSlice = createSlice({
         },
         addAndPlayNextTrack (state, action) {
             const CureentSongIndex = state.gbl_player.songIndex;
-            const addedlist = insertArrToSpecificIndex(
-                state.data,
-                CureentSongIndex + 1,
-                action.payload
-            );
-            state.data = addedlist;
+            if (CureentSongIndex > 0) {
+                const addedlist = insertArrToSpecificIndex(
+                    state.data,
+                    CureentSongIndex + 1,
+                    action.payload
+                );
+                state.data = addedlist;
+            }
+            else {
+                state.data = [action.payload];
+            }
+
         },
+        clearPlayList (state, action) {
+            state.data = initialState.data;
+            state.gbl_player = initialState.gbl_player
+        }
     },
 });
 export const {
@@ -126,6 +136,7 @@ export const {
     setNextTrack,
     removeTrackFromPlayList,
     setPreviousTrack,
+    clearPlayList,
 } = PlayListSlice.actions;
 export const currentPlaylist = (state) => state.playList.data;
 export const currentTrack = (state) => state.playList.gbl_player;

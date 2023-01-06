@@ -8,6 +8,7 @@ import { ReactComponent as BiAddToQueue } from "./BiAddToQueue.svg";
 import { ReactComponent as BiAlbum } from "./BiAlbum.svg";
 import { ReactComponent as BiUserCircle } from "./BiUserCircle.svg";
 import { ReactComponent as BsChevronDoubleDown } from "./BsChevronDoubleDown.svg";
+import { ReactComponent as BsChevronDoubleUp } from "./BsChevronDoubleUp.svg";
 import { ReactComponent as BsVolumeMute } from "./BsVolumeMute.svg";
 import { ReactComponent as BsVolumeUp } from "./BsVolumeUp.svg";
 import { ReactComponent as BsVolumeDown } from "./BsVolumeDown.svg";
@@ -38,6 +39,7 @@ import { ReactComponent as SiReact } from "./SiReact.svg";
 import { ReactComponent as SlPlaylist } from "./SlPlaylist.svg";
 import { ReactComponent as TfiLoop } from "./TfiLoop.svg";
 import { ReactComponent as IoPlaySkipForward } from "./IoPlaySkipForward.svg";
+import { ReactComponent as BsTrashCan } from "./BsTrashCan.svg";
 
 
 
@@ -53,8 +55,10 @@ export const Icons = {
     defualtImage: defualtImage,
 
     home: FiHome,
+    home: FiHome,
     search: FiSearch,
     BsChevronDoubleDown: BsChevronDoubleDown,
+    BsChevronDoubleUp: BsChevronDoubleUp,
     SlPlaylist: SlPlaylist,
     BsVolumeMute: BsVolumeMute,
     BsVolumeUp: BsVolumeUp,
@@ -91,4 +95,5 @@ export const Icons = {
     AiFillRightCircle: AiFillRightCircle,
     BiAddToQueue: BiAddToQueue,
     IoPlaySkipForward: IoPlaySkipForward,
+    BsTrashCan: BsTrashCan,
 };

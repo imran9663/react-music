@@ -92,11 +92,9 @@ const GlobalPlayer = () => {
     };
 
     useEffect(() => {
-        console.log("audio refuse effect");
         if (audioRef.current.src) {
             if (isPlaying) {
                 audioRef.current.play();
-                console.log("audioRef", audioRef.current.src);
                 startTimer();
             } else {
                 clearInterval(intervalRef.current);
@@ -119,7 +117,6 @@ const GlobalPlayer = () => {
         audioRef.current = new Audio(audioSrc);
         setTrackProgress(audioRef.current.currentTime);
         if (isReady.current) {
-            console.log("isReady.current", isReady.current);
             audioRef.current.play();
             setIsPlaying(true);
             startTimer();

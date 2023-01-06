@@ -48,8 +48,8 @@ const GlobalPlayer = () => {
         isFavourite: false,
     })
 
-    var audioSrc = trackDataList[currentIndex]?.downloadUrl[0].link;
-    const audioRef = useRef(new Audio(trackList[0]?.downloadUrl[0].link));
+    var audioSrc = trackDataList[currentIndex]?.downloadUrl[trackDataList[currentIndex]?.downloadUrl?.length - 1]?.link;
+    const audioRef = useRef(new Audio(trackList[0]?.downloadUrl[trackDataList[currentIndex]?.downloadUrl?.length - 1]?.link));
 
     useEffect(() => {
         settrackDataList(trackList)

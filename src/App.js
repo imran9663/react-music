@@ -2,22 +2,25 @@ import React, { Suspense, useEffect } from "react";
 import "./App.scss";
 import { Route, Routes, useRouteError } from "react-router";
 import RouteStrings from "./utils/RouteStrings";
-const SpotLoader = React.lazy(() => import("./components/Loader/SpotLoader"));
+import ComponentLoader from "./ComponentLoader";
+// const ProductList = React.lazy(() => ComponentLoader(() => import("./path/to/productlist")));
 
-const Account = React.lazy(() => import("./pages/Account"));
-const Album = React.lazy(() => import("./pages/Album"));
-const Home = React.lazy(() => import("./pages/Home"));
-const Main = React.lazy(() => import("./pages/Main"));
-const NoNetwork = React.lazy(() => import("./pages/NoNetwork"));
-const PlayList = React.lazy(() => import("./pages/Playlist"));
-const Search = React.lazy(() => import("./pages/Search"));
-const Song = React.lazy(() => import("./pages/Song"));
-const Artist = React.lazy(() => import("./pages/Artist"));
-const ArtistDetails = React.lazy(() => import("./pages/Artist/ArtistDetails"));
-const ArtistSongs = React.lazy(() => import("./pages/Artist/ArtistSongs"));
-const ArtistAlbums = React.lazy(() => import("./pages/Artist/ArtistAlbums"));
-const SelectLanguage = React.lazy(() => import("./pages/SelectLanguage"));
-const NotFound = React.lazy(() => import("./pages/NotFound"));
+const SpotLoader = React.lazy(() => ComponentLoader(() => import("./components/Loader/SpotLoader")));
+
+const Account = React.lazy(() => ComponentLoader(() => import("./pages/Account")));
+const Album = React.lazy(() => ComponentLoader(() => import("./pages/Album")));
+const Home = React.lazy(() => ComponentLoader(() => import("./pages/Home")));
+const Main = React.lazy(() => ComponentLoader(() => import("./pages/Main")));
+const NoNetwork = React.lazy(() => ComponentLoader(() => import("./pages/NoNetwork")));
+const PlayList = React.lazy(() => ComponentLoader(() => import("./pages/Playlist")));
+const Search = React.lazy(() => ComponentLoader(() => import("./pages/Search")));
+const Song = React.lazy(() => ComponentLoader(() => import("./pages/Song")));
+const Artist = React.lazy(() => ComponentLoader(() => import("./pages/Artist")));
+const ArtistDetails = React.lazy(() => ComponentLoader(() => import("./pages/Artist/ArtistDetails")));
+const ArtistSongs = React.lazy(() => ComponentLoader(() => import("./pages/Artist/ArtistSongs")));
+const ArtistAlbums = React.lazy(() => ComponentLoader(() => import("./pages/Artist/ArtistAlbums")));
+const SelectLanguage = React.lazy(() => ComponentLoader(() => import("./pages/SelectLanguage")));
+const NotFound = React.lazy(() => ComponentLoader(() => import("./pages/NotFound")));
 
 const App = () => {
   useEffect(() => { }, []);

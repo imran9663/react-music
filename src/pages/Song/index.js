@@ -124,7 +124,11 @@ const Song = () => {
                             </div>
                         </div>
                         <div className="song_warpper-action-btns">
-                            <button onClick={handlePlaySong} className="btn btn-rounded  play "> <Icons.BsPlayFill fill="#ffffff" size={28} /></button>
+                            {songData[0]?.downloadUrl?.length > 0
+                                &&
+                                <button onClick={handlePlaySong} className="btn btn-rounded  play "> <Icons.BsPlayFill fill="#ffffff" size={28} /></button>
+                            }
+
                             <button className="btn btn-rounded heart  ">
                                 <Icons.BsHeart size={28} />
                                 {/* <Icons.BsHeartFill fill="#ff0000" size={28} /> */}

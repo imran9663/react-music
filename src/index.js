@@ -9,12 +9,14 @@ import App from './App';
 import store from './Redux/store';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import Dummy from './Dummy';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <BrowserRouter>
     <Provider store={store}>
       <App />
+      {/* <Dummy /> */}
     </Provider>
   </BrowserRouter>
 

@@ -69,7 +69,6 @@ const Home = () => {
                     </div>
                     <div className="trendingWrapper">
                         <h2 className='text-light  text-capitalize trending'>Trending</h2>
-                        <div id="curved-corner-topleft"></div>
                     </div>
                     <h5 className='text-light mt-3 mx-3 text-capitalize'>albums</h5>
                     {isLoading ? <SlideLoader /> :

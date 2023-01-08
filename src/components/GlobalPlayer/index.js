@@ -150,6 +150,7 @@ const GlobalPlayer = () => {
             dispatch(setNextTrack({ songIndex: currenttrackDetails.songIndex + 1, data: trackDataList[currenttrackDetails.songIndex + 1] }))
         } else {
             dispatch(setNextTrack({ songIndex: 0, data: trackDataList[0] }))
+            audioRef.current.load()
             toast("➿ playing again ")
         }
     };

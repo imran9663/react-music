@@ -13,5 +13,6 @@ const RouteStrings = {
     selectLanguage: '/selectLanguage',
     updateLanguage: '/updateLanguage',
     noNetwork: '/noNetwork',
+    register: '/auth/register',
 }
 export default RouteStrings

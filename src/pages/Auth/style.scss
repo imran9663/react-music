@@ -1,0 +1,18 @@
+@import "../../utils/Styles/color.scss";
+
+.Auth-screen {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // background-color: $accent-color;
+  padding: 3rem;
+}
+
+@media (max-width: 768px) {
+  .Auth-screen {
+    padding: 0rem;
+    // background-color: $accent-color;
+  }
+}

@@ -18,6 +18,8 @@ import ArtistSongs from "./pages/Artist/ArtistSongs";
 import ArtistAlbums from "./pages/Artist/ArtistAlbums";
 import SelectLanguage from "./pages/SelectLanguage";
 import NotFound from "./pages/NotFound";
+import Auth from "./pages/Auth/Index";
+import Register from "./pages/Auth/Register";
 
 // const Account = React.lazy(() => ComponentLoader(() => import("./pages/Account")));
 // const Album = React.lazy(() => ComponentLoader(() => import("./pages/Album")));
@@ -46,7 +48,9 @@ const App = () => {
     <>
       {/* <Suspense fallback={<SpotLoader />}> */}
       <Routes>
-        <Route errorElement={<ErrorBoundary />} path='*' element={<NotFound />} />
+        <Route errorElement={<ErrorBoundary />} path="/auth" element={<Auth />}>
+          <Route path="/auth/register" element={<Register />} />
+        </Route>
         <Route errorElement={<ErrorBoundary />} path='/' element={<Main />}>
           <Route errorElement={<ErrorBoundary />} path='*' element={<NotFound />} />
           <Route errorElement={<ErrorBoundary />} path={RouteStrings.home} element={<Home />} />

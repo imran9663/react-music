@@ -1,3 +1,4 @@
 export const loaclStorageStrings = {
-    lang: 'selectedLanguages'
+    lang: 'selectedLanguages',
+    token: 'authToken'
 }

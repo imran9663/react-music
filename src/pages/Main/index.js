@@ -19,13 +19,13 @@ const Main = () => {
         routeTomain()
     }, [])
     const islanguagesSelected = () => {
-        const lang = JSON.parse(localStorage.getItem(loaclStorageStrings.lang))
-        return (lang != null && lang.length > 0) ? true : false
+        const token = JSON.parse(localStorage.getItem(loaclStorageStrings.token))
+        return (token != null) ? true : false
     }
     const routeTomain = () => {
         setTimeout(() => {
             setshowLanding(false)
-            islanguagesSelected() ? navigate(RouteStrings.home) : navigate(RouteStrings.selectLanguage)
+            islanguagesSelected() ? navigate(RouteStrings.home) : navigate(RouteStrings.register)
         }, 1000);
     }
     useEffect(() => {

@@ -1,9 +1,20 @@
 
 //  AxiosInstence Get Request
 
+import axios from "axios";
 import axiosInstence from "./index";
 
 export const getRequest = async (url) => {
+    try {
+        const response = await axios.get(process.env.REACT_APP_API_BASE_URL + url);
+        return response
+    } catch (error) {
+        console.log('getRequest error==>', error.response);
+        return error.response
+    }
+}
+
+export const getRequestWithInstence = async (url) => {
     try {
         const response = await axiosInstence.get(url);
         return response

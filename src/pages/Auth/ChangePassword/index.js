@@ -71,7 +71,7 @@ const ChangePassword = () => {
             <div className="container Register">
                 <div className="row h-100 px-4  d-flex justify-contet-center align-items-center">
                     <div className="col-md-8  d-none d-md-block hero-img-wrapper">
-                        <img src={Icons.moremusic} alt="bannerimage" />
+                        <img loading="lazy" src={Icons.moremusic} alt="bannerimage" />
                     </div>
                     <div className="col-md-4  Register-form">
                         <h1 className="heading"> Change Password</h1>

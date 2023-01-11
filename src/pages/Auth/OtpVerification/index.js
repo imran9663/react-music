@@ -73,8 +73,8 @@ const OtpVerification = () => {
                     </div>
                     <div className="col-md-4  OtpVerification-form">
                         <h1 className="heading">Verif OTP</h1>
+                        <p className="info">  An OTP has been sent to your mail</p>
                         <div className="formElements">
-
                             <CoustomInput type={'email'}
                                 label={'email'}
                                 Value={formVlaues.email}
@@ -92,8 +92,6 @@ const OtpVerification = () => {
                                 OnChange={handleFormValueChange}
                                 OnBlur={handleFormValueBlur}
                                 errorText={errorState.otp} />
-
-
                             <CoustomButton OnClick={OnClickOnCta} Disabled={isDisabled} title={"OtpVerification"} />
                         </div>
                     </div>

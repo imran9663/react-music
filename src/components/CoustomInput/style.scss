@@ -28,6 +28,14 @@
       font-size: 1rem;
       color: $white;
       padding: 0 0.5rem;
+      &::placeholder {
+        background: #414141;
+        color: #ffffff5f;
+      }
+      // &::-webkit-input-placeholder {
+      //   background: #414141;
+      //   color: #ffffff84;
+      // }
     }
     .input-icon {
       height: 100%;

@@ -32,7 +32,7 @@ const SongStrip = ({ data }) => {
     return (
         <>
             <div key={data?.id} className="homepage-songlist-card">
-                <img onError={({ currentTarget }) => {
+                <img loading="lazy" onError={({ currentTarget }) => {
                     currentTarget.onerror = null;
                     currentTarget.src = Icons.defualtImage;
                 }} onClick={() => handleClick(data?.id)} className="img-fluid homepage-songlist-card-img " src={data?.image[1].link} alt="album-art" />

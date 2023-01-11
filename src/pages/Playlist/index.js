@@ -72,7 +72,7 @@ const PlayList = () => {
                     {Object.keys(playlistData).length > 0 && (
                         <>
                             <div className="hero">
-                                <img onError={({ currentTarget }) => {
+                                <img loading="lazy" onError={({ currentTarget }) => {
                                     currentTarget.onerror = null;
                                     currentTarget.src = Icons.defualtImage;
                                 }}
@@ -88,7 +88,7 @@ const PlayList = () => {
                             <Topbar tbClassName={'tbar'} />
                             <div className="playlist-info">
                                 <div className="col-4 image-cover">
-                                    <img onError={({ currentTarget }) => {
+                                    <img loading="lazy" onError={({ currentTarget }) => {
                                         currentTarget.onerror = null;
                                         currentTarget.src = Icons.defualtImage;
                                     }}
@@ -143,7 +143,7 @@ const PlayList = () => {
                                     })}
                                 </> : <>
                                     <div className="nosongs_wrapper">
-                                        <img onError={({ currentTarget }) => {
+                                        <img loading="lazy" onError={({ currentTarget }) => {
                                             currentTarget.onerror = null;
                                             currentTarget.src = Icons.defualtImage;
                                         }} className="img-fluid" src={Icons.mello} alt="no data found " />

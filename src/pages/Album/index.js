@@ -63,7 +63,7 @@ const Album = () => {
                         <>
                             <div className="hero">
 
-                                <img onError={({ currentTarget }) => {
+                                <img loading="lazy" onError={({ currentTarget }) => {
                                     currentTarget.onerror = null;
                                     currentTarget.src = Icons.defualtImage;
                                 }}
@@ -86,7 +86,7 @@ const Album = () => {
                             <div className="playlist-info">
 
                                 <div className="col-4 image-cover">
-                                    <img onError={({ currentTarget }) => {
+                                    <img loading="lazy" onError={({ currentTarget }) => {
                                         currentTarget.onerror = null;
                                         currentTarget.src = Icons.defualtImage;
                                     }} src={playlistData.image[0].link} alt="" className="prfilethumb" />

@@ -87,7 +87,7 @@ const Song = () => {
                             </button>
                         </div>
                         <div className="song_warpper-albumart">
-                            <img onError={({ currentTarget }) => {
+                            <img loading="lazy" onError={({ currentTarget }) => {
                                 currentTarget.onerror = null;
                                 currentTarget.src = Icons.defualtImage;
                             }}

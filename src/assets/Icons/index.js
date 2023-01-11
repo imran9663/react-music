@@ -50,6 +50,10 @@ import mello from "./mello.svg";
 import nointernet from "./no_internet.svg";
 import notFound from "./not_found.svg";
 import moremusic from "./moremusic.svg";
+import ComposeMusic from "./ComposeMusic.svg";
+import teamFun from "./teamFun.svg";
+import mailbox from "./mailbox.svg";
+import ForgotPassword from "./forgot_password.svg";
 
 export const Icons = {
     notFound: notFound,
@@ -57,6 +61,10 @@ export const Icons = {
     moremusic: moremusic,
     mello: mello,
     defualtImage: defualtImage,
+    ComposeMusic: ComposeMusic,
+    teamFun: teamFun,
+    mailbox: mailbox,
+    ForgotPassword: ForgotPassword,
 
     home: FiHome,
     home: FiHome,

@@ -56,7 +56,7 @@ const MusicSlider = (props) => {
               <>
                 <div key={ind}>
                   <button onClick={() => handleClick(item)} className={isSquare ? 'newCard isSquare' : 'newCard '}>
-                    <img onError={({ currentTarget }) => {
+                    <img loading="lazy" onError={({ currentTarget }) => {
                       currentTarget.onerror = null;
                       currentTarget.src = Icons.defualtImage;
                     }} src={item?.image[2].link} alt="album art" className="newCard-image" />

@@ -29,7 +29,7 @@ const MediaCard = ({ Data, Style, ImgStyle }) => {
         <>{
             (Data.type === 'playlist' || Data.type === 'album') &&
             <div style={Style} onClick={handleClick} className={`albumCard ${Data.type === 'playlist' && 'playlist'}`}>
-                <img style={ImgStyle} onError={({ currentTarget }) => {
+                <img loading="lazy" style={ImgStyle} onError={({ currentTarget }) => {
                     currentTarget.onerror = null;
                     currentTarget.src = Icons.defualtImage;
                 }} className="albumCard-img-top" src={getCorrectSrc(Data.image)} alt='albumart' />
@@ -41,7 +41,7 @@ const MediaCard = ({ Data, Style, ImgStyle }) => {
             {(Data.type === 'song') &&
                 <>
                     <div onClick={handleClick} className="songCard ">
-                        <img onError={({ currentTarget }) => {
+                        <img loading="lazy" onError={({ currentTarget }) => {
                             currentTarget.onerror = null;
                             currentTarget.src = Icons.defualtImage;
                         }} src={getCorrectSrc(Data.image)} alt="albumart" className="songCard-img img-fluid" />
@@ -56,7 +56,7 @@ const MediaCard = ({ Data, Style, ImgStyle }) => {
                 (Data.type === 'artist') &&
                 <>
                     <div onClick={handleClick} className={`albumCard`}>
-                        <img onError={({ currentTarget }) => {
+                        <img loading="lazy" onError={({ currentTarget }) => {
                             currentTarget.onerror = null;
                             currentTarget.src = Icons.defualtImage;
                         }} className="albumCard-img-top rounded-border"

@@ -2,19 +2,17 @@ import React, { useState } from 'react'
 import './style.scss'
 import { Icons } from '../../assets/Icons'
 const CoustomInput = (props) => {
-    const { type, label, name, id, placeholder, OnChange, OnBlur, errorText } = props;
+    const { type, label, name, Value, id, placeholder, OnChange, OnBlur, errorText } = props;
     const [passwordType, setpasswordType] = useState(true);
-    const [data, setData] = useState('');
+    const [data, setData] = useState(Value);
 
     const handleChange = (e) => {
         const { name, value } = e.target
         setData(value)
-        OnChange(value)
+        OnChange(name, value)
     }
     const handleBlur = (e) => {
-        const { name, value } = e.target
-        setData(value)
-        OnBlur(value)
+        OnBlur(e)
     }
 
     return (
@@ -24,6 +22,7 @@ const CoustomInput = (props) => {
                 {type === 'password' ?
                     <div className="CoustomInput-field">
                         <input
+                            {...props}
                             name={name}
                             id={id}
                             value={data}
@@ -44,6 +43,7 @@ const CoustomInput = (props) => {
                     :
                     <div className="CoustomInput-field">
                         <input
+                            {...props}
                             name={name}
                             id={id}
                             value={data}

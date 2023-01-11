@@ -10,3 +10,6 @@
   font-weight: 600;
   background: $accent-color;
 }
+.btn-accent:disabled {
+  background: $accent-color-disabled;
+}

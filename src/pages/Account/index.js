@@ -44,7 +44,7 @@ const Account = () => {
                         </div>
                         <div className="profile">
                             <div className="profile-pic">
-                                <img src="https://cdn.pixabay.com/photo/2018/11/13/22/01/avatar-3814081_960_720.png" alt="profie" className="img-fluid profile-pic-img" />
+                                <img loading="lazy" src="https://cdn.pixabay.com/photo/2018/11/13/22/01/avatar-3814081_960_720.png" alt="profie" className="img-fluid profile-pic-img" />
                             </div>
                             <h4 className="user mt-2">imran pasha</h4>
                             <p className="username">@imranpasha</p>

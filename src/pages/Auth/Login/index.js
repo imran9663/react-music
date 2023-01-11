@@ -7,25 +7,20 @@ import { Link } from 'react-router-dom';
 import { regexp } from '../../../utils/regexp';
 import RouteStrings from '../../../utils/RouteStrings';
 
-const Register = () => {
+const Login = () => {
 
     const errorText = {
-        name: 'please enter correct name',
         email: 'please enter correct Email',
-        newPassword: 'password length should be grater than 8',
-        confirmPassword: 'new password & Confirm Password should be same'
+        Password: 'password length should be grater than 8',
     }
     const [formVlaues, setformVlaues] = useState({
-        name: '',
         email: '',
-        newPassword: '',
-        confirmPassword: ''
+        Password: '',
+
     })
     const [errorState, seterrorState] = useState({
-        name: '',
         email: '',
-        newPassword: '',
-        confirmPassword: ''
+        Password: '',
     })
     const [isDisabled, setisDisabled] = useState(false)
     useEffect(() => {
@@ -42,11 +37,8 @@ const Register = () => {
             case 'email':
                 regexp.email.test(value) && seterrorState({ ...errorState, [name]: "" })
                 break;
-            case 'newPassword':
+            case 'Password':
                 regexp.password.test(value) && seterrorState({ ...errorState, [name]: "" })
-                break;
-            case 'confirmPassword':
-                value === formVlaues.newPassword && seterrorState({ ...errorState, [name]: "" })
                 break;
             default:
                 break;
@@ -62,12 +54,9 @@ const Register = () => {
                 case 'email':
                     regexp.email.test(value) ? seterrorState({ ...errorState, [name]: "" }) : seterrorState({ ...errorState, [name]: errorText[name] })
                     break;
-                case 'newPassword':
+                case 'Password':
                     console.log("match pass", regexp.password.test(value));
                     regexp.password.test(value) ? seterrorState({ ...errorState, [name]: "" }) : seterrorState({ ...errorState, [name]: errorText[name] })
-                    break;
-                case 'confirmPassword':
-                    value === formVlaues.newPassword ? seterrorState({ ...errorState, [name]: "" }) : seterrorState({ ...errorState, [name]: errorText[name] })
                     break;
                 default:
                     break;
@@ -79,24 +68,16 @@ const Register = () => {
     }
     return (
         <>
-            <div className="container Register">
+            <div className="container Login">
                 <div className="row h-100 px-4  d-flex justify-contet-center align-items-center">
                     <div className="col-md-8  d-none d-md-block hero-img-wrapper">
-                        <img loading="lazy" src={Icons.moremusic} alt="bannerimage" />
+                        <img loading="lazy" src={Icons.teamFun} alt="bannerimage" />
                     </div>
-                    <div className="col-md-4  Register-form">
-                        <h1 className="heading"> Welcome to <span>reusic</span></h1>
-                        <p className="info"> please register yourself to Continue</p>
+                    <div className="col-md-4  Login-form">
+                        <h1 className="heading"> Welcome Back</h1>
+                        <p className="info">  Login to Continue</p>
                         <div className="formElements">
-                            <CoustomInput
-                                type={'text'}
-                                Value={formVlaues.name}
-                                name='name'
-                                OnChange={handleFormValueChange}
-                                label={'Full Name'}
-                                placeholder={"ex: Jhon Doe"}
-                                OnBlur={handleFormValueBlur}
-                                errorText={errorState.name} />
+
                             <CoustomInput type={'email'}
                                 label={'email'}
                                 Value={formVlaues.email}
@@ -107,27 +88,19 @@ const Register = () => {
                                 errorText={errorState.email} />
                             <CoustomInput
                                 type={'password'}
-                                Value={formVlaues.newPassword}
-                                label={'new password'}
+                                Value={formVlaues.Password}
+                                label={'password'}
                                 placeholder={"ex: ▪▪▪▪▪▪▪▪▪▪▪▪"}
-                                name={'newPassword'}
+                                name={'Password'}
                                 OnChange={handleFormValueChange}
                                 OnBlur={handleFormValueBlur}
-                                errorText={errorState.newPassword} />
-                            <CoustomInput
-                                type={'password'}
-                                Value={formVlaues.confirmPassword}
-                                label={'confirm password'}
-                                placeholder={"ex: ▪▪▪▪▪▪▪▪▪▪▪▪"}
-                                name={'confirmPassword'}
-                                OnChange={handleFormValueChange}
-                                OnBlur={handleFormValueBlur}
-                                errorText={errorState.confirmPassword} />
-
-
+                                errorText={errorState.Password} />
+                            <div className=" w-100 text-left ">
+                                <Link to={RouteStrings.login} className='forgot-link'> Forgot Password?</Link>
+                            </div>
                             <div className="pt-5">
-                                <CoustomButton OnClick={OnClickOnCta} Disabled={isDisabled} title={"Register"} />
-                                <p className="link">Already registerd <Link to={RouteStrings.login} className='loginLinh'> Login</Link> here</p>
+                                <CoustomButton OnClick={OnClickOnCta} Disabled={isDisabled} title={"Login"} />
+                                <p className="link">Not Registerd <Link to={RouteStrings.register} className='loginLinh'> Register</Link> here</p>
                             </div>
                         </div>
                     </div>
@@ -137,4 +110,4 @@ const Register = () => {
     )
 }
 
-export default Register
+export default Login

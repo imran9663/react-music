@@ -25,7 +25,8 @@ const Main = () => {
     const routeTomain = () => {
         setTimeout(() => {
             setshowLanding(false)
-            islanguagesSelected() ? navigate(RouteStrings.home) : navigate(RouteStrings.register)
+            // islanguagesSelected() ? navigate(RouteStrings.home) : navigate(RouteStrings.register)
+            islanguagesSelected() ? navigate(RouteStrings.home) : navigate(RouteStrings.otp)
         }, 1000);
     }
     useEffect(() => {

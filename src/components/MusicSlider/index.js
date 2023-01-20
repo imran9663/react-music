@@ -50,7 +50,7 @@ const MusicSlider = (props) => {
   return (
     <>
       <Slider {...settings}>
-        {data.length > 0 &&
+        {data?.length > 0 &&
           data.map((item, ind) => {
             return (
               <>
@@ -71,14 +71,14 @@ const MusicSlider = (props) => {
                       </p>
                       <div className="newCard-overlay-info">
                         {
-                          item?.artists && item?.artists.length > 0 &&
+                          item?.artists && item?.artists?.length > 0 &&
                           <p key={item.artists[0].id} className="newCard-overlay-info-artist">
                             {ParseString(item?.artists[0].name)}
                           </p>
                         }
-                        {item?.artists && item?.artists.length > 1 &&
+                        {item?.artists && item?.artists?.length > 1 &&
                           <p className="newCard-overlay-info-artist">
-                            +{item?.artists.length - 1}
+                            +{item?.artists?.length - 1}
                           </p>
                         }
                       </div>

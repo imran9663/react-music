@@ -1,4 +1,5 @@
 export const loaclStorageStrings = {
     lang: 'selectedLanguages',
-    token: 'authToken'
+    token: 'authToken',
+    profileInfo: 'profileInfo'
 }

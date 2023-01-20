@@ -18,15 +18,19 @@ const Main = () => {
     useEffect(() => {
         routeTomain()
     }, [])
-    const islanguagesSelected = () => {
-        const token = JSON.parse(localStorage.getItem(loaclStorageStrings.token))
+    const checkToken = () => {
+        const token = JSON.parse(localStorage.getItem(loaclStorageStrings.token));
         return (token != null) ? true : false
+    }
+    const getLang = () => {
+        const { language } = JSON.parse(localStorage.getItem(loaclStorageStrings.profileInfo))
+        console.log("LANG", language);
+        return language?.length > 0 ? true : false
     }
     const routeTomain = () => {
         setTimeout(() => {
             setshowLanding(false)
-            // islanguagesSelected() ? navigate(RouteStrings.home) : navigate(RouteStrings.register)
-            islanguagesSelected() ? navigate(RouteStrings.home) : navigate(RouteStrings.otp)
+            checkToken() ? (getLang() ? navigate(RouteStrings.home) : navigate(RouteStrings.updateLanguage)) : (navigate(RouteStrings.login));
         }, 1000);
     }
     useEffect(() => {

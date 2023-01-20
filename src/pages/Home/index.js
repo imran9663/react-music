@@ -1,141 +1,202 @@
-import React, { useEffect, useState } from 'react'
-import MusicSlider from '../../components/MusicSlider'
-import { getRequest } from '../../apis/Base/serviceMethods'
-import { configURL } from '../../apis/Base/config'
-import SlideLoader from '../../components/Loader/SlideLoader'
-import { useNavigate } from 'react-router'
-import RouteStrings from '../../utils/RouteStrings'
-import { Icons } from '../../assets/Icons'
-import { setLocalPlayListData } from '../../Redux/Reducers/PlayList-slice'
-import { useDispatch } from 'react-redux'
-import './style.scss'
-import { ParseString, getNamefromArray } from '../../utils'
-import RoundCard from '../../components/RoundCard'
-import topArtist from '../../utils/data/index.json'
-import SongStrip from '../../components/SongStrip'
-import { loaclStorageStrings } from '../../utils/localStorageStrings'
+import React, { useEffect, useState } from "react";
+import { configURL } from "../../apis/Base/config";
+import { getRequest, getRequestWithInstence } from "../../apis/Base/serviceMethods";
+import { Icons } from "../../assets/Icons";
+import SlideLoader from "../../components/Loader/SlideLoader";
+import MusicSlider from "../../components/MusicSlider";
+import RoundCard from "../../components/RoundCard";
+import SongStrip from "../../components/SongStrip";
+import topArtist from "../../utils/data/index.json";
+import { loaclStorageStrings } from "../../utils/localStorageStrings";
+import "./style.scss";
+import { toast } from "react-hot-toast";
 const Home = () => {
-    const [isLoading, setisLoading] = useState(false)
+    const [isLoading, setisLoading] = useState(false);
+    const [isFavoriteLoading, setisFavoriteLoading] = useState(false);
+    const [name, setname] = useState("");
     const [HomePageData, setHomePageData] = useState({
         albums: [],
         charts: [],
         playlists: [],
         trenadingAlbums: [],
         trenadingSongs: [],
-    })
-    const [languages, setlanguages] = useState([])
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
+    });
+    const [favoriteData, setfavoriteData] = useState([]);
+    // const navigate = useNavigate()
+    // const dispatch = useDispatch()
     useEffect(() => {
-        getLoaclStorageLang()
-    }, [])
-    useEffect(() => {
-        languages?.length > 0 && getHomePageData()
-    }, [languages])
+        getLoaclStorageLang();
+        getFavoriteData()
+    }, []);
 
     const getLoaclStorageLang = () => {
-        setlanguages(JSON.parse(localStorage.getItem(loaclStorageStrings.lang)))
-    }
-    const handleClick = (id) => {
-        navigate(RouteStrings.song + id)
-    }
-    const handlePlaySong = (songData) => {
-        dispatch(setLocalPlayListData(songData))
-    }
-    const getHomePageData = async () => {
-        setisLoading(true)
-        await getRequest(configURL.homePage + languages).then(res => {
-            setHomePageData({
-                ...HomePageData,
-                albums: res?.data?.data.albums,
-                charts: res?.data?.data.charts,
-                playlists: res?.data?.data.playlists,
-                trenadingAlbums: res?.data?.data.trending.albums,
-                trenadingSongs: res?.data?.data.trending.songs,
+        const { language, fullName } = JSON.parse(
+            localStorage.getItem(loaclStorageStrings.profileInfo)
+        );
+        setname(fullName.split(" ")[0]);
+        language?.length > 0 && getHomePageData(language);
+    };
+
+    const getHomePageData = async (arg) => {
+        setisLoading(true);
+        await getRequest(configURL.homePage + arg)
+            .then((res) => {
+                setHomePageData({
+                    ...HomePageData,
+                    albums: res?.data?.data.albums,
+                    charts: res?.data?.data.charts,
+                    playlists: res?.data?.data.playlists,
+                    trenadingAlbums: res?.data?.data.trending.albums,
+                    trenadingSongs: res?.data?.data.trending.songs,
+                });
             })
+            .catch((err) => {
+                console.log("getHomePageData err", err);
+            })
+            .finally(() => {
+                setisLoading(false);
+            });
+    };
+    const getFavoriteData = async (arg) => {
+        setisFavoriteLoading(true);
+        await getRequestWithInstence(configURL.favorite).then(res => {
+            if (res.status === 200) {
+                setfavoriteData(res.data.data)
+            }
+            res.status === 201 && toast("No Favorites")
         }).catch(err => {
-            console.log("getHomePageData err", err);
+            console.log("err", err);
+            toast.error("error in fecthing Favorite")
         }).finally(() => {
-            setisLoading(false)
+            setisFavoriteLoading(false)
         })
     }
-    const artistLength = 7
+    const artistLength = 7;
     return (
         <>
             <div className="homewrapper">
                 <section>
                     <div className="banner">
-                        <div className="hello">Hello <span>Imran</span></div>
+                        <div className="hello">
+                            Hello <span className="text-capitalize">{name}</span>
+                        </div>
                     </div>
-                    <div className="trendingWrapper">
+                    {/* <div className="trendingWrapper">
                         <h2 className='text-light  text-capitalize trending'>Trending</h2>
-                    </div>
-                    <h5 className='text-light mt-3 mx-3 text-capitalize'>albums</h5>
-                    {isLoading ? <SlideLoader /> :
+                    </div> */}
+                    {isLoading ? (
+                        <SlideLoader />
+                    ) :
+                        HomePageData?.trenadingAlbums?.length > 0 && (
+                            <>
+                                <h5 className="text-light mt-3 mx-3 text-capitalize">
+                                    Trending albums
+                                </h5>
+                                <>
+                                    <div className="m-3">
+                                        <MusicSlider data={HomePageData?.trenadingAlbums} />
+                                    </div>
+                                </>
+                            </>
+                        )}
+                    {isLoading ? (
+                        <SlideLoader />
+                    ) :
+                        HomePageData?.trenadingSongs?.length > 0 &&
                         <>
-                            <div className="m-3">
-                                <MusicSlider data={HomePageData?.trenadingAlbums} />
-                            </div>
+                            <h5 className="text-light  mx-3 text-capitalize">
+                                Trending Songs
+                            </h5>
+                            <>
+                                <div className="homepage-songlist mx-3">
+                                    {HomePageData?.trenadingSongs.map((item, ind) => {
+                                        return <SongStrip key={ind} data={item} />;
+                                    })}
+                                </div>
+                            </>
                         </>
                     }
-                    <h5 className='text-light  mx-3 text-capitalize'>Songs</h5>
-                    {isLoading ? <SlideLoader /> :
+                    {isFavoriteLoading ? (
+                        <SlideLoader />
+                    ) :
+                        favoriteData?.length > 0 &&
                         <>
-                            <div className="homepage-songlist mx-3">
-                                {HomePageData?.trenadingSongs.map((item, ind) => {
-                                    return (
-                                        <SongStrip key={ind} data={item} />
-                                    )
-                                })}
+                            <div className=" mx-3 d-flex flex-row justify-content-between align-items-center">
+                                <h5 className="text-light  mx-3 text-capitalize">
+                                    Favorite Tracks
+                                </h5>
+                                <button className="btn see-all">see all <span><Icons.BsArrowRight /></span></button>
                             </div>
-                        </>}
+
+                            <>
+                                <div className="homepage-songlist mx-3">
+                                    {favoriteData.map((item, ind) => {
+                                        return <SongStrip key={ind} data={item} />;
+                                    })}
+                                </div>
+                            </>
+                        </>
+                    }
                 </section>
-                <section className='mb-5 mx-3'>
-                    <h5 className='text-light text-capitalize'>Albums</h5>
-                    {isLoading ? <SlideLoader /> :
-                        <MusicSlider data={HomePageData?.albums} />}
-                </section>
-                <section className='mb-2'>
-                    <h4 className='text-light mx-3 text-capitalize '>top artists</h4>
+                {isLoading ?
+                    <SlideLoader />
+                    :
+                    HomePageData?.albums?.length > 0 &&
+                    <section className="mb-5 mx-3">
+                        <h5 className="text-light text-capitalize">Albums</h5>
+                        <MusicSlider data={HomePageData?.albums} />
+                    </section>
+                }
+                <section className="mb-2">
+                    <h4 className="text-light mx-3 text-capitalize ">top artists</h4>
                     <div className="artist-wrapper">
-                        {topArtist.map(((item, ind) => {
+                        {topArtist.map((item, ind) => {
                             if (ind <= artistLength) {
                                 return (
                                     <>
                                         <RoundCard key={ind} item={item} />
                                     </>
-                                )
+                                );
                             }
-                        }))}
-                        <button onClick={() => { console.log("open all artist page"); }} className='btn btn-lg  text-center text-light text round-circle'>
+                        })}
+                        <button
+                            onClick={() => {
+                                console.log("open all artist page");
+                            }}
+                            className="btn btn-lg  text-center text-light text round-circle"
+                        >
                             See All
                             <Icons.BsArrowRight />
                         </button>
                     </div>
                 </section>
-                <section className='mb-3 mx-3'>
-                    <h4 className='text-light mb-3 text-capitalize'>Charts</h4>
-                    {isLoading ? <SlideLoader /> :
-                        <MusicSlider isSquare={true} data={HomePageData?.charts} />}
-                </section>
-                <section className='mb-3 mx-3'>
-                    <h4 className='text-light mb-3  text-capitalize'>Playlists</h4>
-                    {isLoading ? <SlideLoader /> :
-                        <MusicSlider data={HomePageData?.playlists} />}
-                </section>
+
+                {HomePageData?.charts?.length > 0 && (
+                    <section className="mb-3 mx-3">
+                        <h4 className="text-light mb-3 text-capitalize">Charts</h4>
+                        {isLoading ? (
+                            <SlideLoader />
+                        ) : (
+                            <MusicSlider isSquare={true} data={HomePageData?.charts} />
+                        )}
+                    </section>
+                )}
+                {HomePageData?.playlists?.length > 0 && (
+                    <section className="mb-3 mx-3">
+                        <h4 className="text-light mb-3  text-capitalize">Playlists</h4>
+                        {isLoading ? (
+                            <SlideLoader />
+                        ) : (
+                            <MusicSlider data={HomePageData?.playlists} />
+                        )}
+                    </section>
+                )}
             </div>
             <div className="p-5 m-5">
                 <div className="null opacity-0"></div>
             </div>
         </>
-    )
-}
+    );
+};
 
-
-
-
-
-
-
-
-export default Home
+export default Home;

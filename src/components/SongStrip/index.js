@@ -7,6 +7,8 @@ import { useDispatch } from 'react-redux';
 import { addAndPlayNextTrack, addToQueue, setLocalPlayListData } from '../../Redux/Reducers/PlayList-slice';
 import './style.scss'
 import Dropdown from 'react-bootstrap/Dropdown';
+import { postRequestWithInstence } from '../../apis/Base/serviceMethods';
+import { configURL } from '../../apis/Base/config';
 const SongStrip = ({ data }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -22,10 +24,21 @@ const SongStrip = ({ data }) => {
             case 'addtoQueue':
                 dispatch(addToQueue(songData))
                 break;
+            case 'addtoFavorite':
+                callFavoriteApi(songData)
+                break;
             default:
                 break;
         }
     };
+
+    const callFavoriteApi = async (data) => {
+        await postRequestWithInstence(configURL.favorite, { "data": data }).then(res => {
+            console.log("res", res.data);
+        }).catch(err => {
+            console.log('err=>0', err);
+        })
+    }
     const handlePlaySong = (songData) => {
         dispatch(setLocalPlayListData(songData))
     }
@@ -55,6 +68,9 @@ const SongStrip = ({ data }) => {
                                 </Dropdown.Item>
                                 <Dropdown.Item onClick={() => handleClickDropDownItem(data, 'addtoQueue')}>
                                     <span><Icons.BiAddToQueue /></span> Add to queue
+                                </Dropdown.Item>
+                                <Dropdown.Item onClick={() => handleClickDropDownItem(data, 'addtoFavorite')}>
+                                    <span><Icons.BsHeart /></span> Add to Favorites
                                 </Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>

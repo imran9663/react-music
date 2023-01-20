@@ -3,12 +3,18 @@ import './style.scss';
 import { Icons } from '../../../assets/Icons';
 import CoustomInput from '../../../components/CoustomInput';
 import CoustomButton from '../../../components/CoustomButton';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { regexp } from '../../../utils/regexp';
 import RouteStrings from '../../../utils/RouteStrings';
+import { postRequest } from '../../../apis/Base/serviceMethods';
+import { configURL } from '../../../apis/Base/config';
+import SpotLoader from '../../../components/Loader/SpotLoader';
+import { loaclStorageStrings } from '../../../utils/localStorageStrings';
+import { Toaster, toast } from 'react-hot-toast';
 
 const Login = () => {
-
+    const [isLoading, setisLoading] = useState(false)
+    const Navigate = useNavigate()
     const errorText = {
         email: 'please enter correct Email',
         Password: 'password length should be grater than 8',
@@ -65,6 +71,27 @@ const Login = () => {
     }
     const OnClickOnCta = () => {
         console.log("formvalues", formVlaues);
+        callAPI()
+    }
+    const callAPI = async () => {
+        setisLoading(true)
+        await postRequest(configURL.login, formVlaues).then(res => {
+            if (res.status === 201) {
+                const { token, data } = res.data
+                console.log("token", token);
+                localStorage.setItem(loaclStorageStrings.token, JSON.stringify(token))
+                localStorage.setItem(loaclStorageStrings.profileInfo, JSON.stringify(data))
+                Navigate(RouteStrings.home)
+                res.status !== 201 && toast.error(res.data.msg)
+
+                // res.status === 201 && Navigate(RouteStrings.home, { state: { lastRoute: RouteStrings.register, email: formVlaues.email } });
+            }
+        }).catch(err => {
+            console.log(err);
+
+        }).finally(() => {
+            setisLoading(false)
+        })
     }
     return (
         <>
@@ -106,6 +133,13 @@ const Login = () => {
                     </div>
                 </div>
             </div>
+            {
+                isLoading && <div className="LoadingConatiner">
+                    <SpotLoader />
+                </div>
+            }
+            <Toaster position='bottom' />
+
         </>
     )
 }

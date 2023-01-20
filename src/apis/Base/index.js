@@ -1,12 +1,16 @@
 import axios from 'axios';
 import RouteStrings from '../../utils/RouteStrings';
+import { loaclStorageStrings } from '../../utils/localStorageStrings';
+const token = JSON.parse(localStorage.getItem(loaclStorageStrings.token))
 const headers = {
-    accept: "application/json",
+    'Authorization': `Bearer ${token}`,
+    'accept': "application/json",
     "accept-language": "en_US",
     "content-type": "application/json",
 };
+
 const axiosInstence = axios.create({
-    baseURL: process.env.REACT_APP_API_BASE_URL,
+    baseURL: process.env.REACT_APP_API_AUTH_URL,
     headers: headers,
 });
 
@@ -17,7 +21,7 @@ axiosInstence.interceptors.response.use(
         }),
     (error) => {
         console.log("error.response", error?.code)
-        if (error.code = 'ERR_NETWORK') {
+        if (error.code === 'ERR_NETWORK') {
             window.location.href = RouteStrings.noNetwork
         }
         if (!error.response) {
@@ -27,11 +31,8 @@ axiosInstence.interceptors.response.use(
         }
 
         if (error.response.status === 401) {
-            window.location.reload();
-            localStorage.clear()
-            // hoa_ClearLocal();
-            // localStorage.deleteAll();
-            // window.location.replace( RouteStrings.login)
+            // window.location.reload();
+            // localStorage.clear()
         }
         else {
             return new Promise((resolve, reject) => {
@@ -42,6 +43,7 @@ axiosInstence.interceptors.response.use(
 );
 axiosInstence.interceptors.request.use(
     (request) =>
+
         new Promise((resolve, reject) => {
             resolve(request);
         }),
@@ -52,11 +54,9 @@ axiosInstence.interceptors.request.use(
             });
         }
         if (error.request.status === 401) {
-            window.location.reload()
-            localStorage.clear()
-            // hoa_ClearLocal();
-            // localStorage.deleteAll();
-            // window.location.replace(RouteStrings.accessdenied)
+            console.log("axiosInstence", axiosInstence.headers);
+            // window.location.reload()
+            // localStorage.clear()
         } else {
             return new Promise((resolve, reject) => {
                 reject(error);

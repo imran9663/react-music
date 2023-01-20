@@ -1,10 +1,11 @@
 import React from 'react'
 import './style.scss'
 const CoustomRadio = (props) => {
-    const { data, updateLanguage, } = props
+    const { data, OnChecked } = props
     const handleChange = (e) => {
-        const { name, checked } = e.target
-        updateLanguage(name, checked)
+        const { name, checked } = e.target;
+        console.log("OnChecked", OnChecked);
+        OnChecked(name, checked);
     }
     return (
         <>
@@ -12,10 +13,10 @@ const CoustomRadio = (props) => {
             <div className="radio-wrapper-16">
                 <label name={data?.name} className="radio-wrapper">
                     <input
+                        {...props}
                         name={'radio'}
                         id={data?.name}
                         onChange={handleChange}
-                        defualtChecked={data.defualtSlected}
                         value={data?.name}
                         defaultValue={data?.name}
                         type={"radio"}

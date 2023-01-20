@@ -4,9 +4,10 @@ import { Icons } from '../../assets/Icons'
 import CoustomRadio from '../../components/CoustomRadio'
 import { useNavigate } from 'react-router'
 import RouteStrings from '../../utils/RouteStrings'
-
+import { loaclStorageStrings } from '../../utils/localStorageStrings'
 const Account = () => {
-    const qualityArr = [
+    const profileInfo = JSON.parse(localStorage.getItem(loaclStorageStrings.profileInfo))
+    const [qualityArr, setqualityArr] = useState([
         {
             name: 'low',
             value: 'LOW ',
@@ -19,10 +20,32 @@ const Account = () => {
         },
         {
             name: 'high',
-            value: 'HIGH ',
-            defualtSlected: true,
+            value: 'HEIGH',
+            defualtSlected: false,
         },
-    ]
+    ]);
+    useEffect(() => {
+        const newArr = qualityArr.map(item => {
+            if (item?.value === profileInfo?.quality) {
+                item.defualtSlected = true
+            }
+            return item
+        })
+        setqualityArr(newArr)
+    }, [])
+    const updateLanguage = (name, state) => {
+        console.log(name, state);
+        const newArr = qualityArr.map(item => {
+            if (item?.name === name) {
+                item.defualtSlected = state
+            }
+            else {
+                item.defualtSlected = false
+            }
+            return item
+        })
+        setqualityArr(newArr)
+    }
     const Navigate = useNavigate()
     const handleLogOut = () => {
         localStorage.clear()
@@ -58,7 +81,7 @@ const Account = () => {
                             {qualityArr.map((item, ind) => {
                                 return (
                                     <>
-                                        <CoustomRadio key={ind} data={item} />
+                                        <CoustomRadio OnChecked={updateLanguage} checked={item.defualtSlected} key={ind} data={item} />
                                     </>
                                 )
                             })}

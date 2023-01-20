@@ -3,12 +3,16 @@ import './style.scss';
 import { Icons } from '../../../assets/Icons';
 import CoustomInput from '../../../components/CoustomInput';
 import CoustomButton from '../../../components/CoustomButton';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { regexp } from '../../../utils/regexp';
 import RouteStrings from '../../../utils/RouteStrings';
+import { getRequestWithInstence, postRequest } from '../../../apis/Base/serviceMethods';
+import { configURL } from '../../../apis/Base/config';
+import SpotLoader from '../../../components/Loader/SpotLoader';
 
 const Register = () => {
-
+    const Navigate = useNavigate()
+    const [isLoading, setisLoading] = useState(false)
     const errorText = {
         name: 'please enter correct name',
         email: 'please enter correct Email',
@@ -75,7 +79,23 @@ const Register = () => {
         }
     }
     const OnClickOnCta = () => {
-        console.log("formvalues", formVlaues);
+        callAPI()
+    }
+    const callAPI = async () => {
+        setisLoading(true)
+        const data = {
+            "fullName": formVlaues.name,
+            "email": formVlaues.email,
+            "Password": formVlaues.newPassword,
+        }
+        await postRequest(configURL.register, data).then(res => {
+            console.log(res);
+            res.status === 201 && Navigate(RouteStrings.otp, { state: { lastRoute: RouteStrings.register, email: formVlaues.email } });
+        }).catch(err => {
+            console.log(err);
+        }).finally(() => {
+            setisLoading(false)
+        })
     }
     return (
         <>
@@ -133,6 +153,12 @@ const Register = () => {
                     </div>
                 </div>
             </div>
+            {
+                isLoading && <div className="LoadingConatiner">
+                    <SpotLoader />
+                </div>
+            }
+
         </>
     )
 }

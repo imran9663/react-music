@@ -72,8 +72,8 @@ const App = () => {
             <Route errorElement={<ErrorBoundary />} path={RouteStrings.artist + ':id' + RouteStrings.artistSongs} element={<ArtistSongs />} />
             <Route errorElement={<ErrorBoundary />} path={RouteStrings.artist + ':id' + RouteStrings.artistAlbums} element={<ArtistAlbums />} />
           </Route>
+          <Route errorElement={<ErrorBoundary />} path={RouteStrings.updateLanguage} element={<SelectLanguage />} />
         </Route>
-        <Route errorElement={<ErrorBoundary />} path={RouteStrings.selectLanguage} element={<SelectLanguage />} />
         <Route errorElement={<ErrorBoundary />} path={RouteStrings.noNetwork} element={<NoNetwork />} />
         {/* */}
       </Routes>

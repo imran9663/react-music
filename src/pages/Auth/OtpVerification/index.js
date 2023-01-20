@@ -3,18 +3,35 @@ import './style.scss';
 import { Icons } from '../../../assets/Icons';
 import CoustomInput from '../../../components/CoustomInput';
 import CoustomButton from '../../../components/CoustomButton';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { regexp } from '../../../utils/regexp';
 import RouteStrings from '../../../utils/RouteStrings';
+import { postRequest } from '../../../apis/Base/serviceMethods';
+import { configURL } from '../../../apis/Base/config';
+import SpotLoader from '../../../components/Loader/SpotLoader';
+import { Toaster, toast } from 'react-hot-toast';
 
 const OtpVerification = () => {
+    const Location = useLocation();
+    const { email, lastRoute } = Location.state
+    const Navigate = useNavigate()
+
+    const [isLoading, setisLoading] = useState(false);
+    const [isEmailDisabled, setisEmailDisabled] = useState(false);
+
+    useEffect(() => {
+        console.log("Location.state", email, lastRoute);
+        if (lastRoute === RouteStrings.register) {
+            setisEmailDisabled(true)
+        }
+    }, [])
 
     const errorText = {
         email: 'please enter correct Email',
         otp: 'otp length should be grater than 8',
     }
     const [formVlaues, setformVlaues] = useState({
-        email: '',
+        email: email,
         otp: '',
     })
     const [errorState, seterrorState] = useState({
@@ -37,7 +54,7 @@ const OtpVerification = () => {
                 regexp.email.test(value) && seterrorState({ ...errorState, [name]: "" })
                 break;
             case 'otp':
-                regexp.otp.test(value) && seterrorState({ ...errorState, [name]: "" })
+                regexp.onlyNumber.test(value) && seterrorState({ ...errorState, [name]: "" })
                 break;
             default:
                 break;
@@ -62,7 +79,24 @@ const OtpVerification = () => {
         }
     }
     const OnClickOnCta = () => {
-        console.log("formvalues", formVlaues);
+        callAPI()
+    }
+    const callAPI = async () => {
+        setisLoading(true)
+        const data = {
+            "email": email,
+            "otp": formVlaues.otp,
+        }
+        await postRequest(configURL.verifyotp, data).then(res => {
+            if (lastRoute === RouteStrings.register) {
+                res.status === 200 && Navigate(RouteStrings.login);
+                res.status !== 200 && toast.error(res.data.msg)
+            }
+        }).catch(err => {
+            console.log(err);
+        }).finally(() => {
+            setisLoading(false)
+        })
     }
     return (
         <>
@@ -75,7 +109,9 @@ const OtpVerification = () => {
                         <h1 className="heading">Verif OTP</h1>
                         <p className="info">  An OTP has been sent to your mail</p>
                         <div className="formElements">
-                            <CoustomInput type={'email'}
+                            <CoustomInput
+                                type={'email'}
+                                disabled={true}
                                 label={'email'}
                                 Value={formVlaues.email}
                                 name='email'
@@ -92,11 +128,17 @@ const OtpVerification = () => {
                                 OnChange={handleFormValueChange}
                                 OnBlur={handleFormValueBlur}
                                 errorText={errorState.otp} />
-                            <CoustomButton OnClick={OnClickOnCta} Disabled={isDisabled} title={"OtpVerification"} />
+                            <CoustomButton OnClick={OnClickOnCta} Disabled={isDisabled} title={"verify"} />
                         </div>
                     </div>
                 </div>
             </div>
+            {
+                isLoading && <div className="LoadingConatiner">
+                    <SpotLoader />
+                </div>
+            }
+            <Toaster position='bottom' />
         </>
     )
 }

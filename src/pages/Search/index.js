@@ -8,6 +8,7 @@ import MediaCard from '../../components/MediaCard'
 import RoundCard from '../../components/RoundCard'
 import { getSortedResposeObj } from '../../utils'
 import './style.scss'
+import axios from 'axios'
 const Search = () => {
     const [searchedValue, setsearchedValue] = useState("")
     const [resultData, setresultData] = useState([])
@@ -18,7 +19,7 @@ const Search = () => {
         setisLoading(true)
         let url = new URL(process.env.REACT_APP_API_BASE_URL + configURL.searchAll);
         url.searchParams.set('query', searchedValue);
-        await getRequest(url).then((res) => {
+        await axios.get(url).then((res) => {
             if (res.data.data != null) {
                 setresultData(getSortedResposeObj(res.data.data))
             } else {

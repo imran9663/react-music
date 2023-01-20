@@ -40,6 +40,8 @@ import { ReactComponent as SlPlaylist } from "./SlPlaylist.svg";
 import { ReactComponent as TfiLoop } from "./TfiLoop.svg";
 import { ReactComponent as IoPlaySkipForward } from "./IoPlaySkipForward.svg";
 import { ReactComponent as BsTrashCan } from "./BsTrashCan.svg";
+import { ReactComponent as BsEyeFill } from "./BsEyeFill.svg";
+import { ReactComponent as BsEyeSlashFill } from "./BsEyeSlashFIll.svg";
 
 
 
@@ -47,12 +49,22 @@ import defualtImage from "./defualtImage.svg";
 import mello from "./mello.svg";
 import nointernet from "./no_internet.svg";
 import notFound from "./not_found.svg";
+import moremusic from "./moremusic.svg";
+import ComposeMusic from "./ComposeMusic.svg";
+import teamFun from "./teamFun.svg";
+import mailbox from "./mailbox.svg";
+import ForgotPassword from "./forgot_password.svg";
 
 export const Icons = {
     notFound: notFound,
     nointernet: nointernet,
+    moremusic: moremusic,
     mello: mello,
     defualtImage: defualtImage,
+    ComposeMusic: ComposeMusic,
+    teamFun: teamFun,
+    mailbox: mailbox,
+    ForgotPassword: ForgotPassword,
 
     home: FiHome,
     home: FiHome,
@@ -96,4 +108,6 @@ export const Icons = {
     BiAddToQueue: BiAddToQueue,
     IoPlaySkipForward: IoPlaySkipForward,
     BsTrashCan: BsTrashCan,
+    BsEyeFill: BsEyeFill,
+    BsEyeSlashFill: BsEyeSlashFill,
 };

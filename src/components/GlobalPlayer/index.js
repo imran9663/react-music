@@ -310,7 +310,7 @@ const GlobalPlayer = () => {
                                                             <div key={ind} id={item?.id}
                                                                 className={`current-songlist-card ${(currentNewSong.id === item.id) && 'current-palying'}`}
                                                             >
-                                                                <img onError={({ currentTarget }) => {
+                                                                <img loading="lazy" onError={({ currentTarget }) => {
                                                                     currentTarget.onerror = null;
                                                                     currentTarget.src = Icons.defualtImage;
                                                                 }}
@@ -342,7 +342,7 @@ const GlobalPlayer = () => {
                                         </div>
                                         <div className="tack_card-details">
                                             <div className="tack_card-details-albumart text-center">
-                                                <img onError={({ currentTarget }) => {
+                                                <img loading="lazy" onError={({ currentTarget }) => {
                                                     currentTarget.onerror = null;
                                                     currentTarget.src = Icons.defualtImage;
                                                 }}
@@ -480,7 +480,7 @@ const GlobalPlayer = () => {
                                         <div
                                             onClick={handleClick}
                                             className="col-2 image">
-                                            <img onError={({ currentTarget }) => {
+                                            <img loading="lazy" onError={({ currentTarget }) => {
                                                 currentTarget.onerror = null;
                                                 currentTarget.src = Icons.defualtImage;
                                             }}

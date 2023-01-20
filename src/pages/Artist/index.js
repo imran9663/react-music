@@ -47,7 +47,7 @@ const Artist = () => {
                 <>
                     <div className="artistPage">
 
-                        <img className='img-fluid artistPage-img' src={getCorrectSrc(artist?.details?.image)} alt="profile pic" />
+                        <img loading="lazy" className='img-fluid artistPage-img' src={getCorrectSrc(artist?.details?.image)} alt="profile pic" />
                         <div className="artistPage-info">
                             <div onClick={() => { navigate(-1) }} className="back-icon ">
                                 <Icons.BsArrowLeft />

@@ -1,9 +1,29 @@
 
 //  AxiosInstence Get Request
 
+import axios from "axios";
 import axiosInstence from "./index";
 
 export const getRequest = async (url) => {
+    try {
+        const response = await axios.get(process.env.REACT_APP_API_BASE_URL + url);
+        return response
+    } catch (error) {
+        console.log('getRequest error==>', error.response);
+        return error.response
+    }
+}
+export const getRequestWithoutURL = async (url) => {
+    try {
+        const response = await axios.get(process.env.REACT_APP_API_BASE_URL + url);
+        return response
+    } catch (error) {
+        console.log('getRequest error==>', error.response);
+        return error.response
+    }
+}
+
+export const getRequestWithInstence = async (url) => {
     try {
         const response = await axiosInstence.get(url);
         return response
@@ -17,11 +37,20 @@ export const getRequest = async (url) => {
 
 export const postRequest = async (url, data) => {
     try {
-        const response = await axiosInstence.post(url, data);
+        const response = await axios.post(process.env.REACT_APP_API_AUTH_URL + url, data);
         return response;
     } catch (error) {
         console.log('postRequest  error==>', error.response);
-        return error;
+        return error.response;
+    }
+}
+export const postRequestWithInstence = async (url, data) => {
+    try {
+        const response = await axiosInstence.post(url, data);
+        return response;
+    } catch (error) {
+        console.log('postRequestWithInstence  error==>', error.response);
+        return error.response;
     }
 }
 export const postRequestWithProgress = async (url, data) => {

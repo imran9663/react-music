@@ -8,7 +8,7 @@ const NotFound = () => {
     return (
         <>
             <div className="notfound">
-                <img src={Icons.notFound} alt="notfound img" className="img-fluid" />
+                <img loading="lazy" src={Icons.notFound} alt="notfound img" className="img-fluid" />
                 <h4 className='text-center text-light'>
                     Page Not Found
                 </h4>

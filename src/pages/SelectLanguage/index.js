@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { getLanguageObject } from '../../utils'
-import CoustomCheckbox from '../../components/CostomCheckbox'
-import './style.scss'
-import { Icons } from '../../assets/Icons'
-import { useNavigate } from 'react-router'
 import { Toaster, toast } from 'react-hot-toast'
+import { useNavigate } from 'react-router'
+import { configURL } from '../../apis/Base/config'
+import { postRequestWithInstence } from '../../apis/Base/serviceMethods'
+import { Icons } from '../../assets/Icons'
+import CoustomCheckbox from '../../components/CostomCheckbox'
+import SpotLoader from '../../components/Loader/SpotLoader'
+import { getLanguageObject } from '../../utils'
 import RouteStrings from '../../utils/RouteStrings'
 import { loaclStorageStrings } from '../../utils/localStorageStrings'
+import './style.scss'
 const SelectLanguage = () => {
     const navigate = useNavigate()
     const [langArr, setlangArr] = useState([]);
     const [selectedLang, setselectedLang] = useState([]);
+    const profileInfo = JSON.parse(localStorage.getItem(loaclStorageStrings.profileInfo))
     useEffect(() => {
         setlangArr(getLanguageObject());
-        setselectedLang(JSON.parse(localStorage.getItem(loaclStorageStrings.lang)))
+        if (profileInfo?.language?.length > 0) {
+            setselectedLang(profileInfo?.language)
+        }
     }, [])
     const selectedlanArr = []
     const handleUpdateLang = (name, checked) => {
@@ -21,10 +27,6 @@ const SelectLanguage = () => {
             selectedlanArr.push(name.toLowerCase())
         }
         if (checked === false) {
-            console.log('checked false');
-            console.log("fliterd arr", selectedlanArr.filter(val => {
-                return val.toLowerCase() !== name.toLowerCase()
-            }));
             const newvalues = selectedlanArr.filter(val => {
                 return val.toLowerCase() !== name.toLowerCase()
             })
@@ -36,15 +38,36 @@ const SelectLanguage = () => {
         }
     }
     const handleClick = () => {
-        if (selectedLang === null) {
-            localStorage.setItem(loaclStorageStrings.lang, JSON.stringify(selectedlanArr))
-            toast.success("Saved!..")
+        const newArr = [...selectedLang, ...selectedlanArr,]
+        console.log("newArr", newArr);
+        if (newArr.length === 0) {
+            toast.error("Please Select a Language!..")
         } else {
-            const newArr = [...selectedLang, ...selectedlanArr,]
-            localStorage.setItem(loaclStorageStrings.lang, JSON.stringify([...new Set(newArr)]))
-            toast.success("Saved!..")
+            callAPI([...new Set(newArr)])
+            // toast.success("Saved!..")
+            // navigate(RouteStrings.home)
         }
-        navigate(RouteStrings.home)
+    }
+
+    const [isLoading, setisLoading] = useState(false)
+
+    const callAPI = async (arg) => {
+        setisLoading(true)
+        const lang = {
+            languages: arg
+        }
+        await postRequestWithInstence(configURL.setLanguages, lang).then(res => {
+            if (res.status === 200) {
+                localStorage.setItem(loaclStorageStrings.profileInfo, JSON.stringify(res.data.data))
+                navigate(RouteStrings.home);
+            }
+            res.status !== 200 && toast.error(res.data.msg)
+        }).catch(err => {
+            console.log(err);
+            toast.error("🤔 Somting not Correct")
+        }).finally(() => {
+            setisLoading(false)
+        })
     }
     const machedLangFromArr = (item) => {
         return selectedLang?.includes(item.toLowerCase())
@@ -72,6 +95,11 @@ const SelectLanguage = () => {
                     })}
                 </div>
             </div>
+            {
+                isLoading && <div className="LoadingConatiner">
+                    <SpotLoader />
+                </div>
+            }
             <Toaster position='bottom' />
         </>
     )

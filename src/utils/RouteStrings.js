@@ -13,5 +13,10 @@ const RouteStrings = {
     selectLanguage: '/selectLanguage',
     updateLanguage: '/updateLanguage',
     noNetwork: '/noNetwork',
+    register: '/auth/register',
+    login: '/auth/login',
+    otp: '/auth/otpverification',
+    changePassword: '/auth/changepassword',
+    forgotPassword: '/auth/forgotPassword',
 }
 export default RouteStrings

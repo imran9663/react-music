@@ -17,7 +17,7 @@ const RoundCard = ({ item, Style, imgWidth }) => {
     return (
         <>
             <div style={Style} onClick={handleClick} className="d-flex flex-column round-wrapper ">
-                <img
+                <img loading="lazy"
                     onError={({ currentTarget }) => {
                         currentTarget.onerror = null;
                         currentTarget.src = Icons.defualtImage;

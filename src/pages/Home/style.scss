@@ -100,3 +100,19 @@
   left: 0;
   box-shadow: -1rem -1rem 0 0 #42c83c;
 }
+
+.see-all {
+  border: solid 1px $accent-color-border;
+  color: $white;
+  font-size: 0.5rem;
+  text-transform: capitalize;
+  &:focus,
+  &:focus-visible,
+  &:focus-within,
+  &:active {
+    border: solid 1px $accent-color;
+    color: $white;
+    font-size: 0.5rem;
+    text-transform: capitalize;
+  }
+}

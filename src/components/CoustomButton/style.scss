@@ -1,0 +1,15 @@
+@import "../../utils/Styles/color.scss";
+
+.btn-accent {
+  width: 100%;
+  height: 38px;
+  border-radius: 4px;
+  border: unset;
+  outline: unset;
+  color: $dark-bg;
+  font-weight: 600;
+  background: $accent-color;
+}
+.btn-accent:disabled {
+  background: $accent-color-disabled;
+}

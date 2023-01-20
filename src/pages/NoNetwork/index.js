@@ -6,7 +6,7 @@ const NoNetwork = () => {
         <div style={{
             height: "100vh"
         }} className=' d-flex flex-column justify-content-center align-items-center text-light contianer p-5 '>
-            <img onError={({ currentTarget }) => {
+            <img loading="lazy" onError={({ currentTarget }) => {
                 currentTarget.onerror = null;
                 currentTarget.src = Icons.defualtImage;
             }} className='img-fluid' src={Icons.nointernet} />

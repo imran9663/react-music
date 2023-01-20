@@ -1,0 +1,89 @@
+@import "../../../utils/Styles/color.scss";
+
+.OtpVerification {
+  background: $dark-bg;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  // margin-top: 2rem;
+  .hero-img-wrapper {
+    img {
+      width: 75%;
+    }
+  }
+  &-form {
+    padding: 1rem 0.5rem;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    .heading {
+      color: #f2f2f2;
+      font-weight: 400;
+      span {
+        color: $accent-color;
+        font-weight: normal;
+      }
+    }
+    .info {
+      color: #ffffff84;
+      margin: unset;
+      font-size: 0.75rem;
+      text-transform: capitalize;
+    }
+    .formElements {
+      padding: 0.5rem;
+      width: 100%;
+      height: 100%;
+      margin-top: 2rem;
+      .link {
+        margin: unset;
+        color: #ffffff84;
+        text-align: center;
+        margin-top: 0.5rem;
+      }
+      .forgot {
+        width: fit-content;
+        height: fit-content;
+        &-link {
+          font-size: 0.5rem;
+          text-decoration: unset;
+          color: $accent-color;
+        }
+      }
+      .loginLinh {
+        text-decoration: unset;
+        color: $accent-color;
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
+  .OtpVerification {
+    border-radius: 0;
+    &-form {
+      padding: 1rem 0.5rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
+      .heading {
+        color: #f2f2f2;
+        font-weight: 400;
+        span {
+          color: $accent-color;
+          font-weight: normal;
+        }
+      }
+      .formElements {
+        padding: 0.5rem;
+        width: 100%;
+        height: 100%;
+        margin-top: 2rem;
+      }
+    }
+    // background-color: $accent-color;
+  }
+}

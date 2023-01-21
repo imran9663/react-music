@@ -1,12 +1,11 @@
 {
   "name": "reusic",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": true,
   "author": {
     "name": "Imran Pasha I",
     "url": "https://imranpasha.i/netlify.app"
   },
-  "homepage": ".",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
     "@testing-library/jest-dom": "^5.16.5",

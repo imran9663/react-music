@@ -40,7 +40,11 @@ const Main = () => {
         <> {showLanding ? <Landing /> :
             <div className=" cover">
                 <Outlet />
+                {showGlobalPlayer &&
+                    <div className='gbl_player--placeholder'>
+                    </div>}
                 <div className="bottom_components">
+
                     {showGlobalPlayer && <GlobalPlayer />}
                     <BottomBar />
                 </div>

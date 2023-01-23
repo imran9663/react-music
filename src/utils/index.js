@@ -131,3 +131,6 @@ export const insertArrToSpecificIndex = (arr, index, newItem) => {
         }
     }
 }
+export const isObject = obj => {
+    return Object.prototype.toString.call(obj) === '[object Object]'
+}

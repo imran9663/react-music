@@ -16,6 +16,7 @@ configURL.forgotpassword = '/auth/forgotpassword'
 
 configURL.setLanguages = '/music/setLanguages'
 configURL.favorite = '/music/favorites'
+configURL.recentlyPlayed = '/music/recentlyPlayed'
 
 
 

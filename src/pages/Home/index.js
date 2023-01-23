@@ -9,7 +9,9 @@ import SongStrip from "../../components/SongStrip";
 import topArtist from "../../utils/data/index.json";
 import { loaclStorageStrings } from "../../utils/localStorageStrings";
 import "./style.scss";
-import { toast } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
+import { allFavoriteTracks, setToFavoritesTracks } from "../../Redux/Reducers/PlayList-slice";
+import { useDispatch, useSelector } from "react-redux";
 const Home = () => {
     const [isLoading, setisLoading] = useState(false);
     const [isFavoriteLoading, setisFavoriteLoading] = useState(false);
@@ -23,11 +25,15 @@ const Home = () => {
     });
     const [favoriteData, setfavoriteData] = useState([]);
     // const navigate = useNavigate()
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const allFavoriteTracksList = useSelector(allFavoriteTracks);
     useEffect(() => {
         getLoaclStorageLang();
-        getFavoriteData()
+        allFavoriteTracksList.length === 0 && getFavoriteData()
     }, []);
+    useEffect(() => {
+        setfavoriteData(allFavoriteTracksList)
+    }, [allFavoriteTracksList])
 
     const getLoaclStorageLang = () => {
         const { language, fullName } = JSON.parse(
@@ -61,7 +67,8 @@ const Home = () => {
         setisFavoriteLoading(true);
         await getRequestWithInstence(configURL.favorite).then(res => {
             if (res.status === 200) {
-                setfavoriteData(res.data.data)
+                //add data to redux
+                dispatch(setToFavoritesTracks(res.data.data))
             }
             res.status === 201 && toast("No Favorites")
         }).catch(err => {
@@ -78,7 +85,7 @@ const Home = () => {
                 <section>
                     <div className="banner">
                         <div className="hello">
-                            Hello <span className="text-capitalize">{name}</span>
+                            Hello <span className="text-capitalize tracking-in-expand">{name}</span>
                         </div>
                     </div>
                     {/* <div className="trendingWrapper">
@@ -195,6 +202,7 @@ const Home = () => {
             <div className="p-5 m-5">
                 <div className="null opacity-0"></div>
             </div>
+            <Toaster position="bottom" />
         </>
     );
 };

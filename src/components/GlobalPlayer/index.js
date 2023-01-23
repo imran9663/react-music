@@ -2,9 +2,20 @@ import React, { useEffect, useRef, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { clearPlayList, currentPlaylist, currentTrack, removeTrackFromPlayList, setLocalPlayListData, setNextTrack, setPreviousTrack } from "../../Redux/Reducers/PlayList-slice";
+import {
+    clearPlayList,
+    currentPlaylist,
+    currentTrack,
+    removeTrackFromPlayList,
+    setLocalPlayListData,
+    setNextTrack,
+    allFavoriteTracks,
+    setPreviousTrack,
+    setToFavoritesTracks,
+    removeFromFavorites
+} from "../../Redux/Reducers/PlayList-slice";
 import { configURL } from "../../apis/Base/config";
-import { getRequest } from "../../apis/Base/serviceMethods";
+import { getRequest, postRequestWithInstence } from "../../apis/Base/serviceMethods";
 import { Icons } from "../../assets/Icons";
 import { ParseString } from "../../utils";
 import RouteStrings from "../../utils/RouteStrings";
@@ -12,6 +23,8 @@ import PlayingAnime from "../Loader/PlayingAnime";
 import SpotLoader from "../Loader/SpotLoader";
 import "../SeekBar/style.scss";
 import "./style.scss";
+import { addtoRecentlyPlayedApi } from "../../apis/commonApiCalls/recentlyPlayed";
+import { callremoveFromFavoriteApi } from "../SongStrip";
 
 
 const GlobalPlayer = () => {
@@ -26,7 +39,8 @@ const GlobalPlayer = () => {
     const isReady = useRef(false);
     const progressBarRef = useRef();
     const dispatch = useDispatch()
-    const trackList = useSelector(currentPlaylist)
+    const trackList = useSelector(currentPlaylist);
+    const allFavoriteTracksList = useSelector(allFavoriteTracks);
     const currenttrackDetails = useSelector(currentTrack);
     const navigate = useNavigate();
     const [isPlaying, setIsPlaying] = useState(false);
@@ -52,14 +66,22 @@ const GlobalPlayer = () => {
 
     useEffect(() => {
         settrackDataList(trackList);
-        console.log("trackList", trackList);
     }, [trackList])
 
+    const checkIsFavorite = () => {
+        if (Object.values(currentNewSong).length > 0) {
+            (allFavoriteTracksList.some((el) => el.id === currentNewSong.id)) && setplayerState({ ...playerState, isFavourite: true })
+            return allFavoriteTracksList.some((el) => el.id === currentNewSong.id)
+        }
+    }
 
     useEffect(() => {
         LoadSongAndPlay()
         getSongLyrics()
     }, [currenttrackDetails.data])
+    useEffect(() => {
+        checkIsFavorite();
+    }, [currentNewSong, isMegaPlayerON])
     const LoadSongAndPlay = () => {
         if (Object.values(currenttrackDetails.data).length > 0) {
             PauseTrack()
@@ -68,15 +90,23 @@ const GlobalPlayer = () => {
             setCurrentIndex(currenttrackDetails?.songIndex)
             setcurrentNewSong(currenttrackDetails.data);
             audioRef.current = new Audio(currenttrackDetails.data?.downloadUrl[currenttrackDetails.data?.downloadUrl?.length - 1]?.link)
-            console.log("isPlaying", audioRef.current.played);
             setTrackProgress(audioRef.current.currentTime);
             setIsPlaying(true)
             Playtrack()
+            callRecentlyPlayedAPI(currenttrackDetails.data)
         }
         else {
             toast('❌ No track Found to Play')
         }
     }
+    const callRecentlyPlayedAPI = async (data) => {
+        await addtoRecentlyPlayedApi(data).then(res => {
+            console.log("callRecentlyPlayedAPI res ==>", res);
+        }).catch(err => {
+            console.log("callRecentlyPlayedAPI err ==> ", err);
+        })
+    }
+
     let totalDuration;
     if (audioRef?.current) {
         const { duration } = audioRef.current;
@@ -99,7 +129,7 @@ const GlobalPlayer = () => {
         clearInterval(intervalRef.current);
         intervalRef.current = setInterval(() => {
             if (audioRef.current.ended) {
-                console.log("Song End");
+                // console.log("Song End");
                 handleNext();
             } else {
                 setTrackProgress(Math.floor(audioRef.current.currentTime));
@@ -115,7 +145,6 @@ const GlobalPlayer = () => {
     }, [progressBarRef?.current])
 
     useEffect(() => {
-        console.log(" if", audioRef?.current?.src);
         if (audioRef?.current?.src) {
             if (isPlaying) {
                 Playtrack()
@@ -123,7 +152,7 @@ const GlobalPlayer = () => {
                 PauseTrack()
             }
         } else {
-            console.log(" else ", audioRef?.current?.src);
+            // console.log(" else ", audioRef?.current?.src);
             if (isPlaying) {
                 Playtrack()
             } else {
@@ -143,15 +172,17 @@ const GlobalPlayer = () => {
 
     const handleNext = () => {
         setIsPlaying(((prevState) => !prevState))
-        // audioRef.current.pause();
-        audioRef.current.src = ''
         clearInterval(intervalRef.current);
         if (currentIndex < trackDataList.length - 1) {
+            audioRef.current.pause();
+            audioRef.current.src = ''
             dispatch(setNextTrack({ songIndex: currenttrackDetails.songIndex + 1, data: trackDataList[currenttrackDetails.songIndex + 1] }))
         } else {
             dispatch(setNextTrack({ songIndex: 0, data: trackDataList[0] }))
             audioRef.current.load()
             toast("➿ playing again ")
+            Playtrack()
+
         }
     };
 
@@ -237,6 +268,15 @@ const GlobalPlayer = () => {
 
     const handlePlayerState = (id, state, data = {}) => {
         setplayerState({ ...playerState, [id]: !state })
+        if (id === Constants.isFavourite) {
+            if (!checkIsFavorite) {
+                dispatch(setToFavoritesTracks(currenttrackDetails.data));
+                callFavoriteApi(currenttrackDetails.data)
+            } else {
+                dispatch(removeFromFavorites(currenttrackDetails?.data?.id));
+                callremoveFromFavoriteApi(currenttrackDetails?.data?.id);
+            }
+        }
     }
     const handlePlayPlalistSong = (songData) => {
         dispatch(setLocalPlayListData(songData))
@@ -254,6 +294,13 @@ const GlobalPlayer = () => {
     const OnClearPlayList = () => {
         alert("All the Song will be removed Do you want to Continue !")
         dispatch(clearPlayList());
+    }
+    const callFavoriteApi = async (data) => {
+        await postRequestWithInstence(configURL.favorite, { "data": data }).then(res => {
+            console.log("res", res.data);
+        }).catch(err => {
+            console.log('err=>0', err);
+        })
     }
     return (
         <>
@@ -315,7 +362,8 @@ const GlobalPlayer = () => {
                                                                     currentTarget.src = Icons.defualtImage;
                                                                 }}
                                                                     onClick={() => handleClick(item.id)}
-                                                                    className="img-fluid current-songlist-card-img " src={item?.image[0].link} alt="album-art" />
+                                                                    className="img-fluid current-songlist-card-img "
+                                                                    src={item?.image[0].link} alt="album-art" />
                                                                 <div
                                                                     onClick={() => handleClick(item.id)}
                                                                     className="current-songlist-card-info">
@@ -405,9 +453,9 @@ const GlobalPlayer = () => {
                                             </div>
 
                                             <button
-                                                onClick={() => { handlePlayerState(Constants.isFavourite, playerState.isFavourite) }}
+                                                onClick={() => { handlePlayerState(Constants.isFavourite, playerState.isFavourite,) }}
                                                 className="btn">
-                                                {playerState.isFavourite ? <Icons.BsHeartFill color='#ff0000' /> : <Icons.BsHeart />}
+                                                {playerState.isFavourite ? <Icons.BsHeartFill className="bs-heart-fill" color='#ff0000' /> : <Icons.BsHeart />}
                                             </button>
                                             {currentNewSong.hasLyrics === 'true' ? <div onClick={() => {
                                                 setShowLyrics({ ...ShowLyrics, state: !ShowLyrics.state })

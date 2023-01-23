@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Slice } from "../constants";
-import { insertArrToSpecificIndex } from "../../utils";
+import { insertArrToSpecificIndex, isObject } from "../../utils";
 
 const initialState = {
     data: [],
@@ -10,6 +10,7 @@ const initialState = {
         songIndex: null,
         data: {},
     },
+    allFavoriteTracks: []
 };
 
 const PlayListSlice = createSlice({
@@ -126,6 +127,21 @@ const PlayListSlice = createSlice({
         clearPlayList (state, action) {
             state.data = initialState.data;
             state.gbl_player = initialState.gbl_player
+        },
+        setToFavoritesTracks (state, action) {
+            if (Array.isArray(action.payload) && action.payload.length > 0) {
+                state.allFavoriteTracks = action.payload;
+            }
+            if (isObject(action.payload)) {
+                if (!state.allFavoriteTracks.some((el) => el.id === action.payload.id)) {
+                    state.allFavoriteTracks = [...state.allFavoriteTracks, action.payload];
+                }
+            }
+        },
+        removeFromFavorites (state, action) {
+            if (typeof action.payload === "string" && action.payload !== '' && state.allFavoriteTracks.some((el) => el.id === action.payload)) {
+                state.allFavoriteTracks = state.allFavoriteTracks.filter(val => val.id !== action.payload)
+            }
         }
     },
 });
@@ -137,7 +153,10 @@ export const {
     removeTrackFromPlayList,
     setPreviousTrack,
     clearPlayList,
+    setToFavoritesTracks,
+    removeFromFavorites
 } = PlayListSlice.actions;
 export const currentPlaylist = (state) => state.playList.data;
 export const currentTrack = (state) => state.playList.gbl_player;
+export const allFavoriteTracks = (state) => state.playList.allFavoriteTracks;
 export default PlayListSlice.reducer;

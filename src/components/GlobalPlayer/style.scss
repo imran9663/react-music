@@ -665,3 +665,6 @@
   transform: scale(1.2);
   background: var(--selectedKnobby);
 }
+.bs-heart-fill {
+  color: $error !important;
+}

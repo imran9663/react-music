@@ -11,6 +11,7 @@ import { configURL } from '../../../apis/Base/config';
 import SpotLoader from '../../../components/Loader/SpotLoader';
 import { loaclStorageStrings } from '../../../utils/localStorageStrings';
 import { Toaster, toast } from 'react-hot-toast';
+import axiosInstence from '../../../apis/Base';
 
 const Login = () => {
     const [isLoading, setisLoading] = useState(false)
@@ -78,10 +79,12 @@ const Login = () => {
         await postRequest(configURL.login, formVlaues).then(res => {
             if (res.status === 201) {
                 const { token, data } = res.data
-                console.log("token", token);
                 localStorage.setItem(loaclStorageStrings.token, JSON.stringify(token))
                 localStorage.setItem(loaclStorageStrings.profileInfo, JSON.stringify(data))
-                Navigate(RouteStrings.home)
+                axiosInstence.defaults.headers.Authorization = `Bearer ${token}`
+                setTimeout(() => {
+                    Navigate(RouteStrings.home)
+                }, 50);
                 res.status !== 201 && toast.error(res.data.msg)
 
                 // res.status === 201 && Navigate(RouteStrings.home, { state: { lastRoute: RouteStrings.register, email: formVlaues.email } });

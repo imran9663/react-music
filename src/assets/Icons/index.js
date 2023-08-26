@@ -42,6 +42,7 @@ import { ReactComponent as IoPlaySkipForward } from "./IoPlaySkipForward.svg";
 import { ReactComponent as BsTrashCan } from "./BsTrashCan.svg";
 import { ReactComponent as BsEyeFill } from "./BsEyeFill.svg";
 import { ReactComponent as BsEyeSlashFill } from "./BsEyeSlashFIll.svg";
+import { ReactComponent as BsRadioPin } from "./BsRadioPin.svg";
 
 
 
@@ -110,4 +111,5 @@ export const Icons = {
     BsTrashCan: BsTrashCan,
     BsEyeFill: BsEyeFill,
     BsEyeSlashFill: BsEyeSlashFill,
+    BsRadioPin: BsRadioPin,
 };

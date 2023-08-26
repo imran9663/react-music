@@ -24,6 +24,9 @@ import Login from "./pages/Auth/Login";
 import OtpVerification from "./pages/Auth/OtpVerification";
 import ChangePassword from "./pages/Auth/ChangePassword";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
+import MyMusic from "./pages/MyMusic";
+import RecentlyPlayed from "./pages/MyMusic/RecentlyPlayed";
+import Favorites from "./pages/MyMusic/Favorites";
 
 // const Account = React.lazy(() => ComponentLoader(() => import("./pages/Account")));
 // const Album = React.lazy(() => ComponentLoader(() => import("./pages/Album")));
@@ -66,6 +69,10 @@ const App = () => {
           <Route errorElement={<ErrorBoundary />} path={RouteStrings.albums + ':id'} element={<Album />} />
           <Route errorElement={<ErrorBoundary />} path={RouteStrings.search} element={<Search />} />
           <Route errorElement={<ErrorBoundary />} path={RouteStrings.account} element={<Account />} />
+          <Route errorElement={<ErrorBoundary />} path={RouteStrings.myMusic} element={<MyMusic />} >
+            <Route exact errorElement={<ErrorBoundary />} path={RouteStrings.recentlyPlayed} element={<RecentlyPlayed />} />
+            <Route exact errorElement={<ErrorBoundary />} path={RouteStrings.myfavorites} element={<Favorites />} />
+          </Route>
           <Route errorElement={<ErrorBoundary />} path={RouteStrings.song + ':id'} element={<Song />} />
           <Route errorElement={<ErrorBoundary />} path={RouteStrings.artist + ':id'} element={<Artist />} >
             <Route errorElement={<ErrorBoundary />} path={RouteStrings.artist + ':id' + RouteStrings.artistDetails} element={<ArtistDetails />} />

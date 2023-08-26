@@ -12,7 +12,12 @@ const RouteStrings = {
     artistAlbums: '/albums',
     selectLanguage: '/selectLanguage',
     updateLanguage: '/updateLanguage',
+    myMusic: '/myMusic',
+    recentlyPlayed: '/myMusic/',
+    myfavorites: '/myMusic/myFavorites',
     noNetwork: '/noNetwork',
+
+
     register: '/auth/register',
     login: '/auth/login',
     otp: '/auth/otpverification',

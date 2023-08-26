@@ -12,7 +12,8 @@ import {
     allFavoriteTracks,
     setPreviousTrack,
     setToFavoritesTracks,
-    removeFromFavorites
+    removeFromFavorites,
+    setToRecentlyPlayedTracks
 } from "../../Redux/Reducers/PlayList-slice";
 import { configURL } from "../../apis/Base/config";
 import { getRequest, postRequestWithInstence } from "../../apis/Base/serviceMethods";
@@ -89,11 +90,13 @@ const GlobalPlayer = () => {
             setIsPlaying(!prevState);
             setCurrentIndex(currenttrackDetails?.songIndex)
             setcurrentNewSong(currenttrackDetails.data);
-            audioRef.current = new Audio(currenttrackDetails.data?.downloadUrl[currenttrackDetails.data?.downloadUrl?.length - 1]?.link)
+            // audioRef.current = new Audio(currenttrackDetails.data?.downloadUrl[currenttrackDetails.data?.downloadUrl?.length - 1]?.link)
+            audioRef.current = new Audio('https://assets.snapmuse.com/tracks/v/128/IEROD1903125.mp3');
             setTrackProgress(audioRef.current.currentTime);
             setIsPlaying(true)
             Playtrack()
-            callRecentlyPlayedAPI(currenttrackDetails.data)
+            callRecentlyPlayedAPI(currenttrackDetails.data);
+            dispatch(setToRecentlyPlayedTracks(currenttrackDetails.data))
         }
         else {
             toast('❌ No track Found to Play')

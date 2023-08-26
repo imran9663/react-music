@@ -10,7 +10,8 @@ const initialState = {
         songIndex: null,
         data: {},
     },
-    allFavoriteTracks: []
+    allFavoriteTracks: [],
+    allRecentlyPlayedTrack: [],
 };
 
 const PlayListSlice = createSlice({
@@ -138,6 +139,17 @@ const PlayListSlice = createSlice({
                 }
             }
         },
+        setToRecentlyPlayedTracks (state, action) {
+            if (Array.isArray(action.payload) && action.payload.length > 0) {
+                state.allRecentlyPlayedTrack = action.payload;
+            }
+            if (isObject(action.payload)) {
+                if (!state.allRecentlyPlayedTrack.some((el) => el.id === action.payload.id)) {
+                    console.log("element found ", action.payload);
+                    state.allRecentlyPlayedTrack = [action.payload, ...state.allRecentlyPlayedTrack];
+                }
+            }
+        },
         removeFromFavorites (state, action) {
             if (typeof action.payload === "string" && action.payload !== '' && state.allFavoriteTracks.some((el) => el.id === action.payload)) {
                 state.allFavoriteTracks = state.allFavoriteTracks.filter(val => val.id !== action.payload)
@@ -154,9 +166,10 @@ export const {
     setPreviousTrack,
     clearPlayList,
     setToFavoritesTracks,
-    removeFromFavorites
+    removeFromFavorites, setToRecentlyPlayedTracks
 } = PlayListSlice.actions;
 export const currentPlaylist = (state) => state.playList.data;
 export const currentTrack = (state) => state.playList.gbl_player;
 export const allFavoriteTracks = (state) => state.playList.allFavoriteTracks;
+export const allRecentlyPlayedTracks = (state) => state.playList.allRecentlyPlayedTrack;
 export default PlayListSlice.reducer;

@@ -94,10 +94,12 @@
     text-decoration: unset;
     padding: 0 0.15rem;
     border-bottom: solid 2px transparent;
+    transition: all 0.1s linear;
   }
   .active {
     font-weight: 600;
     color: #7bd977;
     border-bottom: solid 2px $accent-color;
+    transition: all 0.1s linear;
   }
 }

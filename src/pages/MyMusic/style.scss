@@ -1,0 +1,12 @@
+.tabs {
+  .navbar {
+    margin-top: 1rem;
+    background-color: transparent;
+  }
+}
+.tabs-body {
+  min-height: 75vh;
+  max-height: 75vh;
+  padding: 0 1rem;
+  overflow-y: scroll;
+}

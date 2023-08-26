@@ -10,7 +10,7 @@ import topArtist from "../../utils/data/index.json";
 import { loaclStorageStrings } from "../../utils/localStorageStrings";
 import "./style.scss";
 import { Toaster, toast } from "react-hot-toast";
-import { allFavoriteTracks, setToFavoritesTracks } from "../../Redux/Reducers/PlayList-slice";
+import { allFavoriteTracks, allRecentlyPlayedTracks, setToFavoritesTracks, setToRecentlyPlayedTracks } from "../../Redux/Reducers/PlayList-slice";
 import { useDispatch, useSelector } from "react-redux";
 const Home = () => {
     const [isLoading, setisLoading] = useState(false);
@@ -27,9 +27,11 @@ const Home = () => {
     // const navigate = useNavigate()
     const dispatch = useDispatch();
     const allFavoriteTracksList = useSelector(allFavoriteTracks);
+    const recentlyPlayedList = useSelector(allRecentlyPlayedTracks);
     useEffect(() => {
         getLoaclStorageLang();
-        allFavoriteTracksList.length === 0 && getFavoriteData()
+        allFavoriteTracksList.length === 0 && getFavoriteData();
+        recentlyPlayedList.length === 0 && getRecentlyPlayedData();
     }, []);
     useEffect(() => {
         setfavoriteData(allFavoriteTracksList)
@@ -63,7 +65,7 @@ const Home = () => {
                 setisLoading(false);
             });
     };
-    const getFavoriteData = async (arg) => {
+    const getFavoriteData = async () => {
         setisFavoriteLoading(true);
         await getRequestWithInstence(configURL.favorite).then(res => {
             if (res.status === 200) {
@@ -78,11 +80,24 @@ const Home = () => {
             setisFavoriteLoading(false)
         })
     }
+    const getRecentlyPlayedData = async () => {
+        await getRequestWithInstence(configURL.recentlyPlayed).then(res => {
+            if (res.status === 200) {
+                dispatch(setToRecentlyPlayedTracks(res.data.data))
+            }
+            res.status === 201 && toast("No Favorites")
+        }).catch(err => {
+            console.log("err", err);
+            toast.error("error in fecthing Favorite")
+        }).finally(() => {
+            setisFavoriteLoading(false)
+        })
+    }
     const artistLength = 7;
     return (
         <>
             <div className="homewrapper">
-                <section>
+                <section className="banner-wrapper">
                     <div className="banner">
                         <div className="hello">
                             Hello <span className="text-capitalize tracking-in-expand">{name}</span>
@@ -96,55 +111,58 @@ const Home = () => {
                     ) :
                         HomePageData?.trenadingAlbums?.length > 0 && (
                             <>
-                                <h5 className="text-light mt-3 mx-3 text-capitalize">
-                                    Trending albums
-                                </h5>
+
                                 <>
                                     <div className="m-3">
+                                        {/* <h5 className="text-light mt-3 mx-3 text-capitalize">
+                                            Trending albums
+                                        </h5> */}
                                         <MusicSlider data={HomePageData?.trenadingAlbums} />
                                     </div>
                                 </>
                             </>
                         )}
-                    {isLoading ? (
-                        <SlideLoader />
-                    ) :
-                        HomePageData?.trenadingSongs?.length > 0 &&
-                        <>
-                            <h5 className="text-light  mx-3 text-capitalize">
-                                Trending Songs
-                            </h5>
-                            <>
-                                <div className="homepage-songlist mx-3">
-                                    {HomePageData?.trenadingSongs.map((item, ind) => {
-                                        return <SongStrip key={ind} data={item} />;
-                                    })}
-                                </div>
-                            </>
-                        </>
-                    }
-                    {isFavoriteLoading ? (
-                        <SlideLoader />
-                    ) :
-                        favoriteData?.length > 0 &&
-                        <>
-                            <div className=" mx-3 d-flex flex-row justify-content-between align-items-center">
-                                <h5 className="text-light  mx-3 text-capitalize">
-                                    Favorite Tracks
-                                </h5>
-                                <button className="btn see-all">see all <span><Icons.BsArrowRight /></span></button>
-                            </div>
 
-                            <>
-                                <div className="homepage-songlist mx-3">
-                                    {favoriteData.map((item, ind) => {
-                                        return <SongStrip key={ind} data={item} />;
-                                    })}
-                                </div>
-                            </>
-                        </>
-                    }
                 </section>
+                {isLoading ? (
+                    <SlideLoader />
+                ) :
+                    HomePageData?.trenadingSongs?.length > 0 &&
+                    <>
+                        <h5 className="text-light  mx-3 text-capitalize">
+                            Trending Songs
+                        </h5>
+                        <>
+                            <div className="homepage-songlist mx-3">
+                                {HomePageData?.trenadingSongs.map((item, ind) => {
+                                    return <SongStrip key={ind} data={item} />;
+                                })}
+                            </div>
+                        </>
+                    </>
+                }
+                {isFavoriteLoading ?
+                    (
+                        <SlideLoader />
+                    ) :
+                    favoriteData?.length > 0 &&
+                    <>
+                        <div className=" mx-3 d-flex flex-row justify-content-between align-items-center">
+                            <h5 className="text-light  mx-3 text-capitalize">
+                                Favorite Tracks
+                            </h5>
+                            <button className="btn see-all">see all <span><Icons.BsArrowRight /></span></button>
+                        </div>
+
+                        <>
+                            <div className="homepage-songlist mx-3">
+                                {favoriteData.map((item, ind) => {
+                                    return <SongStrip key={ind} data={item} />;
+                                })}
+                            </div>
+                        </>
+                    </>
+                }
                 {isLoading ?
                     <SlideLoader />
                     :

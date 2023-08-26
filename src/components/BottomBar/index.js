@@ -19,20 +19,23 @@ const BottomBar = () => {
                 </NavLink>
                 <NavLink
                     to={RouteStrings.home}
-                    className={({ isActive }) =>
-                        isActive ? "anchor-links-active" : "anchor-links"}
-                >
+                    className={({ isActive }) => isActive ? "anchor-links-active" : "anchor-links"}>
                     <Icons.home />
-                    {/* <p className="linkName">home</p> */}
-
+                </NavLink>
+                <NavLink
+                    to={RouteStrings.myMusic}
+                    className={({ isActive }) =>
+                        isActive ? "anchor-links-active" : "anchor-links"}>
+                    <Icons.BsRadioPin />
                 </NavLink>
                 <NavLink
                     to={RouteStrings.account}
                     className={({ isActive }) =>
                         isActive ? "anchor-links-active" : "anchor-links"}>
                     <Icons.AiOutlineUser />
-                    {/* <p className="linkName">you</p> */}
                 </NavLink>
+
+
             </div>
         </>
     )

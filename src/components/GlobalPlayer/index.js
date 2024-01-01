@@ -90,8 +90,8 @@ const GlobalPlayer = () => {
             setIsPlaying(!prevState);
             setCurrentIndex(currenttrackDetails?.songIndex)
             setcurrentNewSong(currenttrackDetails.data);
-            // audioRef.current = new Audio(currenttrackDetails.data?.downloadUrl[currenttrackDetails.data?.downloadUrl?.length - 1]?.link)
-            audioRef.current = new Audio('https://assets.snapmuse.com/tracks/v/128/IEROD1903125.mp3');
+            audioRef.current = new Audio(currenttrackDetails.data?.downloadUrl[currenttrackDetails.data?.downloadUrl?.length - 1]?.link)
+            // audioRef.current = new Audio('https://assets.snapmuse.com/tracks/v/128/IEROD1903125.mp3');
             setTrackProgress(audioRef.current.currentTime);
             setIsPlaying(true)
             Playtrack()
@@ -206,7 +206,7 @@ const GlobalPlayer = () => {
     }
     const updatePalyeTime = () => {
         setcurrentDuration(progressBarRef?.current?.value)
-        progressBarRef.current?.style.setProperty('--seek-before-width', `${progressBarRef.current.value / totalDuration * 100}%`)
+        progressBarRef.current?.style.setProperty('--seek-before-width', `${(progressBarRef.current.value / totalDuration * 100).toFixed(2)}%`)
     }
 
 

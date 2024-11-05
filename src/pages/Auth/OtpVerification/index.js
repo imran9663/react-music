@@ -20,7 +20,6 @@ const OtpVerification = () => {
     const [isEmailDisabled, setisEmailDisabled] = useState(false);
 
     useEffect(() => {
-        console.log("Location.state", email, lastRoute);
         if (lastRoute === RouteStrings.register) {
             setisEmailDisabled(true)
         }

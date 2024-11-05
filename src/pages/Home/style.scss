@@ -108,8 +108,9 @@
   box-shadow: -1rem -1rem 0 0 #42c83c;
 }
 
-.see-all {
+.btn-primary-accent {
   border: solid 1px $accent-color-border;
+  background: $primary-darkGreen;
   color: $white;
   font-size: 0.5rem;
   text-transform: capitalize;
@@ -121,6 +122,9 @@
     color: $white;
     font-size: 0.5rem;
     text-transform: capitalize;
+  }
+  svg{
+    width: 1rem;
   }
 }
 

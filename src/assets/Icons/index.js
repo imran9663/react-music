@@ -43,6 +43,7 @@ import { ReactComponent as BsTrashCan } from "./BsTrashCan.svg";
 import { ReactComponent as BsEyeFill } from "./BsEyeFill.svg";
 import { ReactComponent as BsEyeSlashFill } from "./BsEyeSlashFIll.svg";
 import { ReactComponent as BsRadioPin } from "./BsRadioPin.svg";
+import { ReactComponent as BsDownload } from "./BsDownload.svg";
 
 
 
@@ -112,4 +113,5 @@ export const Icons = {
     BsEyeFill: BsEyeFill,
     BsEyeSlashFill: BsEyeSlashFill,
     BsRadioPin: BsRadioPin,
+    BsDownload: BsDownload,
 };

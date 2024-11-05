@@ -35,6 +35,17 @@ const SongStrip = ({ data }) => {
                 setisFavorite(true);
         }
     };
+    const handledownloadSong = (songData) => {
+        console.log("downlad Song btn Clicked", songData);
+        const anchor = document.createElement('a');
+        anchor.href = songData?.downloadUrl[0];
+        anchor.download = `${ParseString(songData?.name)}.mp4` || 'download.mp4';
+        document.body.appendChild(anchor);
+        // Programmatically click the anchor to trigger the download
+        anchor.click();
+        // Remove the anchor from the DOM
+        document.body.removeChild(anchor);
+    }
     const handleClickDropDownItem = (songData, newAction) => {
         switch (newAction) {
             case "playNext":
@@ -52,6 +63,9 @@ const SongStrip = ({ data }) => {
                 dispatch(removeFromFavorites(songData?.id));
                 callremoveFromFavoriteApi(songData?.id);
                 // console.log("remove From Fvaorites");
+                break;
+            case "download":
+                handledownloadSong(songData)
                 break;
             default:
                 break;
@@ -107,18 +121,23 @@ const SongStrip = ({ data }) => {
                                 <Dropdown.Item
                                     onClick={() => handleClickDropDownItem(data, "playNext")}
                                 >
-                                    <span>
-                                        <Icons.IoPlaySkipForward />
-                                    </span>
-                                    Play next
+                                    <div className="dd-menu-item">
+                                        <span>
+                                            <Icons.IoPlaySkipForward />
+                                        </span>
+                                        Play next
+                                    </div>
+
                                 </Dropdown.Item>
                                 <Dropdown.Item
                                     onClick={() => handleClickDropDownItem(data, "addtoQueue")}
                                 >
-                                    <span>
-                                        <Icons.BiAddToQueue />
-                                    </span>
-                                    Add to queue
+                                    <div className="dd-menu-item">
+                                        <span>
+                                            <Icons.BiAddToQueue />
+                                        </span>
+                                        Add to queue
+                                    </div>
                                 </Dropdown.Item>
                                 {isFavorite ? (
                                     <Dropdown.Item
@@ -126,10 +145,14 @@ const SongStrip = ({ data }) => {
                                             handleClickDropDownItem(data, "removeFromFavorite")
                                         }
                                     >
-                                        <span>
-                                            <Icons.AiOutlineCloseCircle />
-                                        </span>
-                                        Remove From Favorites
+                                        <div className="dd-menu-item">
+
+
+                                            <span>
+                                                <Icons.AiOutlineCloseCircle />
+                                            </span>
+                                            Remove From Favorites
+                                        </div>
                                     </Dropdown.Item>
                                 ) : (
                                     <Dropdown.Item
@@ -137,13 +160,25 @@ const SongStrip = ({ data }) => {
                                             handleClickDropDownItem(data, "addtoFavorite")
                                         }
                                     >
-                                        <span>
-                                            <Icons.BsHeart />
-                                        </span>
-                                        Add to Favorites
+                                            <div className="dd-menu-item">
+
+                                                <span>
+                                                    <Icons.BsHeart />
+                                                </span>
+                                                Add to Favorites
+                                            </div>
                                     </Dropdown.Item>
                                 )}
+                                {/* <Dropdown.Item onClick={() => handleClickDropDownItem(data, 'download')} >
+                                    <div className="dd-menu-item">
+                                        <span>
+                                            <Icons.BsDownload fill="#ffffff84" />
+                                        </span>
+                                        Download
+                                    </div>
+                                </Dropdown.Item> */}
                             </Dropdown.Menu>
+
                         </Dropdown>
                     </div>
                 )}

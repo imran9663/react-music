@@ -80,7 +80,6 @@ const Song = () => {
         }
     }
     const getAllArtistwithid = () => {
-        console.log("songData", songData);
         const artistArr = songData[0]?.primaryArtists.split(', ')
         const artistIDArr = songData[0]?.primaryArtistsId.split(', ')
         const newobjArr = []

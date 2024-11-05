@@ -39,7 +39,6 @@ const SelectLanguage = () => {
     }
     const handleClick = () => {
         const newArr = [...selectedLang, ...selectedlanArr,]
-        console.log("newArr", newArr);
         if (newArr.length === 0) {
             toast.error("Please Select a Language!..")
         } else {
@@ -81,7 +80,7 @@ const SelectLanguage = () => {
                     }} className='btn'>
                         <Icons.BsArrowLeft />
                     </button>
-                    <button onClick={handleClick} className='btn btn-success ml-3'> save</button>
+                    <button onClick={handleClick} className='btn btn-accent ml-3'> save</button>
                 </div>
                 <div className="mt-2 d-flex flex-row gap={2} flex-wrap justify-content-around align-ietems-center ">
                     {langArr?.map((data, ind) => {

@@ -88,7 +88,6 @@ const PlayListSlice = createSlice({
             };
         },
         setPreviousTrack (state, action) {
-            console.log("set next track action", action.payload);
             state.gbl_player = {
                 songIndex: action.payload.songIndex,
                 lastSongIndex: action.payload.songIndex,
@@ -145,7 +144,6 @@ const PlayListSlice = createSlice({
             }
             if (isObject(action.payload)) {
                 if (!state.allRecentlyPlayedTrack.some((el) => el.id === action.payload.id)) {
-                    console.log("element found ", action.payload);
                     state.allRecentlyPlayedTrack = [action.payload, ...state.allRecentlyPlayedTrack];
                 }
             }

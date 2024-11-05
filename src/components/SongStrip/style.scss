@@ -89,7 +89,16 @@
 .dd-menu {
   background: #1e1e1e;
   box-shadow: rgba(60, 60, 60, 0.35) 0px 5px 15px;
+
+.dd-menu-item{
+display: flex;
+justify-content: start;
+align-items: center;
+gap: 5px;
 }
+}
+
+
 svg {
   color: #ffffff84;
   font-size: 1rem;

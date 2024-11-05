@@ -34,7 +34,6 @@ const Account = () => {
         setqualityArr(newArr)
     }, [])
     const updateLanguage = (name, state) => {
-        console.log(name, state);
         const newArr = qualityArr.map(item => {
             if (item?.name === name) {
                 item.defualtSlected = state

@@ -6,7 +6,7 @@ const CoustomButton = (props) => {
         OnClick()
     }
     return (
-        <button disabled={Disabled} onClick={handdleClicK} className=" btn-accent">
+        <button disabled={Disabled} onClick={handdleClicK} className="btn-accent">
             {title}
         </button>
     )

@@ -24,7 +24,6 @@ const Main = () => {
     }
     const getLang = () => {
         const { language } = JSON.parse(localStorage.getItem(loaclStorageStrings.profileInfo))
-        console.log("LANG", language);
         return language?.length > 0 ? true : false
     }
     const routeTomain = () => {

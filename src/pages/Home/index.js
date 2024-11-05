@@ -12,6 +12,7 @@ import "./style.scss";
 import { Toaster, toast } from "react-hot-toast";
 import { allFavoriteTracks, allRecentlyPlayedTracks, setToFavoritesTracks, setToRecentlyPlayedTracks } from "../../Redux/Reducers/PlayList-slice";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 const Home = () => {
     const [isLoading, setisLoading] = useState(false);
     const [isFavoriteLoading, setisFavoriteLoading] = useState(false);
@@ -24,13 +25,13 @@ const Home = () => {
         trenadingSongs: [],
     });
     const [favoriteData, setfavoriteData] = useState([]);
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     const dispatch = useDispatch();
     const allFavoriteTracksList = useSelector(allFavoriteTracks);
     const recentlyPlayedList = useSelector(allRecentlyPlayedTracks);
     useEffect(() => {
         getLoaclStorageLang();
-        allFavoriteTracksList.length === 0 && getFavoriteData();
+
         recentlyPlayedList.length === 0 && getRecentlyPlayedData();
     }, []);
     useEffect(() => {
@@ -38,10 +39,11 @@ const Home = () => {
     }, [allFavoriteTracksList])
 
     const getLoaclStorageLang = () => {
-        const { language, fullName } = JSON.parse(
+        const { language, fullName, _id } = JSON.parse(
             localStorage.getItem(loaclStorageStrings.profileInfo)
         );
         setname(fullName.split(" ")[0]);
+        allFavoriteTracksList.length === 0 && getFavoriteData(_id);
         language?.length > 0 && getHomePageData(language);
     };
 
@@ -65,9 +67,9 @@ const Home = () => {
                 setisLoading(false);
             });
     };
-    const getFavoriteData = async () => {
+    const getFavoriteData = async (userId) => {
         setisFavoriteLoading(true);
-        await getRequestWithInstence(configURL.favorite).then(res => {
+        await getRequestWithInstence(`${configURL.favorite}/${userId}`).then(res => {
             if (res.status === 200) {
                 //add data to redux
                 dispatch(setToFavoritesTracks(res.data.data))
@@ -92,6 +94,9 @@ const Home = () => {
         }).finally(() => {
             setisFavoriteLoading(false)
         })
+    }
+    const handleSeeAll = () => {
+        navigate('/myMusic/myFavorites')
     }
     const artistLength = 7;
     return (
@@ -147,11 +152,11 @@ const Home = () => {
                     ) :
                     favoriteData?.length > 0 &&
                     <>
-                        <div className=" mx-3 d-flex flex-row justify-content-between align-items-center">
-                            <h5 className="text-light  mx-3 text-capitalize">
+                        <div className=" mx-3 d-flex flex-row justify-content-between align-items-center mb-3 ">
+                            <h5 className="text-light  mx-3 text-capitalize mb-0">
                                 Favorite Tracks
                             </h5>
-                            <button className="btn see-all">see all <span><Icons.BsArrowRight /></span></button>
+                            <button onClick={handleSeeAll} className="btn btn-primary-accent">see all <span><Icons.BsArrowRight /></span></button>
                         </div>
 
                         <>

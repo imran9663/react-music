@@ -52,7 +52,6 @@ const ChangePassword = () => {
             switch (name) {
 
                 case 'newPassword':
-                    console.log("match pass", regexp.password.test(value));
                     regexp.password.test(value) ? seterrorState({ ...errorState, [name]: "" }) : seterrorState({ ...errorState, [name]: errorText[name] })
                     break;
                 case 'confirmPassword':

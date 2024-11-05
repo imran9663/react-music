@@ -1,3 +1,6 @@
+
+@import "../../utils/Styles/color.scss";
+
 .pageWrapper {
   min-width: 100vw;
   min-height: 100vh;
@@ -19,4 +22,24 @@
     align-items: center;
     margin-top: 2rem;
   }
+  .btn-accent {
+  width: 6rem;
+  border: solid 1px $accent-color-border;
+  background: $primary-darkGreen;
+  color: $white;
+  font-size: 0.5rem;
+  text-transform: capitalize;
+  &:focus,
+  &:focus-visible,
+  &:focus-within,
+  &:active {
+    border: solid 1px $accent-color;
+    color: $white;
+    font-size: 0.5rem;
+    text-transform: capitalize;
+  }
+  svg{
+    width: 1rem;
+  }
+}
 }

@@ -44,7 +44,6 @@ import Favorites from "./pages/MyMusic/Favorites";
 // const NotFound = React.lazy(() => ComponentLoader(() => import("./pages/NotFound")));
 
 const App = () => {
-  useEffect(() => { }, []);
   function ErrorBoundary () {
     const error = useRouteError();
     console.error("ErrorBoundary error ==>", error);

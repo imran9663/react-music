@@ -104,9 +104,9 @@ const GlobalPlayer = () => {
     }
     const callRecentlyPlayedAPI = async (data) => {
         await addtoRecentlyPlayedApi(data).then(res => {
-            console.log("callRecentlyPlayedAPI res ==>", res);
+            // console.log("callRecentlyPlayedAPI res ==>", res);
         }).catch(err => {
-            console.log("callRecentlyPlayedAPI err ==> ", err);
+            // console.log("callRecentlyPlayedAPI err ==> ", err);
         })
     }
 
@@ -300,9 +300,9 @@ const GlobalPlayer = () => {
     }
     const callFavoriteApi = async (data) => {
         await postRequestWithInstence(configURL.favorite, { "data": data }).then(res => {
-            console.log("res", res.data);
+            // console.log("res", res.data);
         }).catch(err => {
-            console.log('err=>0', err);
+            // console.log('err=>0', err);
         })
     }
     return (

@@ -38,7 +38,7 @@ const SongStrip = ({ data }) => {
     const handleClickDropDownItem = (songData, newAction) => {
         switch (newAction) {
             case "playNext":
-                console.log("adding to next index");
+                // console.log("adding to next index");
                 dispatch(addAndPlayNextTrack(songData));
                 break;
             case "addtoQueue":
@@ -51,7 +51,7 @@ const SongStrip = ({ data }) => {
             case "removeFromFavorite":
                 dispatch(removeFromFavorites(songData?.id));
                 callremoveFromFavoriteApi(songData?.id);
-                console.log("remove From Fvaorites");
+                // console.log("remove From Fvaorites");
                 break;
             default:
                 break;
@@ -156,11 +156,11 @@ export default SongStrip;
 export const callFavoriteApi = async (data) => {
     await postRequestWithInstence(configURL.favorite, { data: data })
         .then((res) => {
-            console.log("res", res.data);
+            // console.log("res", res.data);
             return res.data
         })
         .catch((err) => {
-            console.log("err=>0", err);
+            // console.log("err=>0", err);
             return err
         });
 };

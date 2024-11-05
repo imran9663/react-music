@@ -49,7 +49,6 @@
     &-info {
       display: flex;
       flex-direction: row;
-      overflow: scroll;
       justify-content: flex-start;
       &-artist {
         color: $grey-50;

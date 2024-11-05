@@ -129,7 +129,7 @@ const Home = () => {
                 ) :
                     HomePageData?.trenadingSongs?.length > 0 &&
                     <>
-                        <h5 className="text-light  mx-3 text-capitalize">
+                        <h5 className="text-light  mt-3 pt-3 mx-3 text-capitalize">
                             Trending Songs
                         </h5>
                         <>

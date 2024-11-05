@@ -20,7 +20,6 @@ axiosInstence.interceptors.response.use(
             resolve(response);
         }),
     (error) => {
-        console.log("error.response", error?.code)
         if (error.code === 'ERR_NETWORK') {
             window.location.href = RouteStrings.noNetwork
         }
@@ -54,7 +53,7 @@ axiosInstence.interceptors.request.use(
             });
         }
         if (error.request.status === 401) {
-            console.log("axiosInstence", axiosInstence.headers);
+            // console.log("axiosInstence", axiosInstence.headers);
             // window.location.reload()
             // localStorage.clear()
         } else {

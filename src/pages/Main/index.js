@@ -44,7 +44,6 @@ const Main = () => {
                     <div className='gbl_player--placeholder'>
                     </div>}
                 <div className="bottom_components">
-
                     {showGlobalPlayer && <GlobalPlayer />}
                     <BottomBar />
                 </div>

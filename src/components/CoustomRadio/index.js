@@ -4,7 +4,7 @@ const CoustomRadio = (props) => {
     const { data, OnChecked } = props
     const handleChange = (e) => {
         const { name, checked } = e.target;
-        console.log("OnChecked", OnChecked);
+        // console.log("OnChecked", OnChecked);
         OnChecked(name, checked);
     }
     return (

@@ -1,5 +1,6 @@
 const RouteStrings = {
     home: '/home',
+    test: '/test',
     song: '/song/',
     search: '/search',
     favorite: '/favorite',
@@ -7,15 +8,17 @@ const RouteStrings = {
     playlist: '/playlist/',
     albums: '/albums/',
     artist: '/artist/',
-    artistDetails: '/',
-    artistSongs: '/songs',
+    artistDetails: '/artistDetails',
+    artistSongs: '/',
     artistAlbums: '/albums',
     selectLanguage: '/selectLanguage',
     updateLanguage: '/updateLanguage',
     myMusic: '/myMusic',
-    recentlyPlayed: '/myMusic/',
+    recentlyPlayed: '/myMusic',
     myfavorites: '/myMusic/myFavorites',
+    myPlayLists: '/myMusic/myPlayLists',
     noNetwork: '/noNetwork',
+    userPlaylist: '/userPlaylist/',
 
 
     register: '/auth/register',

@@ -1,0 +1,111 @@
+@import "../../utils/Styles/color.scss";
+
+.mainModal {
+    background-color: transparent !important;
+
+    .modal-content {
+        background-color: transparent !important;
+    }
+}
+
+.modalName {
+    font-size: 1rem;
+    color: $grey-30;
+    text-align: center;
+    margin-left: 1rem;
+}
+
+.newPlaylist-container {
+    min-height: 25rem;
+    height: 25rem;
+    height: 25rem;
+    max-height: 25rem;
+    /* From https://css.glass */
+    background: rgba(66, 200, 60, 0.17);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(66, 200, 60, 0.11);
+
+    .modalHeader {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid $grey-60;
+    }
+
+    .playlist-round-btn {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        background-color: $accent-color;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: unset;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+
+        svg {
+            color: $dark-bg;
+            fill: $dark-bg;
+        }
+    }
+
+    .existingList {}
+
+    .newPlaylist-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        position: relative;
+
+        .ipGrp {
+            padding: 2rem 0;
+            width: 90%;
+
+            .form__field {
+                font-family: inherit;
+                width: 100%;
+                border: 0;
+                border-bottom: 2px solid gray;
+                outline: 0;
+                font-size: 1rem;
+                color: white;
+                padding: 7px 0;
+                background: transparent;
+
+                &::placeholder {
+                    color: #ffffff;
+                }
+            }
+
+
+
+            .form__field:focus {
+
+                padding-bottom: 6px;
+                font-weight: 700;
+                border-width: 3px;
+                border-image: linear-gradient(to right, $accent-color, $accent-color-border);
+                border-image-slice: 1;
+
+                &::placeholder {
+                    color: transparent;
+                }
+            }
+        }
+    }
+
+    .existingList {
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        overflow-x: scroll;
+    }
+}

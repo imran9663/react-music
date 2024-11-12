@@ -66,13 +66,12 @@ const Artist = () => {
                         </div>
                     </div>
                     <div className="navbar">
-                        <NavLink index to={RouteStrings.artist + params.id + RouteStrings.artistDetails}
-                            className={({ isActive }) =>
-                                isActive ? "navbar-link active" : 'navbar-link'
-                            }
-                        > Details</NavLink>
-                        <NavLink to={RouteStrings.artist + params.id + RouteStrings.artistSongs} className="navbar-link"> Songs</NavLink>
-                        <NavLink to={RouteStrings.artist + params.id + RouteStrings.artistAlbums} className="navbar-link"> Albums</NavLink>
+
+                        <NavLink index={0} to={RouteStrings.artist + params.id + RouteStrings.artistSongs} end className={({ isActive }) =>
+                            isActive ? "navbar-link active" : 'navbar-link'
+                        } > Songs</NavLink>
+                        <NavLink to={RouteStrings.artist + params.id + RouteStrings.artistAlbums} end className="navbar-link"> Albums</NavLink>
+                        <NavLink to={RouteStrings.artist + params.id + RouteStrings.artistDetails} end className="navbar-link"> Details</NavLink>
                     </div>
 
                     <Outlet />

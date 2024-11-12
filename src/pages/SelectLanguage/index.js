@@ -12,33 +12,33 @@ import { loaclStorageStrings } from '../../utils/localStorageStrings'
 import './style.scss'
 const SelectLanguage = () => {
     const navigate = useNavigate()
-    const [langArr, setlangArr] = useState([]);
-    const [selectedLang, setselectedLang] = useState([]);
+    const [langArr, setLangArr] = useState([]);
+    const [selectedLang, setSelectedLang] = useState([]);
     const profileInfo = JSON.parse(localStorage.getItem(loaclStorageStrings.profileInfo))
     useEffect(() => {
-        setlangArr(getLanguageObject());
+        setLangArr(getLanguageObject());
         if (profileInfo?.language?.length > 0) {
-            setselectedLang(profileInfo?.language)
+            setSelectedLang(profileInfo?.language)
         }
     }, [])
-    const selectedlanArr = []
+    const selectedLanArr = []
     const handleUpdateLang = (name, checked) => {
         if (checked) {
-            selectedlanArr.push(name.toLowerCase())
+            selectedLanArr.push(name.toLowerCase())
         }
         if (checked === false) {
-            const newvalues = selectedlanArr.filter(val => {
+            const newValues = selectedLanArr.filter(val => {
                 return val.toLowerCase() !== name.toLowerCase()
             })
-            const localvalues = selectedLang.filter(val => {
+            const localValues = selectedLang.filter(val => {
                 return val.toLowerCase() !== name.toLowerCase()
             })
-            const newArr = [...newvalues, ...localvalues,]
-            setselectedLang([...new Set(newArr)])
+            const newArr = [...newValues, ...localValues,]
+            setSelectedLang([...new Set(newArr)])
         }
     }
     const handleClick = () => {
-        const newArr = [...selectedLang, ...selectedlanArr,]
+        const newArr = [...selectedLang, ...selectedLanArr,]
         if (newArr.length === 0) {
             toast.error("Please Select a Language!..")
         } else {
@@ -48,11 +48,12 @@ const SelectLanguage = () => {
         }
     }
 
-    const [isLoading, setisLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     const callAPI = async (arg) => {
-        setisLoading(true)
+        setIsLoading(true)
         const lang = {
+            userId: profileInfo?._id,
             languages: arg
         }
         await postRequestWithInstence(configURL.setLanguages, lang).then(res => {
@@ -65,10 +66,10 @@ const SelectLanguage = () => {
             console.log(err);
             toast.error("🤔 Somting not Correct")
         }).finally(() => {
-            setisLoading(false)
+            setIsLoading(false)
         })
     }
-    const machedLangFromArr = (item) => {
+    const matchedLangFromArr = (item) => {
         return selectedLang?.includes(item.toLowerCase())
     }
     return (
@@ -87,7 +88,7 @@ const SelectLanguage = () => {
                         return (
                             <>
                                 <div key={ind} className="m-2">
-                                    <CoustomCheckbox DefulatChecked={machedLangFromArr(data?.name)} updateLanguage={handleUpdateLang} data={data} />
+                                    <CoustomCheckbox DefulatChecked={matchedLangFromArr(data?.name)} updateLanguage={handleUpdateLang} data={data} />
                                 </div>
                             </>
                         )

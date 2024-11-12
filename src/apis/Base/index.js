@@ -20,6 +20,7 @@ axiosInstence.interceptors.response.use(
             resolve(response);
         }),
     (error) => {
+        console.log("axiosinstance", error);
         if (error.code === 'ERR_NETWORK') {
             window.location.href = RouteStrings.noNetwork
         }

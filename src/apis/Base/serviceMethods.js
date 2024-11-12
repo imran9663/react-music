@@ -85,7 +85,6 @@ export const putRequest = async (url, data = {}) => {
 }
 
 //  AxiosInstence Post Request
-
 export const deleteReqest = async (url, data) => {
     try {
         const response = await axiosInstence.delete(url, data || null);

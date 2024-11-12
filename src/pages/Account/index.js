@@ -68,8 +68,8 @@ const Account = () => {
                             <div className="profile-pic">
                                 <img loading="lazy" src="https://cdn.pixabay.com/photo/2018/11/13/22/01/avatar-3814081_960_720.png" alt="profie" className="img-fluid profile-pic-img" />
                             </div>
-                            <h4 className="user mt-2">imran pasha</h4>
-                            <p className="username">@imranpasha</p>
+                            <h4 className="user mt-2">{profileInfo.fullName}</h4>
+                            <p className="username">{profileInfo.email}</p>
                         </div>
                     </div>
                 </div>

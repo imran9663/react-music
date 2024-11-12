@@ -19,12 +19,13 @@ const MyMusic = () => {
                 </div>
                 <div className="tabs">
                     <div className="navbar">
-                        <NavLink index={0} to={RouteStrings.recentlyPlayed}
+                        <NavLink index={0} to={RouteStrings.recentlyPlayed} end 
                             className={({ isActive }) =>
                                 isActive ? "navbar-link active" : 'navbar-link'
                             }
                         > RecentlyPlayed</NavLink>
-                        <NavLink to={RouteStrings.myfavorites} className="navbar-link"> Favorites</NavLink>
+                        <NavLink to={RouteStrings.myfavorites} end className="navbar-link"> Favorites</NavLink>
+                        <NavLink to={RouteStrings.myPlayLists} end className="navbar-link"> My Playlists</NavLink>
                     </div>
                     <hr />
                     <div className="tabs-body">

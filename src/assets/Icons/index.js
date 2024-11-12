@@ -44,6 +44,11 @@ import { ReactComponent as BsEyeFill } from "./BsEyeFill.svg";
 import { ReactComponent as BsEyeSlashFill } from "./BsEyeSlashFIll.svg";
 import { ReactComponent as BsRadioPin } from "./BsRadioPin.svg";
 import { ReactComponent as BsDownload } from "./BsDownload.svg";
+import { ReactComponent as BsShare } from "./BsShare.svg";
+import { ReactComponent as BsListPlus } from "./BsListPlus.svg";
+import { ReactComponent as BsListPlay } from "./BsListPlay.svg";
+import { ReactComponent as BsPlusCircle } from "./BsPlusCircle.svg";
+import { ReactComponent as BsNoMusic } from "./BsNoMusic.svg";
 
 
 
@@ -56,6 +61,7 @@ import ComposeMusic from "./ComposeMusic.svg";
 import teamFun from "./teamFun.svg";
 import mailbox from "./mailbox.svg";
 import ForgotPassword from "./forgot_password.svg";
+import SadSitting from "./sadSitting.svg";
 
 export const Icons = {
     notFound: notFound,
@@ -67,6 +73,7 @@ export const Icons = {
     teamFun: teamFun,
     mailbox: mailbox,
     ForgotPassword: ForgotPassword,
+    SadSitting: SadSitting,
 
     home: FiHome,
     home: FiHome,
@@ -114,4 +121,9 @@ export const Icons = {
     BsEyeSlashFill: BsEyeSlashFill,
     BsRadioPin: BsRadioPin,
     BsDownload: BsDownload,
+    BsShare: BsShare,
+    BsListPlus: BsListPlus,
+    BsListPlay: BsListPlay,
+    BsPlusCircle: BsPlusCircle,
+    BsNoMusic: BsNoMusic,
 };

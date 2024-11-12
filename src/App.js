@@ -27,6 +27,9 @@ import ForgotPassword from "./pages/Auth/ForgotPassword";
 import MyMusic from "./pages/MyMusic";
 import RecentlyPlayed from "./pages/MyMusic/RecentlyPlayed";
 import Favorites from "./pages/MyMusic/Favorites";
+import Dummy from "./Dummy";
+import UserPlayList from "./pages/UserPlayList";
+import MyPlayLists from "./pages/MyMusic/MyPlayLists";
 
 // const Account = React.lazy(() => ComponentLoader(() => import("./pages/Account")));
 // const Album = React.lazy(() => ComponentLoader(() => import("./pages/Album")));
@@ -64,19 +67,22 @@ const App = () => {
         <Route errorElement={<ErrorBoundary />} path='/' element={<Main />}>
           <Route errorElement={<ErrorBoundary />} path='*' element={<NotFound />} />
           <Route errorElement={<ErrorBoundary />} path={RouteStrings.home} element={<Home />} />
+          <Route errorElement={<ErrorBoundary />} path={RouteStrings.test} element={<Dummy />} />
           <Route errorElement={<ErrorBoundary />} path={RouteStrings.playlist + ':id'} element={<PlayList />} />
+          <Route errorElement={<ErrorBoundary />} path={RouteStrings.userPlaylist + ':id'} element={<UserPlayList />} />
           <Route errorElement={<ErrorBoundary />} path={RouteStrings.albums + ':id'} element={<Album />} />
           <Route errorElement={<ErrorBoundary />} path={RouteStrings.search} element={<Search />} />
           <Route errorElement={<ErrorBoundary />} path={RouteStrings.account} element={<Account />} />
           <Route errorElement={<ErrorBoundary />} path={RouteStrings.myMusic} element={<MyMusic />} >
             <Route exact errorElement={<ErrorBoundary />} path={RouteStrings.recentlyPlayed} element={<RecentlyPlayed />} />
             <Route exact errorElement={<ErrorBoundary />} path={RouteStrings.myfavorites} element={<Favorites />} />
+            <Route exact errorElement={<ErrorBoundary />} path={RouteStrings.myPlayLists} element={<MyPlayLists />} />
           </Route>
           <Route errorElement={<ErrorBoundary />} path={RouteStrings.song + ':id'} element={<Song />} />
           <Route errorElement={<ErrorBoundary />} path={RouteStrings.artist + ':id'} element={<Artist />} >
-            <Route errorElement={<ErrorBoundary />} path={RouteStrings.artist + ':id' + RouteStrings.artistDetails} element={<ArtistDetails />} />
             <Route errorElement={<ErrorBoundary />} path={RouteStrings.artist + ':id' + RouteStrings.artistSongs} element={<ArtistSongs />} />
             <Route errorElement={<ErrorBoundary />} path={RouteStrings.artist + ':id' + RouteStrings.artistAlbums} element={<ArtistAlbums />} />
+            <Route errorElement={<ErrorBoundary />} path={RouteStrings.artist + ':id' + RouteStrings.artistDetails} element={<ArtistDetails />} />
           </Route>
           <Route errorElement={<ErrorBoundary />} path={RouteStrings.updateLanguage} element={<SelectLanguage />} />
         </Route>

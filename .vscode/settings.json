@@ -1,5 +1,5 @@
 {
-    "svg.preview.background": "dark-transparent",
+    "svg.preview.background": "transparent",
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#93e6fc",
         "activityBar.background": "#93e6fc",

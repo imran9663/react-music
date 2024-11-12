@@ -1,0 +1,12 @@
+@import "../../../utils/Styles/color.scss";
+
+.myplaylist-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow-x: scroll;
+
+    gap: 1rem;
+}

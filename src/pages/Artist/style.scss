@@ -43,7 +43,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
-
+    
     .main-info {
       .name {
         margin: unset;
@@ -70,8 +70,8 @@
       .follow-button {
         background-color: $accent-color;
         color: $white;
-        font-size: 1rem;
-        font-weight: 700;
+        font-size: 0.7rem;
+          font-weight: 600;
         margin: unset;
       }
     }

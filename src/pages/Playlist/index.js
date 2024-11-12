@@ -38,7 +38,7 @@ const PlayList = () => {
                 }
             })
             .catch((err) => {
-                toast.error('Somting wnet wrong!..');
+                toast.error('Something went wrong!..');
             })
             .finally(() => {
                 setisLoading(false);

@@ -17,7 +17,9 @@ import "./style.scss";
 import Dropdown from "react-bootstrap/Dropdown";
 import { deleteReqest, postRequestWithInstence } from "../../apis/Base/serviceMethods";
 import { configURL } from "../../apis/Base/config";
-const SongStrip = ({ data }) => {
+import AddToPlayListModal from "../AddToPlayListModal";
+const SongStrip = ({ data, showRemoveFromPlaylist = false, handleRemoveTrackFromPlayList }) => {
+    const currentURL = window.location.pathname
     const [isFavorite, setisFavorite] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -25,6 +27,8 @@ const SongStrip = ({ data }) => {
     const handleClick = (id) => {
         navigate(RouteStrings.song + id);
     };
+
+    const [showAddToModal, setShowAddToModal] = useState(false);
     useEffect(() => {
         checkIsFavorite();
     }, []);
@@ -35,6 +39,7 @@ const SongStrip = ({ data }) => {
                 setisFavorite(true);
         }
     };
+
     const handledownloadSong = (songData) => {
         console.log("downlad Song btn Clicked", songData);
         const anchor = document.createElement('a');
@@ -45,6 +50,9 @@ const SongStrip = ({ data }) => {
         anchor.click();
         // Remove the anchor from the DOM
         document.body.removeChild(anchor);
+    }
+    const handleHideModal = () => {
+        setShowAddToModal(() => !showAddToModal)
     }
     const handleClickDropDownItem = (songData, newAction) => {
         switch (newAction) {
@@ -64,8 +72,11 @@ const SongStrip = ({ data }) => {
                 callremoveFromFavoriteApi(songData?.id);
                 // console.log("remove From Fvaorites");
                 break;
-            case "download":
-                handledownloadSong(songData)
+            case "addToPlaylist":
+                setShowAddToModal(!showAddToModal);
+                break;
+            case "removeFromPlaylist":
+                handleRemoveTrackFromPlayList(songData?.id)
                 break;
             default:
                 break;
@@ -94,7 +105,6 @@ const SongStrip = ({ data }) => {
                     className="homepage-songlist-card-info"
                 >
                     <p className="homepage-songlist-card-info-songName">
-
                         {ParseString(data?.name)}
                     </p>
                     <p className="homepage-songlist-card-info-artistName">
@@ -169,20 +179,34 @@ const SongStrip = ({ data }) => {
                                             </div>
                                     </Dropdown.Item>
                                 )}
-                                {/* <Dropdown.Item onClick={() => handleClickDropDownItem(data, 'download')} >
-                                    <div className="dd-menu-item">
-                                        <span>
-                                            <Icons.BsDownload fill="#ffffff84" />
-                                        </span>
-                                        Download
-                                    </div>
-                                </Dropdown.Item> */}
+                                {
+                                    showRemoveFromPlaylist ?
+                                        <Dropdown.Item onClick={() => handleClickDropDownItem(data, 'removeFromPlaylist')} >
+                                            <div className="dd-menu-item">
+                                                <span>
+                                                    <Icons.BsTrashCan fill="#ffffff84" />
+                                                </span>
+                                                Remove from Playlist
+                                            </div>
+                                        </Dropdown.Item>
+                                        : <Dropdown.Item onClick={() => handleClickDropDownItem(data, 'addToPlaylist')} >
+                                            <div className="dd-menu-item">
+                                                <span>
+                                                    <Icons.BsListPlus fill="#ffffff84" />
+                                                </span>
+                                                Add to Playlist
+                                            </div>
+                                        </Dropdown.Item>
+                                }
+
                             </Dropdown.Menu>
 
                         </Dropdown>
                     </div>
                 )}
             </div>
+            <AddToPlayListModal showAddToModal={showAddToModal} handleHideModal={handleHideModal} songData={data} />
+
         </>
     );
 };

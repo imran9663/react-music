@@ -17,6 +17,11 @@ configURL.forgotpassword = '/auth/forgotpassword'
 configURL.setLanguages = '/music/setLanguages'
 configURL.favorite = '/music/favorites'
 configURL.recentlyPlayed = '/music/recentlyPlayed'
+configURL.getAllPlayListsByUser = '/music/getAllPlayListsByUser'
+configURL.createPlayListByUser = '/music/createPlayListByUser'
+configURL.addTrackToThePlayListById = '/music/addTrackToThePlayListById'
+configURL.deletePlayListByPlayListId = '/music/deletePlayListByPlayListId'
+configURL.removeTrackFromPlaylistByTrackId = '/music/removeTrackFromPlaylistByTrackId'
 
 
 

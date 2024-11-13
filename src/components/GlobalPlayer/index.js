@@ -1,3 +1,4 @@
+// spell-checker:disable
 import React, { useEffect, useRef, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +27,7 @@ import "../SeekBar/style.scss";
 import "./style.scss";
 import { addtoRecentlyPlayedApi } from "../../apis/commonApiCalls/recentlyPlayed";
 import { callremoveFromFavoriteApi } from "../SongStrip";
+import AddToPlayListModal from "../AddToPlayListModal";
 
 
 const GlobalPlayer = () => {
@@ -63,6 +65,7 @@ const GlobalPlayer = () => {
         isFavourite: false,
     })
     const [currentNewSong, setcurrentNewSong] = useState({});
+    const [showAddToModal, setShowAddToModal] = useState(false)
     const audioRef = useRef(new Audio(''));
 
     useEffect(() => {
@@ -305,6 +308,9 @@ const GlobalPlayer = () => {
             // console.log('err=>0', err);
         })
     }
+    const handleHideModal = () => {
+        setShowAddToModal(() => !showAddToModal)
+    }
     return (
         <>
             {currentNewSong?.id ?
@@ -460,15 +466,17 @@ const GlobalPlayer = () => {
                                                 className="btn">
                                                 {playerState.isFavourite ? <Icons.BsHeartFill className="bs-heart-fill" color='#ff0000' /> : <Icons.BsHeart />}
                                             </button>
-                                            {currentNewSong.hasLyrics === 'true' ? <div onClick={() => {
+                                        {currentNewSong.hasLyrics === 'true' && <div onClick={() => {
                                                 setShowLyrics({ ...ShowLyrics, state: !ShowLyrics.state })
-                                            }} className="btn lyrics">
-                                                <p className="text-headeing">
-                                                    <span className="pb-2">{ShowLyrics.state ? <Icons.BsChevronDoubleDown /> : <Icons.BsChevronDoubleUp />}</span> Lyrics
-                                                </p>
-                                            </div> :
-                                                <div className="btn dummy px-5"></div>
-                                            }
+                                        }} className="btn"> <Icons.BsLyricsNote />
+
+
+                                        </div>
+                                        }
+                                        <button onClick={handleHideModal} className="btn">
+                                            <Icons.BsListPlay />
+                                        </button>
+
                                             <button onClick={() => {
                                                 setisLoopOn(!isLoopOn)
                                             }} className={`btn ${isLoopOn ? 'loop-active' : ''}`} >
@@ -579,6 +587,7 @@ const GlobalPlayer = () => {
             <Toaster
                 position="bottom-center"
             />
+            <AddToPlayListModal showAddToModal={showAddToModal} handleHideModal={handleHideModal} songData={currentNewSong} />
         </>
     );
 };

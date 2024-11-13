@@ -49,6 +49,7 @@ import { ReactComponent as BsListPlus } from "./BsListPlus.svg";
 import { ReactComponent as BsListPlay } from "./BsListPlay.svg";
 import { ReactComponent as BsPlusCircle } from "./BsPlusCircle.svg";
 import { ReactComponent as BsNoMusic } from "./BsNoMusic.svg";
+import { ReactComponent as BsLyricsNote } from "./BsLyricsNote.svg";
 
 
 
@@ -126,4 +127,5 @@ export const Icons = {
     BsListPlay: BsListPlay,
     BsPlusCircle: BsPlusCircle,
     BsNoMusic: BsNoMusic,
+    BsLyricsNote: BsLyricsNote,
 };

@@ -11,6 +11,7 @@ import "./style.scss";
 import Loader from "./Loader";
 import { Toaster, toast } from "react-hot-toast";
 import { callFavoriteApi, callremoveFromFavoriteApi } from "../../components/SongStrip";
+import AddToPlayListModal from "../../components/AddToPlayListModal";
 const Song = () => {
     const naviagte = useNavigate();
     const { id } = useParams()
@@ -20,6 +21,7 @@ const Song = () => {
     const [trackArtists, settrackArtists] = useState([]);
     const [albumSongs, setalbumSongs] = useState([]);
     const [isLoading, setisLoading] = useState(true);
+    const [showAddToModal, setShowAddToModal] = useState(false)
     useEffect(() => {
         getSongDetails()
     }, []);
@@ -59,6 +61,9 @@ const Song = () => {
     }
     function handleClick (id) {
         naviagte(RouteStrings.albums + id);
+    }
+    const handleHideModal = () => {
+        setShowAddToModal(() => !showAddToModal)
     }
     const handleGoBack = () => {
         naviagte(-1)
@@ -146,19 +151,26 @@ const Song = () => {
                         <div className="song_warpper-action-btns">
                             {songData[0]?.downloadUrl?.length > 0
                                 &&
-                                <button onClick={handlePlaySong} className="btn btn-rounded  play "> <Icons.BsPlayFill fill="#ffffff" size={28} /></button>
+                                <button onClick={handlePlaySong} className="btn accent-round-btn "> <Icons.BsPlayFill /></button>
                             }
+
 
                             <button onClick={handleFavorite} className="btn btn-rounded heart  ">
                                 {isFavorite ? <Icons.BsHeartFill className="bs-heart-fill"
                                     fill="#ff0000" size={28} /> :
                                     <Icons.BsHeart size={28} />}
                             </button>
+
+                            {songData[0]?.downloadUrl?.length > 0
+                                &&
+                                <button onClick={handleHideModal} className="btn accent-round-btn "> <Icons.BsListPlay /></button>
+                            }
                         </div>
                     </div>
                 </> : null
             }
             <Toaster position="bottom" />
+            <AddToPlayListModal showAddToModal={showAddToModal} handleHideModal={handleHideModal} songData={songData} />
         </>
     );
 };

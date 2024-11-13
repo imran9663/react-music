@@ -30,8 +30,7 @@ function AddToPlayListModal ({ showAddToModal, handleHideModal, songData }) {
             playListData: [songData]
         }
         callCreatePlaylistApi(obj)
-        handleHideModal();
-        navigate(-1)
+
     }
     const handleAddToSelectedPlaylist = (id) => {
         const payload = {
@@ -40,12 +39,13 @@ function AddToPlayListModal ({ showAddToModal, handleHideModal, songData }) {
             trackData: songData
         }
         callAddTrackToPlaylistApi(payload);
-        handleHideModal();
-        navigate(-1)
+
     }
     const callCreatePlaylistApi = async (data) => {
         await postRequestWithInstence(configURL.createPlayListByUser, data).then((result) => {
             toast.success('Playlist Created');
+            handleHideModal();
+            navigate(-1)
         }).catch((err) => {
             console.log("callCreatePlaylistApi error=>", err);
             toast.error('unable to create Playlist')
@@ -54,6 +54,8 @@ function AddToPlayListModal ({ showAddToModal, handleHideModal, songData }) {
     const callAddTrackToPlaylistApi = async (data) => {
         await postRequestWithInstence(configURL.addTrackToThePlayListById, data).then((result) => {
             toast.success('Track Added');
+            handleHideModal();
+            navigate(-1)
         }).catch((err) => {
             console.log("callAddTrackToPlaylistApi error=>", err);
             toast.error('unable to add Track')

@@ -11,6 +11,7 @@ import { postRequestWithInstence } from '../../apis/Base/serviceMethods';
 import { configURL } from '../../apis/Base/config';
 import toast from 'react-hot-toast';
 import RouteStrings from '../../utils/RouteStrings';
+import * as _ from 'loadsh';
 const UserPlayList = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -23,11 +24,7 @@ const UserPlayList = () => {
     }, [])
     const profileInfo = JSON.parse(localStorage.getItem(loaclStorageStrings.profileInfo))
 
-    const getImageURL = (index) => {
-        return newPlayList[0].playListData[index]?.image[0]?.link
-            ? newPlayList[0].playListData[index]?.image[0]?.link
-            : Icons.defualtImage;
-    };
+    const getImageURL = (index) => _.get(newPlayList, `[0].playListData[${index}].image[0].link`, Icons.defualtImage)
     const dispatch = useDispatch();
 
     const handleRemovePlayList = () => {

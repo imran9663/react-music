@@ -2,13 +2,11 @@ import React, { useEffect } from "react";
 import "./style.scss";
 import { Icons } from "../../assets/Icons";
 import { formatDate, ParseString } from "../../utils";
+import { get } from "loadsh"
 const PlayListCard = ({ data, OnClickOnPlayList, CreatedBy, CreatedAt }) => {
     const { playListData, playListName, playlistId } = data;
-    const getImageURL = (index) => {
-        return playListData[index]?.image[0]?.link
-            ? playListData[index]?.image[0]?.link
-            : Icons.defualtImage;
-    };
+    const getImageURL = (index) => get(playListData, `${index}.image[0].link`, Icons.defualtImage)
+        ;
     const handleClick = (id) => {
         OnClickOnPlayList(id)
     }

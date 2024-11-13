@@ -152,8 +152,8 @@ const Home = () => {
                 <section className="banner-wrapper">
                     <div className="banner">
                         <div className="hello">
-                            Hello{" "}
-                            <span className="text-capitalize tracking-in-expand">{name}</span>
+                            Hello
+                            <span className="px-2 text-capitalize tracking-in-expand">{name}</span>
                         </div>
                     </div>
                     {/* <div className="trendingWrapper">
@@ -193,7 +193,7 @@ const Home = () => {
                 ) : (
                     HomePageData?.trenadingSongs?.length > 0 && (
                         <>
-                                <h5 className="text-light   mx-3 text-capitalize">
+                                <h5 className="text-light   mx-3  pb-2 text-capitalize">
                                     Trending Songs
                                 </h5>
                                 <>
@@ -211,7 +211,7 @@ const Home = () => {
                 ) : (
                     favoriteData?.length > 0 && (
                         <>
-                            <div className=" mx-3 d-flex flex-row justify-content-between align-items-center mb-3 ">
+                                <div className=" mx-3 d-flex flex-row justify-content-between align-items-center my-3 ">
                                 <h5 className="text-light  mx-3 text-capitalize mb-0">
                                     Favorite Tracks
                                 </h5>
@@ -240,7 +240,7 @@ const Home = () => {
                     <SlideLoader />
                 ) : (
                     HomePageData?.albums?.length > 0 && (
-                        <section className="mb-5 mx-3">
+                            <section className="my-3 mx-3">
                             <h5 className="text-light text-capitalize">Albums</h5>
                             <MusicSlider data={HomePageData?.albums} />
                         </section>

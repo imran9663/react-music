@@ -70,7 +70,6 @@ const Login = () => {
         }
     }
     const OnClickOnCta = () => {
-        console.log("formvalues", formVlaues);
         callAPI()
     }
     const callAPI = async () => {

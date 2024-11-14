@@ -1,8 +1,10 @@
 // spell-checker:disable
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, startTransition } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { get } from "loadsh";
+
 import {
     clearPlayList,
     currentPlaylist,
@@ -82,6 +84,8 @@ const GlobalPlayer = () => {
     useEffect(() => {
         LoadSongAndPlay()
         getSongLyrics()
+        console.log("currenttrackDetails", currenttrackDetails);
+
     }, [currenttrackDetails.data])
     useEffect(() => {
         checkIsFavorite();
@@ -224,17 +228,7 @@ const GlobalPlayer = () => {
 
         }
     }
-    const GetVolumeIcons = () => {
-        if (currentVolume >= 0.9) {
-            return <Icons.BsVolumeUp />
-        }
-        if (currentVolume <= 0.8 && currentVolume >= 0.1) {
-            return <Icons.BsVolumeDown />
-        }
-        if (currentVolume <= 0) {
-            return <Icons.BsVolumeMute />
-        }
-    }
+
     const togglePlayList = () => {
         setOpenPlaylist(!OpenPlaylist)
     }
@@ -250,9 +244,7 @@ const GlobalPlayer = () => {
         setisMegaPlayerON(!prevState);
     };
 
-    useEffect(() => {
-        GetVolumeIcons()
-    }, [currentVolume])
+
 
     useEffect(() => {
         setTimeout(() => {
@@ -273,7 +265,8 @@ const GlobalPlayer = () => {
     };
 
     const handlePlayerState = (id, state, data = {}) => {
-        setplayerState({ ...playerState, [id]: !state })
+        startTransition(() => setplayerState({ ...playerState, [id]: !state }))
+
         if (id === Constants.isFavourite) {
             if (!checkIsFavorite) {
                 dispatch(setToFavoritesTracks(currenttrackDetails.data));
@@ -306,6 +299,7 @@ const GlobalPlayer = () => {
             // console.log("res", res.data);
         }).catch(err => {
             // console.log('err=>0', err);
+            toast.error("❌ failed to Add Favorites")
         })
     }
     const handleHideModal = () => {
@@ -372,7 +366,7 @@ const GlobalPlayer = () => {
                                                                 }}
                                                                     onClick={() => handleClick(item.id)}
                                                                     className="img-fluid current-songlist-card-img "
-                                                                    src={item?.image[0].link} alt="album-art" />
+                                                                    src={get(item, 'image[0].link', Icons.defualtImage)} alt="album-art" />
                                                                 <div
                                                                     onClick={() => handleClick(item.id)}
                                                                     className="current-songlist-card-info">
@@ -441,7 +435,7 @@ const GlobalPlayer = () => {
                                                 <button
                                                     onClick={() => { handlePlayerState(Constants.showVolumeBar, playerState.showVolumeBar) }}
                                                     className="btn">
-                                                    {<GetVolumeIcons />}
+                                                <Icons.BsVolumeUp />
                                                 </button>
                                                 {playerState.showVolumeBar &&
                                                     <div className="vertical-input">
@@ -461,7 +455,7 @@ const GlobalPlayer = () => {
                                                 }
                                             </div>
 
-                                            <button
+                                        <button
                                                 onClick={() => { handlePlayerState(Constants.isFavourite, playerState.isFavourite,) }}
                                                 className="btn">
                                                 {playerState.isFavourite ? <Icons.BsHeartFill className="bs-heart-fill" color='#ff0000' /> : <Icons.BsHeart />}

@@ -42,7 +42,6 @@ const Song = () => {
         await getRequest(configURL.song + id).then(res => {
             setsongData(res.data.data);
         }).catch(err => {
-            console.log("getSongDetails err", err);
         }).finally(() => {
             setisLoading(false);
         })
@@ -163,14 +162,14 @@ const Song = () => {
 
                             {songData[0]?.downloadUrl?.length > 0
                                 &&
-                                <button onClick={handleHideModal} className="btn accent-round-btn "> <Icons.BsListPlay /></button>
+                                <button onClick={handleHideModal} className="btn accent-round-btn "> <Icons.BsListPlus /></button>
                             }
                         </div>
                     </div>
                 </> : null
             }
             <Toaster position="bottom" />
-            <AddToPlayListModal showAddToModal={showAddToModal} handleHideModal={handleHideModal} songData={songData} />
+            <AddToPlayListModal showAddToModal={showAddToModal} handleHideModal={handleHideModal} songData={songData[0]} />
         </>
     );
 };

@@ -16,6 +16,7 @@ const SelectLanguage = () => {
     const [selectedLang, setSelectedLang] = useState([]);
     const profileInfo = JSON.parse(localStorage.getItem(loaclStorageStrings.profileInfo))
     useEffect(() => {
+
         setLangArr(getLanguageObject());
         if (profileInfo?.language?.length > 0) {
             setSelectedLang(profileInfo?.language)

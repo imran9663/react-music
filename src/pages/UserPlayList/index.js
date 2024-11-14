@@ -18,10 +18,8 @@ const UserPlayList = () => {
     const allPlaylists = useSelector(allUserPlaylists);
     const [newPlayList] = useState(allPlaylists.playlists.filter((list) => { return list.playlistId === id }))
 
-    const [playListData, setplayListData] = useState(newPlayList[0].playListData);
-    useEffect(() => {
-        console.log("newPlayList", newPlayList);
-    }, [])
+    const [playListData, setplayListData] = useState(_.get(newPlayList, `[0].playListData`, []));
+
     const profileInfo = JSON.parse(localStorage.getItem(loaclStorageStrings.profileInfo))
 
     const getImageURL = (index) => _.get(newPlayList, `[0].playListData[${index}].image[0].link`, Icons.defualtImage)
@@ -89,7 +87,7 @@ const UserPlayList = () => {
                         <div className="playlist-info-wrapper">
                             <div className="playlistInfo">
                                 <p className="playlistName">
-                                    {newPlayList[0].playListName}
+                                    {_.get(newPlayList, `[0].playListData.playListName`, '')}
                                 </p>
                                 <div className="d-flex flex-row">
                                     {/* <p className="creator ">
@@ -98,7 +96,7 @@ const UserPlayList = () => {
                                     <p className="tracks text-light">
                                         <span>
                                             <Icons.BsMusicNote />
-                                            {newPlayList[0]?.playListData?.length}
+                                            {_.size(_.get(newPlayList, `[0].playListData`, []))}
                                         </span>
                                     </p>
                                 </div>

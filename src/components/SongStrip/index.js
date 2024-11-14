@@ -18,6 +18,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { deleteReqest, postRequestWithInstence } from "../../apis/Base/serviceMethods";
 import { configURL } from "../../apis/Base/config";
 import AddToPlayListModal from "../AddToPlayListModal";
+import { get } from 'loadsh'
 const SongStrip = ({ data, showRemoveFromPlaylist = false, handleRemoveTrackFromPlayList }) => {
     const currentURL = window.location.pathname
     const [isFavorite, setisFavorite] = useState(false);
@@ -40,17 +41,7 @@ const SongStrip = ({ data, showRemoveFromPlaylist = false, handleRemoveTrackFrom
         }
     };
 
-    const handledownloadSong = (songData) => {
-        console.log("downlad Song btn Clicked", songData);
-        const anchor = document.createElement('a');
-        anchor.href = songData?.downloadUrl[0];
-        anchor.download = `${ParseString(songData?.name)}.mp4` || 'download.mp4';
-        document.body.appendChild(anchor);
-        // Programmatically click the anchor to trigger the download
-        anchor.click();
-        // Remove the anchor from the DOM
-        document.body.removeChild(anchor);
-    }
+
     const handleHideModal = () => {
         setShowAddToModal(() => !showAddToModal)
     }
@@ -97,7 +88,7 @@ const SongStrip = ({ data, showRemoveFromPlaylist = false, handleRemoveTrackFrom
                     }}
                     onClick={() => handleClick(data?.id)}
                     className="img-fluid homepage-songlist-card-img "
-                    src={data?.image[1].link}
+                    src={get(data, 'image[1].link', Icons.defualtImage)}
                     alt="album-art"
                 />
                 <div
@@ -226,11 +217,9 @@ export const callFavoriteApi = async (data) => {
 export const callremoveFromFavoriteApi = async (id) => {
     await deleteReqest(`${configURL.favorite}/${id}`)
         .then((res) => {
-            console.log("res", res.data);
             return res.data
         })
         .catch((err) => {
-            console.log("err=>0", err);
             return err
         });
 };

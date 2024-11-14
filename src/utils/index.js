@@ -25,18 +25,90 @@ export const getRandomGradients = () => {
 }
 
 export const getLanguageObject = () => {
-    const language = 'Hindi,English,Punjabi,Telugu,Tamil,Bhojpuri,Bengali,Malayalam,Kannada,Marathi,Gujarati,Haryanvi,Urdu,Assamese,Rajasthani,Odia'
-    const languageStrans = 'हिन्दी Hindi,English,ਪੰਜਾਬੀ Punjabi,తెలుగు Telugu,தமிழ் Tamil,भोजपुरी Bhojpuri,বাংলা Bengali,മലയാളം Malayalam,ಕನ್ನಡ Kannada,मराठी Marathi,ગુજરાતી Gujarati,हरयाणवी Haryanvi,اردو Urdu,অসমীয়া Assamese,राजस्थानी Rajasthani,ଓଡ଼ିଆ Odia'
-    const arrkey = language.split(',')
-    const arrvalue = languageStrans.split(',')
-    const newval = arrkey.map((ele, ind) => {
-        const obj = {
-            name: ele,
-            value: arrvalue[ind]
+    const langArr = [
+        {
+            name: 'Hindi',
+            value: 'हिन्दी Hindi',
+            firstAlphabet: 'अ'
+        },
+        {
+            name: 'English',
+            value: 'English',
+            firstAlphabet: 'A'
+        },
+        {
+            name: 'Punjabi',
+            value: 'ਪੰਜਾਬੀ Punjabi',
+            firstAlphabet: 'ਅ'
+        },
+        {
+            name: 'Telugu',
+            value: 'తెలుగు Telugu',
+            firstAlphabet: 'అ'
+        },
+        {
+            name: 'Tamil',
+            value: 'தமிழ் Tamil',
+            firstAlphabet: 'அ'
+        },
+        {
+            name: 'Bhojpuri',
+            value: 'भोजपुरी Bhojpuri',
+            firstAlphabet: 'अ'
+        },
+        {
+            name: 'Bengali',
+            value: 'বাংলা Bengali',
+            firstAlphabet: 'অ'
+        },
+        {
+            name: 'Malayalam',
+            value: 'മലയാളം Malayalam',
+            firstAlphabet: 'അ'
+        },
+        {
+            name: 'Kannada',
+            value: 'ಕನ್ನಡ Kannada',
+            firstAlphabet: 'ಅ'
+        },
+        {
+            name: 'Marathi',
+            value: 'मराठी Marathi',
+            firstAlphabet: 'अ'
+        },
+        {
+            name: 'Gujarati',
+            value: 'ગુજરાતી Gujarati',
+            firstAlphabet: 'અ'
+        },
+        {
+            name: 'Haryanvi',
+            value: 'हरयाणवी Haryanvi',
+            firstAlphabet: 'अ'
+        },
+        {
+            name: 'Urdu',
+            value: 'اردو Urdu',
+            firstAlphabet: 'ا'
+        },
+        {
+            name: 'Assamese',
+            value: 'অসমীয়া Assamese',
+            firstAlphabet: 'অ'
+        },
+        {
+            name: 'Rajasthani',
+            value: 'राजस्थानी Rajasthani',
+            firstAlphabet: 'अ'
+        },
+        {
+            name: 'Odia',
+            value: 'ଓଡ଼ିଆ Odia',
+            firstAlphabet: 'ଅ'
         }
-        return obj
-    })
-    return newval
+    ];
+
+    return langArr
 }
 export const filterFromLanguage = (arg) => {
     const langObj = getLanguageObject();

@@ -141,7 +141,6 @@ const Home = () => {
                 }
             })
             .catch((err) => {
-                console.log("getAllPlayLists error ==>", err);
                 toast.error("❌ error in fetching User Playlist");
             });
     };
@@ -176,24 +175,28 @@ const Home = () => {
                             )
                     )}
                 </section>
-                <section className="mb-3 mx-3 mt-3 pt-3">
-                    <h4 className="text-light mb-3 text-capitalize">My Playlists</h4>
-                    <Slider {...sliderSettings}>
-                        {allUserPlaylistsData.playlists?.map((card, ind) => (
-                            <PlayListCard
-                                CreatedBy={allUserPlaylistsData?.createdBy}
-                                CreatedAt={allUserPlaylistsData.createdAt}
-                                OnClickOnPlayList={handleRouteToPlaylist}
-                                data={card} />
-                        ))}
-                    </Slider>
-                </section>
+                {
+                    allUserPlaylistsData?.playlists?.length > 0 &&
+                    <section className="mx-3 mt-3 pt-3 pb-0">
+                        <h4 className="text-light mb-3 text-capitalize">My Playlists</h4>
+                        <Slider {...sliderSettings}>
+                            {allUserPlaylistsData.playlists?.map((card, ind) => (
+                                <PlayListCard
+                                    CreatedBy={allUserPlaylistsData?.createdBy}
+                                    CreatedAt={allUserPlaylistsData.createdAt}
+                                    OnClickOnPlayList={handleRouteToPlaylist}
+                                    data={card} />
+                            ))}
+                        </Slider>
+                    </section>
+                }
+
                 {loading.isTrendingSectionLoading ? (
                     <SlideLoader />
                 ) : (
                     HomePageData?.trenadingSongs?.length > 0 && (
                         <>
-                                <h5 className="text-light   mx-3  pb-2 text-capitalize">
+                                <h5 className="text-light   mx-3 pt-2  pb-2 text-capitalize">
                                     Trending Songs
                                 </h5>
                                 <>

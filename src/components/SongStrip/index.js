@@ -96,7 +96,7 @@ const SongStrip = ({ data, showRemoveFromPlaylist = false, handleRemoveTrackFrom
                     className="homepage-songlist-card-info"
                 >
                     <p className="homepage-songlist-card-info-songName">
-                        {ParseString(data?.name)}
+                        {ParseString(get(data, 'title', get(data, 'name', '--')))}
                     </p>
                     <p className="homepage-songlist-card-info-artistName">
                         {getNamefromArray(data?.primaryArtists)}

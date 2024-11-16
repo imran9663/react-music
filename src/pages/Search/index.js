@@ -15,6 +15,12 @@ const Search = () => {
     const [isLoading, setisLoading] = useState(false);
     const [ReadOnly, setReadOnly] = useState(false)
 
+    useEffect(() => {
+        setTimeout(() => {
+            searchedValue !== "" && getSearchedData()
+        }, 2000);
+    }, [searchedValue])
+
     const getSearchedData = async () => {
         setisLoading(true)
         let url = new URL(process.env.REACT_APP_API_BASE_URL + configURL.searchAll);
@@ -28,7 +34,6 @@ const Search = () => {
         }).catch((err) => {
             toast.error("Someting went wrong from our side.")
         }).finally(() => {
-            setsearchedValue('')
             setisLoading(false)
         })
     }
@@ -36,30 +41,13 @@ const Search = () => {
         const { value } = e.target
         setsearchedValue(value)
     }
-    const handleKeyDown = (event) => {
-        if (event.key === 'Enter') {
-            handleBlur()
-        }
-    }
-    const handleBlur = () => {
-        searchedValue != '' && getSearchedData()
-        setReadOnly(true)
-        setTimeout(() => {
-            setReadOnly(false)
-        }, 100);
-    }
-    const handleFocus = () => {
-        setReadOnly(false)
-    }
+
 
     return (
         <>
             <div className="search_wrapper ">
                 <div className="searchbar-wrapper">
-                    <input readOnly={ReadOnly} onFocus={handleFocus} onBlur={handleBlur} onKeyDown={handleKeyDown} onChange={handleChange} value={searchedValue} placeholder='search here...' type="text" className='input' name="" id="" />
-                    <button className="btn">
-                        <Icons.search />
-                    </button>
+                    <input readOnly={ReadOnly} onChange={handleChange} value={searchedValue} placeholder='search here...' type="text" className='input' name="" id="" />
                 </div>
                 <div className="search-result">
                     {
@@ -67,7 +55,7 @@ const Search = () => {
                             <>
                                 <SearchingLoader />
                             </> : <>
-                                <div className="mt-2">
+                                <div className="mt-2 ">
                                     {resultData.length > 0 && <>
 
                                         {resultData.map((item, ind) => {
@@ -76,8 +64,9 @@ const Search = () => {
                                                 <>
                                                     {item?.results.length > 0 &&
                                                         <>
+                                                        {console.log("item", item)}
                                                             <h5 key={ind} className='text-white searchHeading'>{item.type === 'topQuery' ? 'Top Results ' : item.type}</h5>
-                                                            <div className={`result-data ${item.type === 'songs' ? "songs" : ""}`}>
+                                                        <div className={`result-data ${item.type === 'songs' ? "songs" : ""}`}>
                                                                 {
                                                                     item?.results.map((val, kye) => {
                                                                         return (

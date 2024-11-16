@@ -2,11 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Icons } from '../../../assets/Icons';
 import CoustomInput from '../../../components/CoustomInput';
 import CoustomButton from '../../../components/CoustomButton';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { regexp } from '../../../utils/regexp';
 import RouteStrings from '../../../utils/RouteStrings';
+import SpotLoader from '../../../components/Loader/SpotLoader';
+import { postRequest } from '../../../apis/Base/serviceMethods';
+import { configURL } from '../../../apis/Base/config';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ForgotPassword = () => {
+    const navigate = useNavigate()
+    const [isLoading, setisLoading] = useState(false);
     const errorText = {
         email: 'please enter correct Email',
     }
@@ -51,7 +57,23 @@ const ForgotPassword = () => {
         }
     }
     const OnClickOnCta = () => {
-        console.log("formvalues", formVlaues);
+        callForgotPassword({ email: formVlaues.email })
+    }
+    const callForgotPassword = async (payload) => {
+        setisLoading(true);
+        await postRequest(configURL.forgotpassword, payload).then((result) => {
+            if (result.status === 201) {
+                navigate(RouteStrings.otp, { state: { lastRoute: RouteStrings.forgotPassword, email: formVlaues.email } })
+            }
+            if (result.status === 400) {
+                toast.error('❗ Email is not registered')
+            }
+        }).catch((err) => {
+            console.log("err=>", err);
+            toast.error('❗ Something went Wrong')
+        }).finally(() => {
+            setisLoading(false)
+        })
     }
     return (
         <>
@@ -69,15 +91,21 @@ const ForgotPassword = () => {
                                 Value={formVlaues.email}
                                 name='email'
                                 OnChange={handleFormValueChange}
-                                placeholder={"ex: JhonDoe@nomail.com"}
+                                placeholder={"ex: jhonDoe@nomail.com"}
                                 OnBlur={handleFormValueBlur}
                                 errorText={errorState.email} />
-                            <CoustomButton OnClick={OnClickOnCta} Disabled={isDisabled} title={"Login"} />
+                            <CoustomButton OnClick={OnClickOnCta} Disabled={isDisabled} title={"Send OTP"} />
 
                         </div>
                     </div>
                 </div>
             </div>
+            {
+                isLoading && <div className="LoadingConatiner">
+                    <SpotLoader />
+                </div>
+            }
+            <Toaster position='bottom' />
         </>
     )
 }

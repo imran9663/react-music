@@ -68,6 +68,31 @@ const GlobalPlayer = () => {
     })
     const [currentNewSong, setcurrentNewSong] = useState({});
     const [showAddToModal, setShowAddToModal] = useState(false)
+
+    const [touchStart, setTouchStart] = useState(null)
+    const [touchEnd, setTouchEnd] = useState(null)
+
+    // the required distance between touchStart and touchEnd to be detected as a swipe
+    const minSwipeDistance = 50
+
+    const onTouchStart = (e) => {
+        setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
+        setTouchStart(e.targetTouches[0].clientX)
+    }
+
+    const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX)
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return
+        const distance = touchStart - touchEnd
+        const isLeftSwipe = distance > minSwipeDistance
+        const isRightSwipe = distance < -minSwipeDistance
+        isRightSwipe && handlePrev();
+        isLeftSwipe && handleNext();
+    }
+
+
+
     const audioRef = useRef(new Audio(''));
 
     useEffect(() => {
@@ -84,8 +109,6 @@ const GlobalPlayer = () => {
     useEffect(() => {
         LoadSongAndPlay()
         getSongLyrics()
-        console.log("currenttrackDetails", currenttrackDetails);
-
     }, [currenttrackDetails.data])
     useEffect(() => {
         checkIsFavorite();
@@ -192,12 +215,14 @@ const GlobalPlayer = () => {
             audioRef.current.load()
             toast("➿ playing again ")
             Playtrack()
-
         }
     };
 
     const handlePrev = () => {
-        if (currentIndex - 1 < 0) {
+        if (currentIndex === 0) {
+            toast.error("No Previous Song")
+        }
+        else if (currentIndex - 1 > 0) {
             dispatch(setPreviousTrack({ songIndex: currenttrackDetails.songIndex - 1, data: trackDataList[currenttrackDetails.songIndex - 1] }))
         }
         else {
@@ -392,14 +417,20 @@ const GlobalPlayer = () => {
                                             </div>
                                         </div>
                                         <div className="tack_card-details">
-                                            <div className="tack_card-details-albumart text-center">
-                                                <img loading="lazy" onError={({ currentTarget }) => {
+                                        <div className="tack_card-details-albumart text-center"  >
+                                            <img
+                                                onTouchStart={onTouchStart}
+                                                onTouchMove={onTouchMove}
+                                                onTouchEnd={onTouchEnd}
+                                                loading="lazy"
+                                                onError={({ currentTarget }) => {
                                                     currentTarget.onerror = null;
                                                     currentTarget.src = Icons.defualtImage;
                                                 }}
                                                     src={currentNewSong?.image[currentNewSong?.image.length - 1]?.link}
                                                     alt={currentNewSong?.image[currentNewSong?.image.length - 1]?.quality}
-                                                    className="img-fluid"
+                                                className="img-fluid"
+                                                style={{ transform: `translateX(${touchEnd})` }}
                                                 />
                                             </div>
                                             <div className="tack_card-details-info  text-center">

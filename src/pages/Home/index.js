@@ -100,7 +100,6 @@ const Home = () => {
         //add data to redux
                     dispatch(setToFavoritesTracks(res.data.data));
                 }
-                res.status === 201 && toast("No Favorites");
             })
             .catch((err) => {
                 console.log("err", err);
@@ -116,7 +115,6 @@ const Home = () => {
                 if (res.status === 200) {
                     dispatch(setToRecentlyPlayedTracks(res.data.data));
                 }
-                res.status === 201 && toast("No Favorites");
             })
             .catch((err) => {
                 console.log("err", err);

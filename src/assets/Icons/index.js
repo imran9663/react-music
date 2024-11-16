@@ -64,6 +64,7 @@ import mailbox from "./mailbox.svg";
 import ForgotPassword from "./forgot_password.svg";
 import SadSitting from "./sadSitting.svg";
 
+
 export const Icons = {
     notFound: notFound,
     nointernet: nointernet,
@@ -75,7 +76,6 @@ export const Icons = {
     mailbox: mailbox,
     ForgotPassword: ForgotPassword,
     SadSitting: SadSitting,
-
     home: FiHome,
     home: FiHome,
     search: FiSearch,

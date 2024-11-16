@@ -1,6 +1,7 @@
 import React from 'react'
 import { Icons } from '../../assets/Icons'
 import './style.scss'
+import HeroLady from '../../assets/Imges/pexels-sound-on-3756962-removebg.png'
 const Landing = () => {
     return (
         <div className='dark-bg landing-cover'>

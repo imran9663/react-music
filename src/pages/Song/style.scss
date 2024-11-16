@@ -1,4 +1,5 @@
 @import "../../utils/Styles/color.scss";
+
 .song_warpper {
   width: 100vw;
   min-height: 100vh;
@@ -7,24 +8,29 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+
   &-top-bar {
     width: 100%;
     height: auto;
     display: flex;
     justify-content: space-between;
+
     .btn {
       margin: unset;
       border: unset;
       outline: unset;
+
       &:active {
         border: unset;
         outline: unset;
       }
+
       svg {
         color: #ffffff84;
         width: 1.5rem;
       }
     }
+
     .back-btn {
       svg {
         color: $accent-color;
@@ -34,15 +40,16 @@
       }
     }
   }
+
   &-albumart {
     width: 12rem;
     height: 12rem;
     border-radius: 50%;
     overflow: hidden;
     box-shadow: rgb(255 255 255 / 40%) 0px 0px 25px;
-    img {
-    }
-  }
+img {}
+}
+
   &-info {
     margin: 2rem;
     display: flex;
@@ -57,6 +64,7 @@
       color: #ffffff;
       text-transform: capitalize;
     }
+
     .track-album {
       text-align: center;
       word-wrap: break-word;
@@ -64,10 +72,12 @@
       text-transform: capitalize;
       text-decoration: underline;
       font-size: 1rem;
+
       &:hover {
         cursor: pointer;
       }
     }
+
     .artists {
       text-align: center;
       word-wrap: break-word;
@@ -76,11 +86,13 @@
       font-size: 0.9rem;
       font-weight: 400;
       margin: unset;
+
       span {
         font-weight: normal;
         // text-decoration: underline;
       }
     }
+
     .cont {
       width: 100%;
       display: flex;
@@ -88,6 +100,7 @@
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
+
       .language {
         font-size: 0.5rem;
         text-align: center;
@@ -96,12 +109,14 @@
         text-transform: uppercase;
         margin: unset;
         width: fit-content;
+
         span {
           svg {
             width: 0.75rem;
           }
         }
       }
+
       .playCount {
         color: #ffffff95;
         font-weight: 300;
@@ -111,50 +126,61 @@
       }
     }
   }
+
   &-action-btns {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 2rem;
+
     .btn-rounded {
       border: unset;
       outline: unset;
+
       &:active {
         border: unset;
         outline: unset;
       }
+
       width: 3rem;
       height: 3rem;
       border-radius: 50%;
     }
-                                .accent-round-btn {
-                                  width: 2.5rem;
-                                  height: 2.5rem;
-                                  border-radius: 50%;
-                                  background-color: $accent-color;
-                                  display: flex;
-                                  justify-content: center;
-                                  align-items: center;
-                                  padding: unset;
-                                  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-                
-                                  svg {
-                                    width: 1rem;
-                                    height: 1rem;
-                                    font-size: 1rem;
-                                    color: $dark-bg;
-                                    fill: $dark-bg;
-                                  }
-                                }
+
+        .accent-round-btn {
+          width: 2.5rem;
+          height: 2.5rem;
+          border-radius: 50%;
+          background-color: $accent-color;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: unset;
+          box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    &:active {
+        background-color: $accent-color-border;
+      }
+    
+      svg {
+        width: 1.5rem;
+          height: 1.5rem;
+          color: $dark-bg;
+          fill: $dark-bg;
+        }
+        }
+
     .play {
       background-color: $accent-color;
+
       svg {
         transform: translate(0, 0);
       }
     }
+
     .heart {
       background-color: transparent;
+
       svg {
         transform: translate(-4px, 2px);
         color: $accent-color;
@@ -169,38 +195,46 @@
     transform: translate(-2px, 0);
     opacity: 1;
   }
+
   50% {
     transform: translate(2px, 0);
     opacity: 1;
   }
+
   100% {
     transform: translate(-2px, 0);
     opacity: 1;
   }
 }
+
 @-moz-keyframes ca3_fade_silde {
   0% {
     transform: translate(-2px, 0);
     opacity: 1;
   }
+
   50% {
     transform: translate(2px, 0);
     opacity: 1;
   }
+
   100% {
     transform: translate(-2px, 0);
     opacity: 1;
   }
 }
+
 @keyframes ca3_fade_silde {
   0% {
     transform: translate(-2px, 0);
     opacity: 1;
   }
+
   50% {
     transform: translate(2px, 0);
     opacity: 1;
   }
+
   100% {
     transform: translate(-2px, 0);
     opacity: 1;
@@ -217,6 +251,7 @@
   background: #1e1e1e;
   box-sizing: border-box;
 }
+
 .songpage-loader::after {
   content: "";
   width: calc(100% - 30px);
@@ -224,12 +259,10 @@
   top: 15px;
   left: 15px;
   position: absolute;
-  background-image: linear-gradient(
-      90deg,
+  background-image: linear-gradient(90deg,
       transparent,
       rgba(255, 255, 255, 0.5) 50%,
-      transparent 100%
-    ),
+      transparent 100%),
     radial-gradient(circle 50px, #ddd 100%, transparent 0),
     linear-gradient(#ddd 16px, transparent 0),
     linear-gradient(#ddd 24px, transparent 0);
@@ -245,16 +278,15 @@
     background-position: 185px 0, center 10px, center 125px, center 155px;
   }
 }
+
 .stripe-loader {
   width: 360px;
   height: 100px;
   display: block;
-  background-image: linear-gradient(
-      100deg,
+  background-image: linear-gradient(100deg,
       transparent,
       rgba(38, 50, 56, 0.5) 50%,
-      transparent 80%
-    ),
+      transparent 80%),
     linear-gradient(#fff 20px, transparent 0),
     linear-gradient(#fff 20px, transparent 0),
     linear-gradient(#fff 20px, transparent 0);

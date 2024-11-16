@@ -4,6 +4,8 @@ import RouteStrings from '../../utils/RouteStrings'
 import './style.scss'
 import { getCorrectSrc } from '../../utils'
 import { Icons } from '../../assets/Icons'
+import SongStrip from '../SongStrip'
+
 const MediaCard = ({ Data, Style, ImgStyle }) => {
     const navigate = useNavigate()
     const handleClick = () => {
@@ -40,7 +42,7 @@ const MediaCard = ({ Data, Style, ImgStyle }) => {
         }
             {(Data.type === 'song') &&
                 <>
-                    <div onClick={handleClick} className="songCard ">
+                {/* <div onClick={handleClick} className="songCard mx-2">
                         <img loading="lazy" onError={({ currentTarget }) => {
                             currentTarget.onerror = null;
                             currentTarget.src = Icons.defualtImage;
@@ -49,7 +51,9 @@ const MediaCard = ({ Data, Style, ImgStyle }) => {
                             <h4 className='songCard-info-title text-truncate'>{Data.name ? Data.name : Data.title}</h4>
                             <p className='songCard-info-artist text-truncate'>{Data.primaryArtists ? Data.primaryArtists : Data.singers}</p>
                         </div>
-                    </div>
+                    </div> */}
+
+                <SongStrip data={Data} />
                 </>
             }
             {

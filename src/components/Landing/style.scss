@@ -2,7 +2,7 @@
 
 .dark-bg {
   // background-color: #1f1f1f;
-  background-color: $dark-bg;
+    background-color: $dark-bg;
 }
 .landing-cover {
   position: absolute;
@@ -54,3 +54,27 @@
     transform: rotate(359deg);
   }
 }
+@media (max-width: 768px) {
+  .dark-bg {
+    background: linear-gradient(rgba(1, 19, 9, 0) 0%, rgba(1, 47, 20, 0.82) 40%), url("../../assets/Imges/pexels-sound-on-3756962-removebg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    // background: -moz-linear-gradient(0deg, #011309c1 0%, #03451fd1 69%), url('../../assets/Imges/pexels-sound-on-3756962-removebg.png');
+  }
+
+  .landing-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 5rem 0;
+  }
+}
+    

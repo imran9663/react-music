@@ -88,7 +88,6 @@ const Register = () => {
             "Password": formVlaues.newPassword,
         }
         await postRequest(configURL.register, data).then(res => {
-            console.log(res);
             res.status === 201 && Navigate(RouteStrings.otp, { state: { lastRoute: RouteStrings.register, email: formVlaues.email } });
         }).catch(err => {
             console.log(err);

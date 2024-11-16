@@ -2,11 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { Icons } from '../../../assets/Icons';
 import CoustomInput from '../../../components/CoustomInput';
 import CoustomButton from '../../../components/CoustomButton';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { regexp } from '../../../utils/regexp';
 import RouteStrings from '../../../utils/RouteStrings';
+import { postRequest } from '../../../apis/Base/serviceMethods';
+import { configURL } from '../../../apis/Base/config';
+import toast, { Toaster } from 'react-hot-toast';
+import { Toast } from 'bootstrap';
+import SpotLoader from '../../../components/Loader/SpotLoader';
 
 const ChangePassword = () => {
+    const navigate = useNavigate();
+    const Location = useLocation();
+    const { token } = Location.state;
+
 
     const errorText = {
         newPassword: 'password length should be grater than 8',
@@ -20,7 +29,8 @@ const ChangePassword = () => {
         newPassword: '',
         confirmPassword: ''
     })
-    const [isDisabled, setisDisabled] = useState(false)
+    const [isDisabled, setisDisabled] = useState(false);
+    const [isLoading, setisLoading] = useState(false);
     useEffect(() => {
         if (Object.values(formVlaues).every(val => val !== '') && Object.values(errorState).every(val => val === '')) {
             setisDisabled(false)
@@ -50,7 +60,6 @@ const ChangePassword = () => {
         } else {
             seterrorState({ ...errorState, [name]: "" })
             switch (name) {
-
                 case 'newPassword':
                     regexp.password.test(value) ? seterrorState({ ...errorState, [name]: "" }) : seterrorState({ ...errorState, [name]: errorText[name] })
                     break;
@@ -63,7 +72,21 @@ const ChangePassword = () => {
         }
     }
     const OnClickOnCta = () => {
-        console.log("formvalues", formVlaues);
+        const payload = { token: token, newPassword: formVlaues.newPassword }
+        callChangePasswordApi(payload)
+    }
+    const callChangePasswordApi = async (payload) => {
+        setisLoading(true);
+        await postRequest(configURL.changepassword, payload).then((result) => {
+            if (result.status === 200) {
+                toast.success('Password Reset Success');
+                navigate(RouteStrings.login);
+            }
+        }).catch((err) => {
+            toast.error("Error while password reset")
+        }).finally(() => {
+            setisLoading(false)
+        })
     }
     return (
         <>
@@ -99,6 +122,12 @@ const ChangePassword = () => {
                     </div>
                 </div>
             </div>
+            {
+                isLoading && <div className="LoadingConatiner">
+                    <SpotLoader />
+                </div>
+            }
+            <Toaster position='bottom' />
         </>
     )
 }

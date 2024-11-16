@@ -1,17 +1,19 @@
+import { get } from 'loadsh'
 import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router'
-import { getRequest } from '../../apis/Base/serviceMethods'
-import { configURL } from '../../apis/Base/config'
-import './style.scss'
-import { Icons } from '../../assets/Icons'
-import RouteStrings from '../../utils/RouteStrings'
 import { useDispatch, useSelector } from 'react-redux'
-import { setLocalPlayListData, currentPlaylist } from '../../Redux/Reducers/PlayList-slice'
-import { ParseString } from '../../utils'
-import SongStrip from '../../components/SongStrip'
-import SongStripeLoader from '../../components/Loader/SongStripeLoader'
+import { useNavigate, useParams } from 'react-router'
+import { configURL } from '../../apis/Base/config'
+import { getRequest } from '../../apis/Base/serviceMethods'
+import { Icons } from '../../assets/Icons'
 import BannerLoader from '../../components/Loader/BannerLoader'
+import SongStripeLoader from '../../components/Loader/SongStripeLoader'
+import SongStrip from '../../components/SongStrip'
 import Topbar from '../../components/Topbar'
+import { currentPlaylist, setLocalPlayListData } from '../../Redux/Reducers/PlayList-slice'
+import { ParseString } from '../../utils'
+import RouteStrings from '../../utils/RouteStrings'
+import './style.scss'
+
 const Album = () => {
     const { id } = useParams()
     const navigate = useNavigate()
@@ -107,9 +109,13 @@ const Album = () => {
                                         </div>
                                         <div className="rate-cont icon-svg">
                                             <Icons.BsHeart />
-                                            <p className="text-white">{playlistData.followerCount ? playlistData.followerCount : "--"}</p>
-                                        </div>
+                                        <p className="text-white ">{playlistData.followerCount ? playlistData.followerCount : "--"}</p>
                                     </div>
+
+                                </div>
+                                <div className="rate-cont mt-1">
+                                    <p className=" release-date text-secondary">Released On : <span>{get(playlistData, 'releaseDate', '--')}</span> </p>
+                                </div>
                                 </div>
                             </div>
                             <div className="w-100 play-button-wrapper">

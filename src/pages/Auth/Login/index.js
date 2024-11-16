@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import './style.scss';
-import { Icons } from '../../../assets/Icons';
-import CoustomInput from '../../../components/CoustomInput';
-import CoustomButton from '../../../components/CoustomButton';
+import { Toaster, toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
-import { regexp } from '../../../utils/regexp';
-import RouteStrings from '../../../utils/RouteStrings';
-import { postRequest } from '../../../apis/Base/serviceMethods';
+import axiosInstence from '../../../apis/Base';
 import { configURL } from '../../../apis/Base/config';
+import { postRequest } from '../../../apis/Base/serviceMethods';
+import { Icons } from '../../../assets/Icons';
+import CoustomButton from '../../../components/CoustomButton';
+import CoustomInput from '../../../components/CoustomInput';
 import SpotLoader from '../../../components/Loader/SpotLoader';
 import { loaclStorageStrings } from '../../../utils/localStorageStrings';
-import { Toaster, toast } from 'react-hot-toast';
-import axiosInstence from '../../../apis/Base';
+import { regexp } from '../../../utils/regexp';
+import RouteStrings from '../../../utils/RouteStrings';
+import './style.scss';
 
 const Login = () => {
     const [isLoading, setisLoading] = useState(false)
@@ -70,7 +70,6 @@ const Login = () => {
         }
     }
     const OnClickOnCta = () => {
-        console.log("formvalues", formVlaues);
         callAPI()
     }
     const callAPI = async () => {
@@ -90,6 +89,7 @@ const Login = () => {
             }
         }).catch(err => {
             console.log(err);
+            toast.error('Something went wrong')
 
         }).finally(() => {
             setisLoading(false)
@@ -125,7 +125,7 @@ const Login = () => {
                                 OnBlur={handleFormValueBlur}
                                 errorText={errorState.Password} />
                             <div className=" w-100 text-left ">
-                                <Link to={RouteStrings.login} className='forgot-link'> Forgot Password?</Link>
+                                <Link to={RouteStrings.forgotPassword} className='forgot-link'> Forgot Password?</Link>
                             </div>
                             <div className="pt-5">
                                 <CoustomButton OnClick={OnClickOnCta} Disabled={isDisabled} title={"Login"} />

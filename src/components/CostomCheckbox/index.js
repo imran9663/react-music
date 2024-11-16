@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import './style.scss'
 import { getRandomGradients } from '../../utils'
 const CoustomCheckbox = (props) => {
+    const gradients = useMemo(() => getRandomGradients, [])
     const { data, Type, updateLanguage, DefulatChecked } = props
     const handleChange = (e) => {
         const { name, checked } = e.target
@@ -21,10 +22,16 @@ const CoustomCheckbox = (props) => {
                         defaultValue={data?.name}
                         type={Type ? Type : "checkbox"}
                         className="checkbox-input" />
-                    <span style={{ background: getRandomGradients() }} className="checkbox-tile">
-                        <span className="checkbox-icon">
+                    <span style={{ background: gradients() }} className="checkbox-tile">
+                        <h2 className="checkbox-icon">
                             {data?.value?.split(' ')[0]}
-                        </span>
+                        </h2>
+                        <p className="checkbox-icon">
+                            {data?.value?.split(' ')[1]}
+                        </p>
+                        <h1 className="singleCharacter">
+                            {data.firstAlphabet}
+                        </h1>
                     </span>
                 </label>
             </div>

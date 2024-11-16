@@ -19,5 +19,8 @@
         "titleBar.inactiveBackground": "#2e073f99",
         "titleBar.inactiveForeground": "#e7e7e799"
     },
-    "peacock.color": "#2E073F"
+    "peacock.color": "#2E073F",
+    "cSpell.words": [
+        "forgotpassword"
+    ]
 }

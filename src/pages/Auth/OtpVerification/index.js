@@ -10,6 +10,7 @@ import { postRequest } from '../../../apis/Base/serviceMethods';
 import { configURL } from '../../../apis/Base/config';
 import SpotLoader from '../../../components/Loader/SpotLoader';
 import { Toaster, toast } from 'react-hot-toast';
+import { loaclStorageStrings } from '../../../utils/localStorageStrings';
 
 const OtpVerification = () => {
     const Location = useLocation();
@@ -91,8 +92,13 @@ const OtpVerification = () => {
                 res.status === 200 && Navigate(RouteStrings.login);
                 res.status !== 200 && toast.error(res.data.msg)
             }
+            if (lastRoute === RouteStrings.forgotPassword) {
+                res.status === 200 && Navigate(RouteStrings.changePassword, { state: { token: res.data.token } });
+                res.status !== 200 && toast.error(res.data.msg)
+            }
         }).catch(err => {
             console.log(err);
+            toast.error('Something Went Wrong');
         }).finally(() => {
             setisLoading(false)
         })

@@ -86,7 +86,7 @@ const PlayList = () => {
                             </div>
 
                             <Topbar tbClassName={'tbar'} />
-                            <div className="playlist-info">
+                                <div className="playlist-info mx-3">
                                 <div className="col-4 image-cover">
                                     <img loading="lazy" onError={({ currentTarget }) => {
                                         currentTarget.onerror = null;
@@ -132,7 +132,7 @@ const PlayList = () => {
                                 </button>
                             </div>}
 
-                            <div className="songlist">
+                                <div className="songlist mx-3">
                                 {playlistData?.songs.length > 0 ? <>
                                     {playlistData?.songs.map((item, ind) => {
                                         return (

@@ -30,6 +30,7 @@ import "./style.scss";
 import { addtoRecentlyPlayedApi } from "../../apis/commonApiCalls/recentlyPlayed";
 import { callremoveFromFavoriteApi } from "../SongStrip";
 import AddToPlayListModal from "../AddToPlayListModal";
+import Modal from 'react-bootstrap/Modal';
 
 
 const GlobalPlayer = () => {
@@ -69,6 +70,7 @@ const GlobalPlayer = () => {
     const [currentNewSong, setcurrentNewSong] = useState({});
     const [showAddToModal, setShowAddToModal] = useState(false)
 
+    const [showAlert, setShowAlert] = useState(false)
     const [touchStart, setTouchStart] = useState(null)
     const [touchEnd, setTouchEnd] = useState(null)
 
@@ -94,6 +96,12 @@ const GlobalPlayer = () => {
 
 
     const audioRef = useRef(new Audio(''));
+    useEffect(() => {
+        return () => {
+            audioRef.current.pause();
+            clearInterval(intervalRef.current);
+        };
+    }, []);
 
     useEffect(() => {
         settrackDataList(trackList);
@@ -114,12 +122,12 @@ const GlobalPlayer = () => {
         checkIsFavorite();
     }, [currentNewSong, isMegaPlayerON])
     const LoadSongAndPlay = () => {
-        if (Object.values(currenttrackDetails.data).length > 0) {
+        if (Object.values(currenttrackDetails?.data).length > 0) {
             PauseTrack()
             const prevState = isPlaying
             setIsPlaying(!prevState);
             setCurrentIndex(currenttrackDetails?.songIndex)
-            setcurrentNewSong(currenttrackDetails.data);
+            setcurrentNewSong(currenttrackDetails?.data);
             audioRef.current = new Audio(currenttrackDetails.data?.downloadUrl[currenttrackDetails.data?.downloadUrl?.length - 1]?.link)
             // audioRef.current = new Audio('https://assets.snapmuse.com/tracks/v/128/IEROD1903125.mp3');
             setTrackProgress(audioRef.current.currentTime);
@@ -151,12 +159,7 @@ const GlobalPlayer = () => {
         }
     }
 
-    useEffect(() => {
-        return () => {
-            audioRef.current.pause();
-            clearInterval(intervalRef.current);
-        };
-    }, []);
+
 
     const startTimer = () => {
         clearInterval(intervalRef.current);
@@ -206,15 +209,20 @@ const GlobalPlayer = () => {
     const handleNext = () => {
         setIsPlaying(((prevState) => !prevState))
         clearInterval(intervalRef.current);
-        if (currentIndex < trackDataList.length - 1) {
+
+        // console.log("trackDataList", trackDataList.length, trackDataList);
+        // console.log("currenttrackDetails", currenttrackDetails);
+
+        if (currenttrackDetails.songIndex < trackDataList.length - 1) {
             audioRef.current.pause();
             audioRef.current.src = ''
             dispatch(setNextTrack({ songIndex: currenttrackDetails.songIndex + 1, data: trackDataList[currenttrackDetails.songIndex + 1] }))
-        } else {
+        }
+        else {
             dispatch(setNextTrack({ songIndex: 0, data: trackDataList[0] }))
             audioRef.current.load()
             toast("➿ playing again ")
-            Playtrack()
+            LoadSongAndPlay()
         }
     };
 
@@ -314,10 +322,11 @@ const GlobalPlayer = () => {
             dispatch(removeTrackFromPlayList(id))
         }
     }
-
+    const handleShowConfimPopUp = () => setShowAlert(!showAlert)
     const OnClearPlayList = () => {
-        alert("All the Song will be removed Do you want to Continue !")
+
         dispatch(clearPlayList());
+        setShowAlert(false)
     }
     const callFavoriteApi = async (data) => {
         await postRequestWithInstence(configURL.favorite, { "data": data }).then(res => {
@@ -368,7 +377,7 @@ const GlobalPlayer = () => {
                                         <div className={`tack_card-playlist ${OpenPlaylist ? "active" : ''}`}>
                                             <div className="tack_card-playlist--top-bar">
                                                 <button
-                                                    onClick={() => { OnClearPlayList() }}
+                                                onClick={handleShowConfimPopUp}
                                                     className="btn closeBtn delete">
                                                     <Icons.BsTrashCan />
                                                 </button>
@@ -613,6 +622,34 @@ const GlobalPlayer = () => {
                 position="bottom-center"
             />
             <AddToPlayListModal showAddToModal={showAddToModal} handleHideModal={handleHideModal} songData={currentNewSong} />
+
+            <Modal className='confirm-mainModal'
+                show={showAlert}
+                centered >
+                <div style={{ minHeight: '10rem', height: '10rem' }}
+                    className="confirm-modal-container mx-3">
+                    <div className="confirm-modalHeader">
+                        <div className="confirm-modalName">ALERT !</div>
+                        <button onClick={handleShowConfimPopUp} className="btn closeBtn">
+                            <Icons.AiOutlineCloseCircle />
+                        </button>
+
+                    </div>
+                    <div className="confirm-modalBody mt-3">
+                        <div className="confirm-modalContent">
+                            <p className="text-white text-sm text-center">
+                                All Tracks will be removed. Do you want to Continue !
+                            </p>
+                        </div>
+                        <div className="modalCts ">
+                            <button onClick={OnClearPlayList} className="btn  btn-sm btn-danger">
+                                Stop
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </Modal>
+
         </>
     );
 };

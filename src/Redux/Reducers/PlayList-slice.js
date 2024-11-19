@@ -78,10 +78,11 @@ const PlayListSlice = createSlice({
             }
         },
         setNextTrack (state, action) {
+            console.log("action", action)
             state.gbl_player = {
                 songIndex: action.payload.songIndex,
                 lastSongIndex:
-                    action.payload.songIndex - 1 < 0 ? action.payload.songIndex - 1 : 0,
+                    action.payload.songIndex - 1 > 0 ? action.payload.songIndex - 1 : 0,
                 data:
                     state.data.length > 0
                         ? state.data[action.payload.songIndex]

@@ -76,6 +76,9 @@
   justify-content: flex-start;
   flex-wrap: nowrap;
   gap: 1rem;
+    &::-webkit-scrollbar {
+        display: none !important;
+      }
   .btn {
     min-width: fit-content;
     font-size: 0.75rem;

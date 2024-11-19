@@ -43,6 +43,9 @@
       transform: translate(-100%, 1%) !important;
       color: #1e1e1e;
       background-color: $olive !important;
+      svg {
+          color: #1e1e1e;
+        }
     }
 
     &-name {

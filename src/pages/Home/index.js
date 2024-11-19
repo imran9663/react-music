@@ -157,7 +157,9 @@ const Home = () => {
                         <h2 className='text-light  text-capitalize trending'>Trending</h2>
                     </div> */}
                     {loading.isTrendingSectionLoading ? (
-                        <SlideLoader />
+                        <div className="mx-3">
+                            <SlideLoader />
+                        </div>
                     ) : (
                         HomePageData?.trenadingAlbums?.length > 0 && (
                                 <>
@@ -190,7 +192,9 @@ const Home = () => {
                 }
 
                 {loading.isTrendingSectionLoading ? (
-                    <SlideLoader />
+                    <div className="mx-3">
+                        <SlideLoader />
+                    </div>
                 ) : (
                     HomePageData?.trenadingSongs?.length > 0 && (
                         <>
@@ -208,7 +212,9 @@ const Home = () => {
                     )
                 )}
                 {loading.isFavoriteLoading ? (
-                    <SlideLoader />
+                    <div className="mx-3">
+                        <SlideLoader />
+                    </div>
                 ) : (
                     favoriteData?.length > 0 && (
                         <>
@@ -238,7 +244,9 @@ const Home = () => {
                     )
                 )}
                 {loading.isTrendingSectionLoading ? (
-                    <SlideLoader />
+                    <div className="mx-3">
+                        <SlideLoader />
+                    </div>
                 ) : (
                     HomePageData?.albums?.length > 0 && (
                             <section className="my-3 mx-3">
@@ -275,7 +283,9 @@ const Home = () => {
                     <section className="mb-3 mx-3">
                         <h4 className="text-light mb-3 text-capitalize">Charts</h4>
                         {loading.isTrendingSectionLoading ? (
-                            <SlideLoader />
+                            <div className="mx-3">
+                                <SlideLoader />
+                            </div>
                         ) : (
                             <MusicSlider isSquare={true} data={HomePageData?.charts} />
                         )}
@@ -285,7 +295,9 @@ const Home = () => {
                     <section className="mb-3 mx-3">
                         <h4 className="text-light mb-3  text-capitalize"> Suggested Playlists</h4>
                         {loading.isTrendingSectionLoading ? (
-                            <SlideLoader />
+                            <div className="mx-3">
+                                <SlideLoader />
+                            </div>
                         ) : (
                             <MusicSlider data={HomePageData?.playlists} />
                         )}

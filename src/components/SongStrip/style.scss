@@ -109,3 +109,120 @@ svg {
   color: #ffffff84;
   font-size: 1rem;
 }
+@media (min-width: 768px) {
+  .homepage-songlist {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.25rem;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    padding-bottom: 1rem;
+    max-height: 50vh;
+    overflow-y: scroll;
+    box-shadow: #43c83c10 0px -50px 36px -28px inset;
+    box-shadow: unset;
+
+    &::-webkit-scrollbar {
+      display: none !important;
+    }
+
+    &-card {
+      width: 100%;
+      max-width: 35rem;
+      height: 4rem;
+      padding: 0.25rem;
+      margin-bottom: 1rem;
+      border: solid 2px $accent-color-border;
+      border-radius: 4px;
+      // overflow: hidden;
+      display: flex;
+      justify-content: space-around;
+      flex-direction: row;
+
+      &-img {
+        width: 3rem;
+        height: 3rem;
+        object-fit: cover;
+        border-radius: 4px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+      }
+
+      &-info {
+        flex: 2;
+        display: flex;
+        padding: 0 0.5rem;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 0.15rem;
+
+        &-songName {
+          width: auto;
+          font-size: 0.8rem;
+          font-weight: 500;
+          font-style: normal;
+          color: $white;
+          margin: unset;
+          text-transform: capitalize;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        &-artistName {
+          font-size: 0.7rem;
+          font-weight: 400;
+          font-style: normal;
+          color: $white;
+          margin: unset;
+          width: 50%;
+          text-transform: capitalize;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      &-controls {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+
+        &-btn {
+          margin: unset;
+          padding: 0.5rem;
+          background: transparent;
+      
+            &:hover,
+              &:active,
+              &:focus,
+              &:focus-visible,
+              &:focus-within {
+                background: transparent;
+                box-shadow: unset;
+              }
+            }
+            }
+            }
+            }
+            
+            .dropdown-toggle::after {
+              display: none;
+            }
+            
+            .dd-menu {
+              background: #1e1e1e;
+              box-shadow: rgba(60, 60, 60, 0.35) 0px 5px 15px;
+            
+              .dd-menu-item {
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                gap: 5px;
+              }
+            }
+            }

@@ -508,7 +508,7 @@ const GlobalPlayer = () => {
                                         </div>
                                         }
                                         <button onClick={handleHideModal} className="btn">
-                                            <Icons.BsListPlay />
+                                            <Icons.BsListPlus fill="#ffffff84" />
                                         </button>
 
                                             <button onClick={() => {

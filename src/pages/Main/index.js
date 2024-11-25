@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Outlet, useNavigate } from 'react-router'
+import { Outlet, useLocation, useNavigate } from 'react-router'
 import GlobalPlayer from '../../components/GlobalPlayer'
 import './style.scss'
 import BottomBar from '../../components/BottomBar'
@@ -12,6 +12,7 @@ import { loaclStorageStrings } from '../../utils/localStorageStrings'
 const Main = () => {
     const [showGlobalPlayer, setshowGlobalPlayer] = useState(false)
     const navigate = useNavigate()
+    const location = useLocation()
 
     const tracks = useSelector(currentPlaylist);
     const [showLanding, setshowLanding] = useState(true)
@@ -29,7 +30,7 @@ const Main = () => {
     const routeTomain = () => {
         setTimeout(() => {
             setshowLanding(false)
-            checkToken() ? (getLang() ? navigate(RouteStrings.home) : navigate(RouteStrings.updateLanguage)) : (navigate(RouteStrings.login));
+            checkToken() ? (getLang() ? navigate(location.pathname !== '/' ? location.pathname : RouteStrings.home) : navigate(RouteStrings.updateLanguage)) : (navigate(RouteStrings.login));
         }, 1000);
     }
     useEffect(() => {

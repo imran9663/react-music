@@ -22,6 +22,7 @@ configURL.createPlayListByUser = '/music/createPlayListByUser'
 configURL.addTrackToThePlayListById = '/music/addTrackToThePlayListById'
 configURL.deletePlayListByPlayListId = '/music/deletePlayListByPlayListId'
 configURL.removeTrackFromPlaylistByTrackId = '/music/removeTrackFromPlaylistByTrackId'
+configURL.getPlayListsByPlayListId = '/music/getPlayListsByPlayListId/'
 
 
 

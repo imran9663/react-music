@@ -1,6 +1,7 @@
 # Reusic 🎶
 
-[Visit Reusic](https://reusic.netlify.app/home)
+![alt text](image.png)
+## [Visit Reusic](https://reusic.netlify.app/home)
 
 Reusic is a web application designed to provide a seamless, enjoyable music streaming experience. Explore, play, and enjoy a wide variety of songs in one place!
 
